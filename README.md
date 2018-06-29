@@ -18,12 +18,32 @@ PHP >=7.0
 
 ## Getting Started
 
+### Predicting what concepts are contained within an image
 ```php
-$client = new ClarifaiClient('YOUR_CLARIFAI_API_KEY');  // Skip the argument to fetch it from the CLARIFAI_API_KEY env. variable
+// Skip the argument to fetch the key from the CLARIFAI_API_KEY env. variable
+$client = new ClarifaiClient('YOUR_API_KEY');
 
-$response = $this->client->publicModels()->moderationModel()
-    ->predict(new ClarifaiURLImage('IMAGE_URL'))
+$response = $client->publicModels()->generalModel()->predict(
+        new ClarifaiURLImage('https://samples.clarifai.com/metro-north.jpg'))
     ->executeSync();
+
+if ($response->isSuccessful()) {
+    echo "Response is successful.\n";
+
+    /** @var ClarifaiOutput $output */
+    $output = $response->get();
+
+    echo "Predicted concepts:\n";
+    /** @var Concept $concept */
+    foreach ($output->data() as $concept) {
+        echo $concept->name() . ': ' . $concept->value() . "\n";
+    }
+} else {
+    echo "Response is not successful. Reason: \n";
+    echo $response->status()->description() . "\n";
+    echo $response->status()->errorDetails() . "\n";
+    echo "Status code: " . $response->status()->statusCode();
+}
 ```
 
 
