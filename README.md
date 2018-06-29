@@ -27,6 +27,15 @@ $response = $this->client->publicModels()->moderationModel()
 ```
 
 
+## Getting Help
+
+If you need any help with using the library, please contact Support at support@clarifai.com or our
+Developer Relations team at developers@clarifai.com.
+
+If you've found a bug or would like to make a feature request, please make an issue or a pull
+request here.
+
+
 ## License
 
 This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
