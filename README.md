@@ -9,6 +9,9 @@
 
 `composer require clarifai/clarifai-php`
 
+> Note: If you're not using a framework (e.g Laravel), you may need to require the `autoload.php`
+file produced by composer: `require_once('vendor/autoload.php');`
+
 ###  Prerequisites
 
 PHP >=7.0
