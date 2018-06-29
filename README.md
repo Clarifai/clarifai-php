@@ -20,6 +20,11 @@ PHP >=7.0
 
 ### Predicting what concepts are contained within an image
 ```php
+use Clarifai\API\ClarifaiClient;
+use Clarifai\DTOs\Inputs\ClarifaiURLImage;
+use Clarifai\DTOs\Outputs\ClarifaiOutput;
+use Clarifai\DTOs\Predictions\Concept;
+
 // Skip the argument to fetch the key from the CLARIFAI_API_KEY env. variable
 $client = new ClarifaiClient('YOUR_API_KEY');
 
@@ -46,6 +51,73 @@ if ($response->isSuccessful()) {
 }
 ```
 
+### Searching for other visually similar images
+```php
+use Clarifai\API\ClarifaiClient;
+use Clarifai\DTOs\Searches\SearchBy;
+use Clarifai\DTOs\Searches\SearchInputsResult;
+
+$client = new ClarifaiClient('YOUR_API_KEY');
+
+$response = $client->searchInputs(
+        SearchBy::urlImageVisually('https://samples.clarifai.com/metro-north.jpg'))
+    ->executeSync();
+
+if ($response->isSuccessful()) {
+    echo "Response is successful.\n";
+
+    /** @var SearchInputsResult $result */
+    $result = $response->get();
+
+    foreach ($result->searchHits() as $searchHit) {
+        echo $searchHit->input()->id() . ' ' . $searchHit->score() . "\n";
+    }
+} else {
+    echo "Response is not successful. Reason: \n";
+    echo $response->status()->description() . "\n";
+    echo $response->status()->errorDetails() . "\n";
+    echo "Status code: " . $response->status()->statusCode();
+}
+```
+
+### Creating and training a custom model on some inputs and concepts
+```php
+use Clarifai\API\ClarifaiClient;
+use Clarifai\DTOs\Inputs\ClarifaiURLImage;
+use Clarifai\DTOs\Models\ModelType;
+use Clarifai\DTOs\Predictions\Concept;
+
+$client = new ClarifaiClient('YOUR_API_KEY');
+
+$client->addConcepts('boscoe')
+    ->executeSync();
+
+$client->addInputs([
+    (new ClarifaiURLImage('https://samples.clarifai.com/puppy.jpeg'))
+        ->withPositiveConcepts([new Concept('boscoe')]),
+    (new ClarifaiURLImage('https://samples.clarifai.com/wedding.jpg'))
+        ->withNegativeConcepts([new Concept('boscoe')])
+])
+    ->executeSync();
+
+$client->createModel('pets')
+    ->withConcepts([new Concept('boscoe')])
+    ->executeSync();
+
+$response = $client->trainModel(ModelType::concept(), 'pets')
+    ->executeSync();
+
+if ($response->isSuccessful()) {
+    echo "Response is successful.\n";
+} else {
+    echo "Response is not successful. Reason: \n";
+    echo $response->status()->description() . "\n";
+    echo $response->status()->errorDetails() . "\n";
+    echo "Status code: " . $response->status()->statusCode();
+}
+```
+
+This model can now be used to predict concepts on other new inputs.
 
 ## Getting Help
 
