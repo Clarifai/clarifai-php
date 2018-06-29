@@ -5,6 +5,10 @@
 - Read the developer guide at: https://clarifai.com/developer/guide/
 
 
+[![Latest Stable Version](https://poser.pugx.org/clarifai/clarifai-php/version)](https://packagist.org/packages/clarifai/clarifai-php)
+[![License](https://poser.pugx.org/clarifai/clarifai-php/license)](https://github.com/Clarifai/clarifai-php/blob/master/LICENSE)
+
+
 ## Installation
 
 `composer require clarifai/clarifai-php`
