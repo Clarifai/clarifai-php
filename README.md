@@ -1,3 +1,5 @@
+![Clarifai logo](docs/logo.png)
+
 # Clarifai API PHP Client
 
 - Try the Clarifai demo at: https://clarifai.com/demo
