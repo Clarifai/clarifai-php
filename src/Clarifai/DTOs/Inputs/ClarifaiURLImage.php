@@ -7,6 +7,7 @@ use Clarifai\Grpc\Image;
 use Clarifai\Grpc\Input;
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\Helpers\ProtobufHelper;
 
 /**
  * An image at a certain URL.
@@ -90,7 +91,11 @@ class ClarifaiURLImage extends ClarifaiInput
             $image->withCrop(Crop::deserialize($imageResponse->getData()->getImage()->getCrop()));
         }
 
-        // TODO (Rok) MEDIUM: Implement metadata deserialization.
+        if (!is_null($imageResponse->getData()->getMetadata())) {
+            $a = new ProtobufHelper();
+
+            $image->withMetadata($a->structToArray($imageResponse->getData()->getMetadata()));
+        }
 
         if (!is_null($imageResponse->getData()->getGeo())) {
             $image->withGeo(

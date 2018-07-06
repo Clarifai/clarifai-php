@@ -4,6 +4,7 @@ namespace ClarifaiIntTests;
 
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\GeoPoint;
+use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Inputs\ModifyAction;
 use Clarifai\DTOs\Predictions\Concept;
@@ -102,6 +103,41 @@ class InputIntTest extends BaseIntTest
                 ])
                 ->executeSync();
             $this->assertTrue($response->isSuccessful());
+        } finally {
+            /*
+             * Delete the input.
+             */
+            $response = $this->client->deleteInputs($inputID)
+                ->executeSync();
+            $this->assertTrue($response->isSuccessful());
+        }
+    }
+
+    public function testModifyInputMetadata()
+    {
+        $inputID = $this->generateRandomID();
+
+        $addResponse = $this->client->addInputs(
+            (new ClarifaiURLImage(parent::CAT_IMG_URL))
+                ->withID($inputID)
+                ->withAllowDuplicateUrl(true)
+                ->withMetadata(['key1' => 'val1', 'key2' => 'val2']))
+            ->executeSync();
+        $this->assertTrue($addResponse->isSuccessful());
+
+        try {
+            $response = $this->client
+                ->modifyInput($inputID, ModifyAction::merge())->withMetadata(['key3' => 'val3'])
+                ->executeSync();
+
+            /** @var ClarifaiInput $input */
+            $input = $response->get();
+            $meta = $input->metadata();
+
+            $this->assertEquals(3, count($meta));
+            $this->assertEquals('val1', $meta['key1']);
+            $this->assertEquals('val2', $meta['key2']);
+            $this->assertEquals('val3', $meta['key3']);
         } finally {
             /*
              * Delete the input.

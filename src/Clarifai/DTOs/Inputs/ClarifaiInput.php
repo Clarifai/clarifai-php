@@ -6,6 +6,7 @@ use Clarifai\DTOs\GeoPoint;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\Exceptions\ClarifaiException;
 use Clarifai\Grpc\Geo;
+use Clarifai\Helpers\ProtobufHelper;
 use Google\Protobuf\Struct;
 
 class InputType
@@ -162,7 +163,8 @@ abstract class ClarifaiInput
         }
 
         if (!is_null($this->metadata)) {
-            $data->setMetadata((new Struct())->setFields($this->metadata));
+            $pbh = new ProtobufHelper();
+            $data->setMetadata($pbh->arrayToStruct($this->metadata));
         }
 
         if (!is_null($this->geo)) {
