@@ -10,7 +10,6 @@ use Clarifai\API\Requests\Concepts\SearchConceptsRequest;
 use Clarifai\API\Requests\Feedbacks\ModelFeedbackRequest;
 use Clarifai\API\Requests\Feedbacks\SearchesFeedbackRequest;
 use Clarifai\API\Requests\Inputs\AddInputsRequest;
-use Clarifai\API\Requests\Inputs\DeleteAllInputsRequest;
 use Clarifai\API\Requests\Inputs\DeleteInputsRequest;
 use Clarifai\API\Requests\Inputs\GetInputRequest;
 use Clarifai\API\Requests\Inputs\GetInputsRequest;

@@ -2,10 +2,11 @@
 
 namespace Clarifai\DTOs\Searches;
 
-use Clarifai\Grpc\Concept;
-use Clarifai\Grpc\Data;
-use Clarifai\Grpc\Input;
-use Clarifai\Grpc\Output;
+use Clarifai\Internal\_And;
+use Clarifai\Internal\_Concept;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_Input;
+use Clarifai\Internal\_Output;
 
 class SearchByConceptID extends SearchBy
 {
@@ -26,15 +27,15 @@ class SearchByConceptID extends SearchBy
 
     public function serialize()
     {
-        $data = (new Data())
-            ->setConcepts([(new Concept())->setId($this->conceptID)]);
+        $data = (new _Data())
+            ->setConcepts([(new _Concept())->setId($this->conceptID)]);
         if ($this->ownerObjectKey == 'input') {
-            return ((new \Clarifai\Grpc\PBAnd())
-                ->setInput((new Input())
+            return ((new _And())
+                ->setInput((new _Input())
                     ->setData($data)));
         } else if ($this->ownerObjectKey == 'output') {
-            return ((new \Clarifai\Grpc\PBAnd())
-                ->setOutput((new Output())
+            return ((new _And())
+                ->setOutput((new _Output())
                     ->setData($data)));
         } else {
             throw new \Exception('Unknown $ownerObjectKey: ' . $this->ownerObjectKey);

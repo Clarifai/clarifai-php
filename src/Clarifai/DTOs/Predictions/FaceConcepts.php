@@ -2,8 +2,8 @@
 
 namespace Clarifai\DTOs\Predictions;
 
-use Clarifai\Grpc\Region;
 use Clarifai\DTOs\Crop;
+use Clarifai\Internal\_Region;
 
 class FaceConcepts implements PredictionInterface
 {
@@ -36,7 +36,7 @@ class FaceConcepts implements PredictionInterface
     }
 
     /**
-     * @param \Clarifai\Grpc\Region $regionResponse
+     * @param _Region $regionResponse
      * @return FaceConcepts
      */
     public static function deserialize($regionResponse)

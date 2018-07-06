@@ -7,7 +7,10 @@ use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiPaginatedRequest;
 use Clarifai\DTOs\Predictions\Concept;
-use Clarifai\Grpc\ConceptQuery;
+use Clarifai\Internal\_Concept;
+use Clarifai\Internal\_ConceptQuery;
+use Clarifai\Internal\_MultiConceptResponse;
+use Clarifai\Internal\_PostConceptsSearchesRequest;
 
 class SearchConceptsRequest extends ClarifaiPaginatedRequest
 {
@@ -51,23 +54,23 @@ class SearchConceptsRequest extends ClarifaiPaginatedRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $conceptQuery = (new ConceptQuery())
+        $conceptQuery = (new _ConceptQuery())
             ->setName($this->query);
         if (!is_null($this->language)) {
             $conceptQuery->setLanguage($this->language);
         }
-        return $grpcClient->PostConceptsSearches((new \Clarifai\Grpc\PostConceptsSearchesRequest())
+        return $grpcClient->PostConceptsSearches((new _PostConceptsSearchesRequest())
             ->setConceptQuery($conceptQuery));
     }
 
     /**
-     * @param \Clarifai\Grpc\MultiConceptResponse $response
+     * @param _MultiConceptResponse $response
      * @return Concept[] An array of concepts.
      */
     protected function unmarshaller($response)
     {
         $concepts = [];
-        /** @var \Clarifai\Grpc\Concept $conceptResponse */
+        /** @var _Concept $conceptResponse */
         foreach ($response->getConcepts() as $conceptResponse) {
             array_push($concepts, Concept::deserialize($conceptResponse));
         }

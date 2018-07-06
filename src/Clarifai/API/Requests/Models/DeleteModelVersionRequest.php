@@ -5,6 +5,8 @@ use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
+use Clarifai\Internal\_DeleteModelVersionRequest;
+use Clarifai\Internal\Status\_BaseResponse;
 
 /**
  * Deletes a model version.
@@ -39,11 +41,11 @@ class DeleteModelVersionRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        return $grpcClient->DeleteModelVersion(new \Clarifai\Grpc\DeleteModelVersionRequest());
+        return $grpcClient->DeleteModelVersion(new _DeleteModelVersionRequest());
     }
 
     /**
-     * @param \Clarifai\Grpc\Status\BaseResponse $response
+     * @param _BaseResponse $response
      * @return void
      */
     protected function unmarshaller($response)

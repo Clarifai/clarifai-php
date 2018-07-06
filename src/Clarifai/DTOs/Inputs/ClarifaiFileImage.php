@@ -2,8 +2,9 @@
 
 namespace Clarifai\DTOs\Inputs;
 
-use Clarifai\Grpc\Image;
 use Clarifai\DTOs\Crop;
+use Clarifai\Internal\_Image;
+use Clarifai\Internal\_Input;
 
 /**
  * A file image.
@@ -34,11 +35,11 @@ class ClarifaiFileImage extends ClarifaiInput
     }
 
     /**
-     * @return \Clarifai\Grpc\Input
+     * @return _Input
      */
     public function serialize()
     {
-        $image = (new \Clarifai\Grpc\Image())
+        $image = (new _Image())
             ->setBase64($this->content);
         if (!is_null($this->crop)) {
             $image->setCrop($this->crop->serializeAsArray());

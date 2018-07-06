@@ -2,6 +2,8 @@
 
 namespace Clarifai\DTOs\Predictions;
 
+use Clarifai\Internal\_Embedding;
+
 class Embedding implements PredictionInterface
 {
     /**
@@ -33,7 +35,7 @@ class Embedding implements PredictionInterface
     }
 
     /**
-     * @param \Clarifai\Grpc\Embedding $embeddingResponse
+     * @param _Embedding $embeddingResponse
      * @return Embedding
      */
     public static function deserialize($embeddingResponse)

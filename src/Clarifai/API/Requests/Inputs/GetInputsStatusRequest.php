@@ -7,8 +7,8 @@ use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Inputs\ClarifaiInputsStatus;
-use Clarifai\Grpc\GetInputCountRequest;
-use Clarifai\Grpc\SingleInputCountResponse;
+use Clarifai\Internal\_GetInputCountRequest;
+use Clarifai\Internal\_SingleInputCountResponse;
 
 /**
  * If you add inputs in bulk, they will process in the background. With this method you retrieve
@@ -37,11 +37,11 @@ class GetInputsStatusRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        return $grpcClient->GetInputCount((new GetInputCountRequest()));
+        return $grpcClient->GetInputCount((new _GetInputCountRequest()));
     }
 
     /**
-     * @param SingleInputCountResponse $response
+     * @param _SingleInputCountResponse $response
      * @return ClarifaiInputsStatus
      */
     protected function unmarshaller($response)

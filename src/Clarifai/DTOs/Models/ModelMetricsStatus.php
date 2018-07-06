@@ -2,6 +2,8 @@
 
 namespace Clarifai\DTOs\Models;
 
+use Clarifai\Internal\Status\_Status;
+
 class ModelMetricsStatus
 {
     const UNKNOWN_STATUS_CODE = -1;
@@ -103,7 +105,7 @@ class ModelMetricsStatus
     }
 
     /**
-     * @param \Clarifai\Grpc\Status\Status $statusResponse
+     * @param _Status $statusResponse
      * @return ModelMetricsStatus
      */
     public static function deserialize($statusResponse)

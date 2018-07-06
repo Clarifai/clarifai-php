@@ -2,6 +2,8 @@
 
 namespace Clarifai\DTOs\Predictions;
 
+use Clarifai\Internal\_Color;
+
 /**
  * Represents a color associated with a certain input.
  */
@@ -52,7 +54,7 @@ class Color implements PredictionInterface
     }
 
     /**
-     * @param \Clarifai\Grpc\Color $colorResponse
+     * @param _Color $colorResponse
      * @return Color
      */
     public static function deserialize($colorResponse)

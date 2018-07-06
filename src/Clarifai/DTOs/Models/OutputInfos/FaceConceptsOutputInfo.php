@@ -3,9 +3,9 @@
 namespace Clarifai\DTOs\Models\OutputInfos;
 
 use Clarifai\DTOs\Predictions\Concept;
-use Clarifai\Grpc\Data;
-use Clarifai\Grpc\OutputConfig;
-use Clarifai\Grpc\OutputInfo;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_OutputConfig;
+use Clarifai\Internal\_OutputInfo;
 
 /**
  * Certain information regarding the FaceConcepts model.
@@ -114,15 +114,15 @@ class FaceConceptsOutputInfo implements OutputInfoInterface
             array_push($concepts, $concept->serialize());
         }
 
-        $outputConfig = (new OutputConfig())
+        $outputConfig = (new _OutputConfig())
             ->setConceptsMutuallyExclusive($this->areConceptsMutuallyExclusive)
             ->setClosedEnvironment($this->isEnvironmentClosed);
         if (!is_null($this->language)) {
             $outputConfig->setLanguage('en');
         }
 
-        $outputInfo = (new OutputInfo())
-            ->setData((new Data())
+        $outputInfo = (new _OutputInfo())
+            ->setData((new _Data())
                 ->setConcepts($concepts));
 
         if ($outputConfig->byteSize() > 0) {
@@ -133,7 +133,7 @@ class FaceConceptsOutputInfo implements OutputInfoInterface
     }
 
     /**
-     * @param \Clarifai\Grpc\OutputInfo $outputInfoResponse
+     * @param _OutputInfo $outputInfoResponse
      * @return FaceConceptsOutputInfo
      */
     public static function deserialize($outputInfoResponse)

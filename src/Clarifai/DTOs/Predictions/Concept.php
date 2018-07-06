@@ -1,7 +1,7 @@
 <?php
 namespace Clarifai\DTOs\Predictions;
 
-use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_Concept;
 
 /**
  * Represents a string associated with an input (image or video). Also called a label or a tag.
@@ -48,11 +48,11 @@ class Concept implements PredictionInterface
 
     /**
      * @param bool|null $value the value
-     * @return \Clarifai\Grpc\Concept a serialized object
+     * @return _Concept a serialized object
      */
     public function serialize($value = null)
     {
-        $concept = (new \Clarifai\Grpc\Concept())
+        $concept = (new _Concept())
             ->setId($this->id);
         if (!is_null($this->name)) {
             $concept->setName($this->name);
@@ -71,7 +71,7 @@ class Concept implements PredictionInterface
     }
 
     /**
-     * @param \Clarifai\Grpc\Concept $conceptResponse
+     * @param _Concept $conceptResponse
      * @return Concept
      */
     public static function deserialize($conceptResponse)

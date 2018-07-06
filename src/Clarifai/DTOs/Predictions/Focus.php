@@ -3,6 +3,7 @@
 namespace Clarifai\DTOs\Predictions;
 
 use Clarifai\DTOs\Crop;
+use Clarifai\Internal\_Region;
 
 class Focus implements PredictionInterface
 {
@@ -43,7 +44,7 @@ class Focus implements PredictionInterface
     }
 
     /**
-     * @param \Clarifai\Grpc\Region $regionResponse
+     * @param _Region $regionResponse
      * @param $value
      * @return Focus
      */

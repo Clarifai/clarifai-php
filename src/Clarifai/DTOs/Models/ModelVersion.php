@@ -2,7 +2,7 @@
 
 namespace Clarifai\DTOs\Models;
 
-use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_ModelVersion;
 
 class ModelVersion
 {
@@ -63,7 +63,7 @@ class ModelVersion
     }
 
     /**
-     * @param \Clarifai\Grpc\ModelVersion $modelVersionResponse
+     * @param _ModelVersion $modelVersionResponse
      * @return ModelVersion
      */
     public static function deserialize($modelVersionResponse)

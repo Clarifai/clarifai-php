@@ -4,7 +4,7 @@ namespace Clarifai\DTOs\Models;
 
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\FaceConceptsOutputInfo;
-use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_Model;
 
 /**
  * The face concepts model finds regions where faces are detected, and associates concepts to those
@@ -32,7 +32,7 @@ class FaceConceptsModel extends Model
 
     /**
      * @param ClarifaiClientInterface $client
-     * @param \Clarifai\Grpc\Model $modelResponse
+     * @param _Model $modelResponse
      * @return FaceConceptsModel
      */
     public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {

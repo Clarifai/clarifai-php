@@ -2,16 +2,12 @@
 
 namespace Clarifai\DTOs\Searches;
 
-use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\GeoPoint;
-use Clarifai\DTOs\GeoRadius;
-use Clarifai\Grpc\Concept;
-use Clarifai\Grpc\Data;
-use Clarifai\Grpc\Geo;
-use Clarifai\Grpc\GeoBoxedPoint;
-use Clarifai\Grpc\Image;
-use Clarifai\Grpc\Input;
-use Clarifai\Grpc\Output;
+use Clarifai\Internal\_And;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_Geo;
+use Clarifai\Internal\_GeoBoxedPoint;
+use Clarifai\Internal\_Input;
 
 class SearchByGeoRectangle extends SearchBy
 {
@@ -32,13 +28,13 @@ class SearchByGeoRectangle extends SearchBy
 
     public function serialize()
     {
-        return ((new \Clarifai\Grpc\PBAnd())
-            ->setInput((new Input())
-                ->setData((new Data())
-                    ->setGeo((new Geo())
+        return ((new _And())
+            ->setInput((new _Input())
+                ->setData((new _Data())
+                    ->setGeo((new _Geo())
                         ->setGeoBox([
-                            (new GeoBoxedPoint())->setGeoPoint($this->geoPoint1->serialize()),
-                            (new GeoBoxedPoint())->setGeoPoint($this->geoPoint2->serialize())
+                            (new _GeoBoxedPoint())->setGeoPoint($this->geoPoint1->serialize()),
+                            (new _GeoBoxedPoint())->setGeoPoint($this->geoPoint2->serialize())
                         ])))));
     }
 }

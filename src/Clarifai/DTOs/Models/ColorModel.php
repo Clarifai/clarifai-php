@@ -4,7 +4,7 @@ namespace Clarifai\DTOs\Models;
 
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\ColorOutputInfo;
-use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_Model;
 
 /**
  * The color model associates inputs with the dominant colors.
@@ -31,7 +31,7 @@ class ColorModel extends Model
 
     /**
      * @param ClarifaiClientInterface $client
-     * @param \Clarifai\Grpc\Model $modelResponse
+     * @param _Model $modelResponse
      * @return ColorModel
      */
     public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {

@@ -11,9 +11,8 @@ use Clarifai\API\Requests\Models\PredictRequest;
 use Clarifai\API\Requests\Models\TrainModelRequest;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Models\OutputInfos\OutputInfoInterface;
-use Clarifai\DTOs\Predictions\Color;
-use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\Exceptions\ClarifaiException;
+use Clarifai\Internal\_Model;
 
 abstract class Model
 {
@@ -81,7 +80,7 @@ abstract class Model
      * Deserializes the model to a correct object instance.
      * @param ClarifaiClientInterface $client The Clarifai client.
      * @param ModelType $type The prediction type.
-     * @param \Clarifai\Grpc\Model $model The model object.
+     * @param _Model $model The model object.
      * @return Model The deserialized model.
      * @throws ClarifaiException Thrown if unknown model type.
      */

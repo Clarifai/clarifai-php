@@ -2,7 +2,7 @@
 
 namespace Clarifai\DTOs\Workflows;
 
-use Clarifai\Grpc\PostWorkflowResultsResponse;
+use Clarifai\Internal\_PostWorkflowResultsResponse;
 
 class WorkflowPredictResult
 {
@@ -32,7 +32,7 @@ class WorkflowPredictResult
     }
 
     /**
-     * @param PostWorkflowResultsResponse $response
+     * @param _PostWorkflowResultsResponse $response
      * @return WorkflowPredictResult
      */
     public static function deserialize($response)

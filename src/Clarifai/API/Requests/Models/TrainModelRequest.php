@@ -8,7 +8,8 @@ use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Models\Model;
 use Clarifai\DTOs\Models\ModelType;
-use Clarifai\Grpc\PostModelVersionsRequest;
+use Clarifai\Internal\_PostModelVersionsRequest;
+use Clarifai\Internal\_SingleModelResponse;
 
 class TrainModelRequest extends ClarifaiRequest
 {
@@ -46,11 +47,11 @@ class TrainModelRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        return $grpcClient->PostModelVersions(new PostModelVersionsRequest());
+        return $grpcClient->PostModelVersions(new _PostModelVersionsRequest());
     }
 
     /**
-     * @param \Clarifai\Grpc\SingleModelResponse $response
+     * @param _SingleModelResponse $response
      * @return Model The serialized model.
      * @throws \Clarifai\Exceptions\ClarifaiException
      */

@@ -2,10 +2,10 @@
 
 namespace Clarifai\DTOs\Models\OutputInfos;
 
-use Clarifai\Grpc\Data;
-use Clarifai\Grpc\OutputConfig;
-use Clarifai\Grpc\OutputInfo;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_OutputConfig;
+use Clarifai\Internal\_OutputInfo;
 
 class ConceptOutputInfo implements OutputInfoInterface
 {
@@ -84,21 +84,21 @@ class ConceptOutputInfo implements OutputInfoInterface
             array_push($concepts, $concept->serialize());
         }
 
-        $outputConfig = (new OutputConfig())
+        $outputConfig = (new _OutputConfig())
             ->setConceptsMutuallyExclusive($this->areConceptsMutuallyExclusive)
             ->setClosedEnvironment($this->isEnvironmentClosed);
         if (!is_null($this->language)) {
             $outputConfig->setLanguage($this->language);
         }
 
-        return (new OutputInfo())
-            ->setData((new Data())
+        return (new _OutputInfo())
+            ->setData((new _Data())
                 ->setConcepts($concepts))
             ->setOutputConfig($outputConfig);
     }
 
     /**
-     * @param \Clarifai\Grpc\OutputInfo $outputInfoResponse
+     * @param _OutputInfo $outputInfoResponse
      * @return ConceptOutputInfo
      */
     public static function deserialize($outputInfoResponse)

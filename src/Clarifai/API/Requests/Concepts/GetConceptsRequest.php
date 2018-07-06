@@ -2,13 +2,13 @@
 
 namespace Clarifai\API\Requests\Concepts;
 
-use Clarifai\Grpc\ListConceptsRequest;
-use Clarifai\Grpc\MultiConceptResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\Internal\_ListConceptsRequest;
+use Clarifai\Internal\_MultiConceptResponse;
 
 class GetConceptsRequest extends ClarifaiRequest
 {
@@ -30,11 +30,11 @@ class GetConceptsRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        return $grpcClient->ListConcepts(new ListConceptsRequest());
+        return $grpcClient->ListConcepts(new _ListConceptsRequest());
     }
 
     /**
-     * @param MultiConceptResponse $conceptsResponse
+     * @param _MultiConceptResponse $conceptsResponse
      * @return array
      */
     protected function unmarshaller($conceptsResponse)

@@ -8,9 +8,9 @@ use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiPaginatedRequest;
 use Clarifai\DTOs\Searches\SearchBy;
 use Clarifai\DTOs\Searches\SearchInputsResult;
-use Clarifai\Grpc\MultiSearchResponse;
-use Clarifai\Grpc\PostSearchesRequest;
-use Clarifai\Grpc\Query;
+use Clarifai\Internal\_MultiSearchResponse;
+use Clarifai\Internal\_PostSearchesRequest;
+use Clarifai\Internal\_Query;
 
 /**
  * A request for searching inputs.
@@ -64,17 +64,17 @@ class SearchInputsRequest extends ClarifaiPaginatedRequest
         foreach ($this->searchBys as $searchBy) {
             array_push($clauses, $searchBy->serialize());
         }
-        $query = (new Query())
+        $query = (new _Query())
             ->setAnds($clauses);
         if (!is_null($this->language)) {
             $query->setLanguage($this->language);
         }
-        return $grpcClient->PostSearches((new PostSearchesRequest())
+        return $grpcClient->PostSearches((new _PostSearchesRequest())
             ->setQuery($query));
     }
 
     /**
-     * @param MultiSearchResponse $response
+     * @param _MultiSearchResponse $response
      * @return SearchInputsResult
      */
     protected function unmarshaller($response)

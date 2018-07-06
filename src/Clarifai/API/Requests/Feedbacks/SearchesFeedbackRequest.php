@@ -6,11 +6,11 @@ use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
-use Clarifai\Grpc\EventType;
-use Clarifai\Grpc\FeedbackInfo;
-use Clarifai\Grpc\Input;
-use Clarifai\Grpc\PostSearchFeedbackRequest;
-use Clarifai\Grpc\Status\BaseResponse;
+use Clarifai\Internal\_EventType;
+use Clarifai\Internal\_FeedbackInfo;
+use Clarifai\Internal\_Input;
+use Clarifai\Internal\_PostSearchFeedbackRequest;
+use Clarifai\Internal\Status\_BaseResponse;
 
 /**
  * This request is meant to collect the correctly searched inputs, which is usually done by
@@ -66,17 +66,17 @@ class SearchesFeedbackRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        return $grpcClient->PostSearchFeedback((new PostSearchFeedbackRequest())
-            ->setInput((new Input())
+        return $grpcClient->PostSearchFeedback((new _PostSearchFeedbackRequest())
+            ->setInput((new _Input())
                 ->setId($this->inputID)
-                ->setFeedbackInfo((new FeedbackInfo())
-                    ->setEventType(EventType::search_click)
+                ->setFeedbackInfo((new _FeedbackInfo())
+                    ->setEventType(_EventType::search_click)
                     ->setSearchId($this->searchID)->setEndUserId($this->endUserID)
                     ->setSessionId($this->sessionID))));
     }
 
     /**
-     * @param BaseResponse $response
+     * @param _BaseResponse $response
      * @return void
      */
     protected function unmarshaller($response)

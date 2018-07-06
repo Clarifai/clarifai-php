@@ -2,8 +2,8 @@
 
 namespace Clarifai\DTOs\Feedbacks;
 
-use Clarifai\Grpc\Face;
-use Clarifai\Grpc\FaceIdentity;
+use Clarifai\Internal\_Face;
+use Clarifai\Internal\_FaceIdentity;
 
 class FaceFeedback
 {
@@ -23,7 +23,7 @@ class FaceFeedback
 
     /**
      * Serializes this object to a Protobuf object.
-     * @return Face
+     * @return _Face
      */
     public function serialize()
     {
@@ -31,8 +31,8 @@ class FaceFeedback
         foreach ($this->identityConceptFeedbacks as $conceptFeedback) {
             array_push($concepts, $conceptFeedback->serialize());
         }
-        return (new Face())
-            ->setIdentity((new FaceIdentity())
+        return (new _Face())
+            ->setIdentity((new _FaceIdentity())
                 ->setConcepts($concepts));
     }
 }

@@ -2,14 +2,14 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\Grpc\PostModelsRequest;
-use Clarifai\Grpc\SingleModelResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Models\ConceptModel;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\Internal\_PostModelsRequest;
+use Clarifai\Internal\_SingleModelResponse;
 
 /**
  * Creates a new model.
@@ -80,13 +80,13 @@ class CreateModelRequest extends ClarifaiRequest
     {
         $model = new ConceptModel($this->client, $this->modelID);
         return $client->PostModels(
-            (new PostModelsRequest())->setModel(
+            (new _PostModelsRequest())->setModel(
                 $model->serialize($this->concepts, $this->areConceptsMutuallyExclusive,
                     $this->isEnvironmentClosed, $this->language)));
     }
 
     /**
-     * @param \Clarifai\Grpc\SingleModelResponse $response
+     * @param _SingleModelResponse $response
      * @return ConceptModel
      */
     protected function unmarshaller($response)

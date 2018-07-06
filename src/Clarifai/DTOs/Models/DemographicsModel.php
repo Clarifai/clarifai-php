@@ -4,7 +4,7 @@ namespace Clarifai\DTOs\Models;
 
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\DemographicsOutputInfo;
-use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_Model;
 
 /**
  * The demographics model finds faces and their demographics appearances.
@@ -31,7 +31,7 @@ class DemographicsModel extends Model
 
     /**
      * @param ClarifaiClientInterface $client
-     * @param \Clarifai\Grpc\Model $modelResponse
+     * @param _Model $modelResponse
      * @return DemographicsModel
      */
     public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {

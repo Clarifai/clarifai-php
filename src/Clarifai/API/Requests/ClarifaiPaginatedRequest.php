@@ -2,8 +2,6 @@
 
 namespace Clarifai\API\Requests;
 
-use Clarifai\API\CustomV2Client;
-
 abstract class ClarifaiPaginatedRequest extends ClarifaiRequest
 {
     private $page = null;

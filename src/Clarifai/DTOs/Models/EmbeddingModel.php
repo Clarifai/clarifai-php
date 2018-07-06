@@ -4,6 +4,7 @@ namespace Clarifai\DTOs\Models;
 
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\EmbeddingOutputInfo;
+use Clarifai\Internal\_Model;
 
 class EmbeddingModel extends Model
 {
@@ -27,7 +28,7 @@ class EmbeddingModel extends Model
 
     /**
      * @param ClarifaiClientInterface $client
-     * @param \Clarifai\Grpc\Model $modelResponse
+     * @param _Model $modelResponse
      * @return EmbeddingModel
      */
     public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {

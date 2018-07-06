@@ -4,10 +4,11 @@ namespace Clarifai\DTOs\Inputs;
 
 use Clarifai\DTOs\GeoPoint;
 use Clarifai\DTOs\Predictions\Concept;
-use Clarifai\Grpc\Video;
+use Clarifai\Internal\_Input;
+use Clarifai\Internal\_Video;
 
 /**
- * A video at a certain URL. (WIP)
+ * A video at a certain URL.
  */
 class ClarifaiURLVideo extends ClarifaiInput
 {
@@ -26,14 +27,14 @@ class ClarifaiURLVideo extends ClarifaiInput
 
     public function serialize()
     {
-        $video = (new Video())
+        $video = (new _Video())
             ->setUrl($this->url);
 
         return parent::serializeInner('video', $video);
     }
 
     /**
-     * @param \Clarifai\Grpc\Input $videoResponse
+     * @param _Input $videoResponse
      *
      * @return ClarifaiURLVideo
      */
@@ -59,7 +60,7 @@ class ClarifaiURLVideo extends ClarifaiInput
             ->withPositiveConcepts($positiveConcepts)
             ->withNegativeConcepts($negativeConcepts);
 
-        // TODO (Rok) MEDIUM: Implement metadata deserialization.
+        // TODO(Rok) HIGH: Implement metadata deserialization.
 
         if (!is_null($videoResponse->getData()->getGeo())) {
             $video->withGeo(

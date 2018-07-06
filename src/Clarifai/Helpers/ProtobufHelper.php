@@ -3,6 +3,7 @@
 namespace Clarifai\Helpers;
 
 use Clarifai\Exceptions\ClarifaiException;
+use Google\Protobuf\Internal\GPBType;
 use Google\Protobuf\Internal\MapField;
 use Google\Protobuf\Struct;
 use Google\Protobuf\Value;
@@ -25,8 +26,7 @@ class ProtobufHelper
      */
     public function arrayToMapField($arr)
     {
-        $s = new MapField(\Google\Protobuf\Internal\GPBType::STRING,
-            \Google\Protobuf\Internal\GPBType::MESSAGE, \Google\Protobuf\Value::class);
+        $s = new MapField(GPBType::STRING, GPBType::MESSAGE, \Google\Protobuf\Value::class);
         foreach ($arr as $key => $value) {
             $s[$key] = new Value();
             if (is_array($value)) {

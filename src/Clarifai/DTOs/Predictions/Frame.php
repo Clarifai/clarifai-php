@@ -2,6 +2,8 @@
 
 namespace Clarifai\DTOs\Predictions;
 
+use Clarifai\Internal\_Frame;
+
 class Frame implements PredictionInterface
 {
     /**
@@ -41,7 +43,7 @@ class Frame implements PredictionInterface
     }
 
     /**
-     * @param \Clarifai\Grpc\Frame $frameResponse
+     * @param _Frame $frameResponse
      * @return Frame
      */
     public static function deserialize($frameResponse)

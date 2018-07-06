@@ -4,7 +4,7 @@ namespace Clarifai\DTOs\Models;
 
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\LogoOutputInfo;
-use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_Model;
 
 /**
  * The logo model finds logos and regions where they are located.
@@ -31,7 +31,7 @@ class LogoModel extends Model
 
     /**
      * @param ClarifaiClientInterface $client
-     * @param \Clarifai\Grpc\Model $modelResponse
+     * @param _Model $modelResponse
      * @return LogoModel
      */
     public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {

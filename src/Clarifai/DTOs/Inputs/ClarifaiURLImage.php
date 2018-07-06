@@ -3,8 +3,8 @@
 namespace Clarifai\DTOs\Inputs;
 
 use Clarifai\DTOs\GeoPoint;
-use Clarifai\Grpc\Image;
-use Clarifai\Grpc\Input;
+use Clarifai\Internal\_Image;
+use Clarifai\Internal\_Input;
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\Helpers\ProtobufHelper;
@@ -46,11 +46,11 @@ class ClarifaiURLImage extends ClarifaiInput
     }
 
     /**
-     * @return \Clarifai\Grpc\Input
+     * @return _Input
      */
     public function serialize()
     {
-        $image = (new \Clarifai\Grpc\Image())
+        $image = (new _Image())
             ->setUrl($this->url);
         if (!is_null($this->crop)) {
             $image->setCrop($this->crop->serializeAsArray());
@@ -62,7 +62,7 @@ class ClarifaiURLImage extends ClarifaiInput
     }
 
     /**
-     * @param \Clarifai\Grpc\Input $imageResponse
+     * @param _Input $imageResponse
      * @return ClarifaiURLImage
      */
     public static function deserialize($imageResponse)

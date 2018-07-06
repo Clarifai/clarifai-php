@@ -2,13 +2,13 @@
 
 namespace Clarifai\API\Requests\Concepts;
 
-use Clarifai\Grpc\MultiConceptResponse;
-use Clarifai\Grpc\PostConceptsRequest;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\Internal\_MultiConceptResponse;
+use Clarifai\Internal\_PostConceptsRequest;
 
 class AddConceptsRequest extends ClarifaiRequest
 {
@@ -43,13 +43,13 @@ class AddConceptsRequest extends ClarifaiRequest
             array_push($concepts, $concept->serialize());
         }
 
-        $response = $grpcClient->PostConcepts((new PostConceptsRequest())
+        $response = $grpcClient->PostConcepts((new _PostConceptsRequest())
             ->setConcepts($concepts));
         return $response;
     }
 
     /**
-     * @param MultiConceptResponse $response
+     * @param _MultiConceptResponse $response
      * @return array
      */
     protected function unmarshaller($response)

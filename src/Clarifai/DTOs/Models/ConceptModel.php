@@ -2,13 +2,13 @@
 
 namespace Clarifai\DTOs\Models;
 
-use Clarifai\Grpc\Data;
-use Clarifai\Grpc\OutputConfig;
-use Clarifai\Grpc\OutputInfo;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\ConceptOutputInfo;
 use Clarifai\DTOs\Predictions\Concept;
-use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_Model;
+use Clarifai\Internal\_OutputConfig;
+use Clarifai\Internal\_OutputInfo;
 use Google\Protobuf\Timestamp;
 
 /**
@@ -46,12 +46,12 @@ class ConceptModel extends Model
      * @param bool $areConceptsMutuallyExclusive Are the concepts mutually exclusive.
      * @param bool $isEnvironmentClosed Is environment closed.
      * @param string $language The language.
-     * @return \Clarifai\Grpc\Model Serialized concept model.
+     * @return _Model Serialized concept model.
      */
     public function serialize($concepts, $areConceptsMutuallyExclusive, $isEnvironmentClosed,
         $language)
     {
-        $model = (new \Clarifai\Grpc\Model())->setId($this->modelID());
+        $model = (new _Model())->setId($this->modelID());
         if (!is_null($this->name())) {
             $model->setName($this->name());
         }
@@ -64,18 +64,18 @@ class ConceptModel extends Model
             $model->setCreatedAt($dt);
         }
 
-        $outputInfo = new \Clarifai\Grpc\OutputInfo();
+        $outputInfo = new _OutputInfo();
         if (!is_null($concepts)) {
             $serializedConcepts = [];
             foreach ($concepts as $concept) {
                 array_push($serializedConcepts, $concept->serialize());
             }
-            $outputInfo->setData((new \Clarifai\Grpc\Data())->setConcepts($serializedConcepts));
+            $outputInfo->setData((new _Data())->setConcepts($serializedConcepts));
             $hasAnyOutputInfo = true;
         }
 
         $hasAnyOutputConfig = false;
-        $outputConfig = new \Clarifai\Grpc\OutputConfig();
+        $outputConfig = new _OutputConfig();
         if ($areConceptsMutuallyExclusive) {
             $outputConfig->setConceptsMutuallyExclusive($areConceptsMutuallyExclusive);
             $hasAnyOutputConfig = true;
@@ -103,7 +103,7 @@ class ConceptModel extends Model
 
     /**
      * @param ClarifaiClientInterface $client
-     * @param \Clarifai\Grpc\Model $modelResponse
+     * @param _Model $modelResponse
      * @return ConceptModel
      */
     public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {

@@ -2,12 +2,13 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\Grpc\SingleModelVersionResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Models\ModelVersion;
+use Clarifai\Internal\_GetModelVersionRequest;
+use Clarifai\Internal\_SingleModelVersionResponse;
 
 /**
  * Retrieves a specific model version.
@@ -43,11 +44,11 @@ class GetModelVersionRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        return $grpcClient->GetModelVersion(new \Clarifai\Grpc\GetModelVersionRequest());
+        return $grpcClient->GetModelVersion(new _GetModelVersionRequest());
     }
 
     /**
-     * @param SingleModelVersionResponse $response
+     * @param _SingleModelVersionResponse $response
      * @return ModelVersion
      */
     protected function unmarshaller($response)

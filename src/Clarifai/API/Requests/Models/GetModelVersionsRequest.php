@@ -7,8 +7,9 @@ use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Models\ModelVersion;
-use Clarifai\Grpc\ListModelVersionsRequest;
-use Clarifai\Grpc\MultiModelVersionResponse;
+use Clarifai\Internal\_ListModelVersionsRequest;
+use Clarifai\Internal\_ModelVersion;
+use Clarifai\Internal\_MultiModelVersionResponse;
 
 /**
  * Retrieves all model's versions.
@@ -43,17 +44,17 @@ class GetModelVersionsRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        return $grpcClient->ListModelVersions(new ListModelVersionsRequest());
+        return $grpcClient->ListModelVersions(new _ListModelVersionsRequest());
     }
 
     /**
-     * @param MultiModelVersionResponse $response
+     * @param _MultiModelVersionResponse $response
      * @return ModelVersion[] The model versions.
      */
     protected function unmarshaller($response)
     {
         $result = [];
-        /** @var \Clarifai\Grpc\ModelVersion $modelVersion */
+        /** @var _ModelVersion $modelVersion */
         foreach ($response->getModelVersions() as $modelVersion) {
             array_push($result, ModelVersion::deserialize($modelVersion));
         }

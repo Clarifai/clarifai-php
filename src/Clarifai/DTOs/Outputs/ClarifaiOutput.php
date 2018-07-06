@@ -13,7 +13,8 @@ use Clarifai\DTOs\Predictions\Focus;
 use Clarifai\DTOs\Predictions\Frame;
 use Clarifai\DTOs\Predictions\Logo;
 use Clarifai\Exceptions\ClarifaiException;
-use Clarifai\Grpc\Data;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_Output;
 
 class ClarifaiOutput
 {
@@ -37,7 +38,7 @@ class ClarifaiOutput
 
     /**
      * @param ModelType $modelType
-     * @param \Clarifai\Grpc\Output $outputResponse
+     * @param _Output $outputResponse
      * @return ClarifaiOutput
      * @throws ClarifaiException
      */
@@ -49,7 +50,7 @@ class ClarifaiOutput
 
     private static function deserializePredictions(ModelType $modelType, $outputResponse)
     {
-        /** @var Data $data */
+        /** @var _Data $data */
         $data = $outputResponse->getData();
 
         $predictions = [];
@@ -108,7 +109,7 @@ class ClarifaiOutput
                 {
                     foreach ($data->getRegions() as $focus) {
                         array_push($predictions, Focus::deserialize($focus,
-                            $outputResponse->getData()->getFocus()->getValue()));
+                            $data->getFocus()->getValue()));
                     }
                     break;
                 }

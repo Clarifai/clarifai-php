@@ -2,9 +2,6 @@
 
 namespace Clarifai\API\Requests\Inputs;
 
-use Clarifai\Grpc\Input;
-use Clarifai\Grpc\MultiInputResponse;
-use Clarifai\Grpc\PatchInputsRequest;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
@@ -13,7 +10,10 @@ use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Inputs\ModifyAction;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\Helpers\ProtobufHelper;
-use Google\Protobuf\Struct;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_Input;
+use Clarifai\Internal\_MultiInputResponse;
+use Clarifai\Internal\_PatchInputsRequest;
 
 /**
  * A request for input modification.
@@ -63,7 +63,7 @@ class ModifyInputRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $data = new \Clarifai\Grpc\Data;
+        $data = new _Data();
 
         $concepts = [];
         if ($this->positiveConcepts) {
@@ -83,16 +83,16 @@ class ModifyInputRequest extends ClarifaiRequest
             $data->setMetadata($a->arrayToStruct($this->metadata));
         }
 
-        return $grpcClient->PatchInputs((new PatchInputsRequest())
+        return $grpcClient->PatchInputs((new _PatchInputsRequest())
             ->setAction($this->action->serialize())
             ->setInputs([
-                (new \Clarifai\Grpc\Input())
+                (new _Input())
                     ->setId($this->inputID)
                     ->setData($data)]));
     }
 
     /**
-     * @param MultiInputResponse $inputsResponse The inputs.
+     * @param _MultiInputResponse $inputsResponse The inputs.
      * @return \Clarifai\DTOs\Inputs\ClarifaiInput The ClarifaiInput object.
      * @throws \Clarifai\Exceptions\ClarifaiException
      */

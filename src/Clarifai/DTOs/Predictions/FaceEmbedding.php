@@ -3,6 +3,7 @@
 namespace Clarifai\DTOs\Predictions;
 
 use Clarifai\DTOs\Crop;
+use Clarifai\Internal\_Region;
 
 class FaceEmbedding implements PredictionInterface
 {
@@ -35,7 +36,7 @@ class FaceEmbedding implements PredictionInterface
     }
 
     /**
-     * @param \Clarifai\Grpc\Region $regionResponse
+     * @param _Region $regionResponse
      * @return FaceEmbedding
      */
     public static function deserialize($regionResponse)

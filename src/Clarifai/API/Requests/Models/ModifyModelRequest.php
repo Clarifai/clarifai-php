@@ -2,8 +2,6 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\Grpc\MultiModelResponse;
-use Clarifai\Grpc\PatchModelsRequest;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
@@ -12,6 +10,8 @@ use Clarifai\DTOs\Inputs\ModifyAction;
 use Clarifai\DTOs\Models\ConceptModel;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\Internal\_MultiModelResponse;
+use Clarifai\Internal\_PatchModelsRequest;
 
 /**
  * Modifies a model.
@@ -94,14 +94,14 @@ class ModifyModelRequest extends ClarifaiRequest
             $model = $model->withName($this->name);
         }
         $modifyAction = !is_null($this->modifyAction) ? $this->modifyAction : ModifyAction::merge();
-        return $grpcClient->PatchModels((new PatchModelsRequest())
+        return $grpcClient->PatchModels((new _PatchModelsRequest())
             ->setModels([$model->serialize($this->concepts, $this->areConceptsMutuallyExclusive,
                     $this->isEnvironmentClosed, $this->language)])
             ->setAction($modifyAction->serialize()));
     }
 
     /**
-     * @param MultiModelResponse $response
+     * @param _MultiModelResponse $response
      * @return \Clarifai\DTOs\Models\Model
      * @throws \Clarifai\Exceptions\ClarifaiException
      */

@@ -1,7 +1,7 @@
 <?php
 
 namespace Clarifai\DTOs\Inputs;
-use Clarifai\Grpc\InputCount;
+use Clarifai\Internal\_InputCount;
 
 /**
  * Returns the status of inputs processing.
@@ -41,7 +41,7 @@ class ClarifaiInputsStatus
     }
 
     /**
-     * @param \Clarifai\Grpc\InputCount $inputCountResponse
+     * @param _InputCount $inputCountResponse
      * @return ClarifaiInputsStatus Deserializes the object from a Protobuf object.
      */
     public static function deserialize($inputCountResponse)

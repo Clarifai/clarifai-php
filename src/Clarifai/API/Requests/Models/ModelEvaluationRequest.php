@@ -7,8 +7,8 @@ use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Models\ModelVersion;
-use Clarifai\Grpc\PostModelVersionMetricsRequest;
-use Clarifai\Grpc\SingleModelVersionResponse;
+use Clarifai\Internal\_PostModelVersionMetricsRequest;
+use Clarifai\Internal\_SingleModelVersionResponse;
 
 class ModelEvaluationRequest extends ClarifaiRequest
 {
@@ -46,11 +46,11 @@ class ModelEvaluationRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        return $grpcClient->PostModelVersionMetrics(new PostModelVersionMetricsRequest());
+        return $grpcClient->PostModelVersionMetrics(new _PostModelVersionMetricsRequest());
     }
 
     /**
-     * @param SingleModelVersionResponse $response
+     * @param _SingleModelVersionResponse $response
      * @return ModelVersion
      */
     protected function unmarshaller($response)

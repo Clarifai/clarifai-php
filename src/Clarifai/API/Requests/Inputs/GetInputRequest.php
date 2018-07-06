@@ -3,12 +3,12 @@
 namespace Clarifai\API\Requests\Inputs;
 
 use Clarifai\DTOs\Inputs\ClarifaiInput;
-use Clarifai\Grpc\SingleInputResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
-use Clarifai\DTOs\Inputs\ClarifaiURLImage;
+use Clarifai\Internal\_GetInputRequest;
+use Clarifai\Internal\_SingleInputResponse;
 
 class GetInputRequest extends ClarifaiRequest
 {
@@ -37,11 +37,11 @@ class GetInputRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        return $grpcClient->GetInput((new \Clarifai\Grpc\GetInputRequest()));
+        return $grpcClient->GetInput((new _GetInputRequest()));
     }
 
     /**
-     * @param SingleInputResponse $inputResponse
+     * @param _SingleInputResponse $inputResponse
      * @return ClarifaiInput The input.
      */
     protected function unmarshaller($inputResponse)

@@ -2,14 +2,15 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\Grpc\ListModelsRequest;
-use Clarifai\Grpc\MultiModelResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Models\Model;
 use Clarifai\DTOs\Models\ModelType;
+use Clarifai\Internal\_ListModelsRequest;
+use Clarifai\Internal\_Model;
+use Clarifai\Internal\_MultiModelResponse;
 
 class GetModelsRequest extends ClarifaiRequest
 {
@@ -35,19 +36,19 @@ class GetModelsRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $response = $grpcClient->ListModels(new ListModelsRequest());
+        $response = $grpcClient->ListModels(new _ListModelsRequest());
         return $response;
     }
 
     /**
-     * @param \Clarifai\Grpc\MultiModelResponse $modelsResponse
+     * @param _MultiModelResponse $modelsResponse
      * @return Model[]
      * @throws \Clarifai\Exceptions\ClarifaiException
      */
     protected function unmarshaller($modelsResponse)
     {
         $models = [];
-        /* @var \Clarifai\Grpc\Model $model */
+        /* @var _Model $model */
         foreach ($modelsResponse->getModels() as $model) {
             $typeExt = $model->getOutputInfo()->getTypeExt();
 

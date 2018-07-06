@@ -3,6 +3,7 @@
 namespace Clarifai\DTOs\Searches;
 
 use Clarifai\DTOs\Inputs\ClarifaiInput;
+use Clarifai\Internal\_Hit;
 
 class SearchHit
 {
@@ -36,7 +37,7 @@ class SearchHit
     }
 
     /**
-     * @param \Clarifai\Grpc\Hit $hitResponse
+     * @param _Hit $hitResponse
      * @return SearchHit
      */
     public static function deserialize($hitResponse)

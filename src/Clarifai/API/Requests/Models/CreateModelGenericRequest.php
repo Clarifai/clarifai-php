@@ -6,14 +6,13 @@ use Clarifai\DTOs\Models\Model;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Models\OutputInfos\OutputInfoInterface;
 use Clarifai\Exceptions\ClarifaiException;
-use Clarifai\Grpc\PostModelsRequest;
-use Clarifai\Grpc\SingleModelResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
-use Clarifai\DTOs\Models\ConceptModel;
-use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\Internal\_Model;
+use Clarifai\Internal\_PostModelsRequest;
+use Clarifai\Internal\_SingleModelResponse;
 
 /**
  * Creates a new model.
@@ -60,7 +59,7 @@ class CreateModelGenericRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $model = (new \Clarifai\Grpc\Model())
+        $model = (new _Model())
             ->setId($this->modelID);
         if (!is_null($this->name)) {
             $model->setName($this->name);
@@ -68,12 +67,12 @@ class CreateModelGenericRequest extends ClarifaiRequest
         if (!is_null($this->outputInfo)) {
             $model->setOutputInfo($this->outputInfo->serialize());
         }
-        return $grpcClient->PostModels((new PostModelsRequest())
+        return $grpcClient->PostModels((new _PostModelsRequest())
             ->setModel($model));
     }
 
     /**
-     * @param \Clarifai\Grpc\SingleModelResponse $response
+     * @param _SingleModelResponse $response
      * @return Model
      * @throws ClarifaiException
      */

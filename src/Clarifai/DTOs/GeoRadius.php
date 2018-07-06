@@ -2,7 +2,7 @@
 
 namespace Clarifai\DTOs;
 
-use Clarifai\Grpc\GeoLimit;
+use Clarifai\Internal\_GeoLimit;
 
 class GeoRadius
 {
@@ -31,11 +31,11 @@ class GeoRadius
 
     /**
      * Serializes this object to a Protobuf object.
-     * @return \Clarifai\Grpc\GeoLimit
+     * @return _GeoLimit
      */
     public function serialize()
     {
-        return (new GeoLimit())
+        return (new _GeoLimit())
             ->setType($this->unit->value())
             ->setValue($this->value);
     }

@@ -2,7 +2,8 @@
 
 namespace Clarifai\DTOs\Searches;
 
-use Clarifai\Grpc\MultiSearchResponse;
+use Clarifai\Internal\_Hit;
+use Clarifai\Internal\_MultiSearchResponse;
 
 class SearchInputsResult
 {
@@ -36,12 +37,12 @@ class SearchInputsResult
     }
 
     /**
-     * @param MultiSearchResponse $response
+     * @param _MultiSearchResponse $response
      */
     public static function deserialize($response)
     {
         $searchHits = [];
-        /** @var \Clarifai\Grpc\Hit $hit */
+        /** @var _Hit $hit */
         foreach ($response->getHits() as $hit) {
             array_push($searchHits, SearchHit::deserialize($hit));
         }

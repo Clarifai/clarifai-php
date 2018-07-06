@@ -2,7 +2,7 @@
 
 namespace Clarifai\DTOs\Models\OutputInfos;
 
-use Clarifai\Grpc\OutputInfo;
+use Clarifai\Internal\_OutputInfo;
 
 /**
  * Certain information regarding the Focus model.
@@ -45,11 +45,11 @@ class FocusOutputInfo implements OutputInfoInterface
      */
     public function serialize()
     {
-        return new OutputInfo();
+        return new _OutputInfo();
     }
 
     /**
-     * @param \Clarifai\Grpc\OutputInfo $outputInfoResponse
+     * @param _OutputInfo $outputInfoResponse
      * @return FocusOutputInfo
      */
     public static function deserialize($outputInfoResponse)

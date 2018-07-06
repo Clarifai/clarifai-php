@@ -3,6 +3,7 @@
 namespace Clarifai\DTOs\Predictions;
 
 use Clarifai\DTOs\Crop;
+use Clarifai\Internal\_Region;
 
 class Demographics implements PredictionInterface
 {
@@ -53,7 +54,7 @@ class Demographics implements PredictionInterface
     }
 
     /**
-     * @param \Clarifai\Grpc\Region $regionResponse
+     * @param _Region $regionResponse
      * @return Demographics
      */
     public static function deserialize($regionResponse)

@@ -2,15 +2,15 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\Grpc\PostWorkflowResultsRequest;
-use Clarifai\Grpc\PostWorkflowResultsResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Workflows\WorkflowBatchPredictResult;
-use Clarifai\DTOs\Workflows\WorkflowPredictResult;
+use Clarifai\Internal\_OutputConfig;
+use Clarifai\Internal\_PostWorkflowResultsRequest;
+use Clarifai\Internal\_PostWorkflowResultsResponse;
 
 class WorkflowBatchPredictRequest extends ClarifaiRequest
 {
@@ -60,10 +60,10 @@ class WorkflowBatchPredictRequest extends ClarifaiRequest
         foreach ($this->inputs as $input) {
             array_push($inputs, $input->serialize());
         }
-        $request = (new PostWorkflowResultsRequest())
+        $request = (new _PostWorkflowResultsRequest())
             ->setInputs($inputs);
 
-        $outputConfig = (new \Clarifai\Grpc\OutputConfig());
+        $outputConfig = (new _OutputConfig());
         $anyOutputConfig = false;
         if (!is_null($this->minValue)) {
             $outputConfig->setMinValue($this->minValue);
@@ -81,7 +81,7 @@ class WorkflowBatchPredictRequest extends ClarifaiRequest
     }
 
     /**
-     * @param PostWorkflowResultsResponse $response
+     * @param _PostWorkflowResultsResponse $response
      * @return WorkflowBatchPredictResult
      */
     protected function unmarshaller($response)

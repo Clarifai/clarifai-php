@@ -3,6 +3,7 @@
 namespace Clarifai\DTOs\Predictions;
 
 use Clarifai\DTOs\Crop;
+use Clarifai\Internal\_Region;
 
 class Logo implements PredictionInterface
 {
@@ -35,7 +36,7 @@ class Logo implements PredictionInterface
     }
 
     /**
-     * @param \Clarifai\Grpc\Region $regionResponse
+     * @param _Region $regionResponse
      * @return Logo
      */
     public static function deserialize($regionResponse)

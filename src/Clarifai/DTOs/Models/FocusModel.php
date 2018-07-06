@@ -4,7 +4,7 @@ namespace Clarifai\DTOs\Models;
 
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\FocusOutputInfo;
-use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_Model;
 
 /**
  * Focus model returs overall focus and identifies in-focus regions.
@@ -31,7 +31,7 @@ class FocusModel extends Model
 
     /**
      * @param ClarifaiClientInterface $client
-     * @param \Clarifai\Grpc\Model $modelResponse
+     * @param _Model $modelResponse
      * @return FocusModel
      */
     public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {

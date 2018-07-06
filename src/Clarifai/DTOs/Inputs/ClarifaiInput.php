@@ -5,9 +5,12 @@ namespace Clarifai\DTOs\Inputs;
 use Clarifai\DTOs\GeoPoint;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\Exceptions\ClarifaiException;
-use Clarifai\Grpc\Geo;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_Geo;
 use Clarifai\Helpers\ProtobufHelper;
-use Google\Protobuf\Struct;
+use Clarifai\Internal\_Image;
+use Clarifai\Internal\_Input;
+use Clarifai\Internal\_Video;
 
 class InputType
 {
@@ -128,18 +131,18 @@ abstract class ClarifaiInput
     }
 
     /**
-     * @return \Clarifai\Grpc\Input
+     * @return _Input
      */
     public abstract function serialize();
 
     /**
      * @param string $inputType
-     * @param \Clarifai\Grpc\Image|\Clarifai\Grpc\Video $imageOrVideo
-     * @return \Clarifai\Grpc\Input
+     * @param _Image|_Video $imageOrVideo
+     * @return _Input
      */
     protected function serializeInner($inputType, $imageOrVideo)
     {
-        $data = new \Clarifai\Grpc\Data();
+        $data = new _Data();
         if ($inputType == 'image') {
             $data->setImage($imageOrVideo);
         } else if ($inputType == 'video') {
@@ -168,16 +171,16 @@ abstract class ClarifaiInput
         }
 
         if (!is_null($this->geo)) {
-            $data->setGeo((new Geo())
+            $data->setGeo((new _Geo())
                 ->setGeoPoint($this->geo->serialize()));
         }
-        return (new \Clarifai\Grpc\Input())
+        return (new _Input())
             ->setId($this->id)
             ->setData($data);
     }
 
     /**
-     * @param \Clarifai\Grpc\Input $inputResponse
+     * @param _Input $inputResponse
      * @return ClarifaiInput Serialized input.
      */
     public static function deserialize($inputResponse)

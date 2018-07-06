@@ -5,6 +5,7 @@ namespace Clarifai\DTOs\Models;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\VideoOutputInfo;
 use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_Model;
 
 /**
  * The video model runs predictions on a video.
@@ -31,7 +32,7 @@ class VideoModel extends Model
 
     /**
      * @param ClarifaiClientInterface $client
-     * @param \Clarifai\Grpc\Model $modelResponse
+     * @param _Model $modelResponse
      * @return VideoModel
      */
     public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {

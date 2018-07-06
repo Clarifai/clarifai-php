@@ -8,8 +8,10 @@ use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiPaginatedRequest;
 use Clarifai\DTOs\Models\Model;
 use Clarifai\DTOs\Models\ModelType;
-use Clarifai\Grpc\ModelQuery;
-use Clarifai\Grpc\MultiModelResponse;
+use Clarifai\Internal\_Model;
+use Clarifai\Internal\_ModelQuery;
+use Clarifai\Internal\_MultiModelResponse;
+use Clarifai\Internal\_PostModelsSearchesRequest;
 
 /**
  * Search all the models by name and type of the model.
@@ -50,23 +52,23 @@ class SearchModelsRequest extends ClarifaiPaginatedRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $query = (new ModelQuery())
+        $query = (new _ModelQuery())
             ->setName($this->name);
         if (!is_null($this->modelType)) {
             $query->setType($this->modelType->typeExt());
         }
-        return $grpcClient->PostModelsSearches((new \Clarifai\Grpc\PostModelsSearchesRequest())
+        return $grpcClient->PostModelsSearches((new _PostModelsSearchesRequest())
             ->setModelQuery($query));
     }
 
     /**
-     * @param MultiModelResponse $modelsResponse
+     * @param _MultiModelResponse $modelsResponse
      * @return Model[]
      */
     protected function unmarshaller($modelsResponse)
     {
         $models = [];
-        /* @var \Clarifai\Grpc\Model $model */
+        /* @var _Model $model */
         foreach ($modelsResponse->getModels() as $model) {
             $typeExt = $model->getOutputInfo()->getTypeExt();
 

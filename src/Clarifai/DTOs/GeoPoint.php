@@ -2,6 +2,8 @@
 
 namespace Clarifai\DTOs;
 
+use Clarifai\Internal\_GeoPoint;
+
 class GeoPoint
 {
     /**
@@ -46,17 +48,17 @@ class GeoPoint
 
     /**
      * Serializes this object to a Protobuf object.
-     * @return \Clarifai\Grpc\GeoPoint
+     * @return _GeoPoint
      */
     public function serialize()
     {
-        return (new \Clarifai\Grpc\GeoPoint())
+        return (new _GeoPoint())
             ->setLongitude($this->longitude)
             ->setLatitude($this->latitude);
     }
 
     /**
-     * @param \Clarifai\Grpc\GeoPoint $geoPointResponse
+     * @param _GeoPoint $geoPointResponse
      * @return GeoPoint
      */
     public static function deserialize($geoPointResponse)

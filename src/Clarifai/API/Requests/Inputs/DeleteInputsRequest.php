@@ -2,12 +2,13 @@
 
 namespace Clarifai\API\Requests\Inputs;
 
-use Clarifai\Grpc\Status\BaseResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\Exceptions\ClarifaiException;
+use Clarifai\Internal\_DeleteInputsRequest;
+use Clarifai\Internal\Status\_BaseResponse;
 
 class DeleteInputsRequest extends ClarifaiRequest
 {
@@ -45,7 +46,7 @@ class DeleteInputsRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $req = new \Clarifai\Grpc\DeleteInputsRequest();
+        $req = new _DeleteInputsRequest();
         if (count($this->inputIDs) > 0) {
             $req->setIds($this->inputIDs);
         }
@@ -56,7 +57,7 @@ class DeleteInputsRequest extends ClarifaiRequest
     }
 
     /**
-     * @param BaseResponse $response The response.
+     * @param _BaseResponse $response The response.
      * @return void
      */
     protected function unmarshaller($response)

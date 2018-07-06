@@ -4,7 +4,7 @@ namespace Clarifai\DTOs\Models;
 
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\FaceEmbeddingOutputInfo;
-use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_Model;
 
 /**
  * The face embedding model computes numerical embedding vectors for detected faces.
@@ -31,7 +31,7 @@ class FaceEmbeddingModel extends Model
 
     /**
      * @param ClarifaiClientInterface $client
-     * @param \Clarifai\Grpc\Model $modelResponse
+     * @param _Model $modelResponse
      * @return FaceEmbeddingModel
      */
     public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {

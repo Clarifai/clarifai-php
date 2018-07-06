@@ -86,7 +86,7 @@ class ClarifaiStatus
     }
 
     /**
-     * @param \Clarifai\Grpc\Status\Status $statusResponse The status.
+     * @param \Clarifai\Internal\Status\_Status $statusResponse The status.
      * @param int $httpStatusCode The HTTP status code.
      * @return ClarifaiStatus The ClarifaiStatus object.
      */

@@ -1,6 +1,7 @@
 <?php
 
 namespace Clarifai\DTOs\Searches;
+
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\GeoPoint;
 use Clarifai\DTOs\GeoRadius;

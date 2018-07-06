@@ -3,11 +3,10 @@
 namespace Clarifai\DTOs\Searches;
 
 use Clarifai\DTOs\Crop;
-use Clarifai\Grpc\Concept;
-use Clarifai\Grpc\Data;
-use Clarifai\Grpc\Image;
-use Clarifai\Grpc\Input;
-use Clarifai\Grpc\Output;
+use Clarifai\Internal\_And;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_Image;
+use Clarifai\Internal\_Input;
 
 class SearchByImageURL extends SearchBy
 {
@@ -28,14 +27,14 @@ class SearchByImageURL extends SearchBy
 
     public function serialize()
     {
-        $image = (new Image())
+        $image = (new _Image())
             ->setUrl($this->imageURL);
         if (!is_null($this->crop)) {
             $image->setCrop($this->crop->serializeAsArray());
         }
-        return ((new \Clarifai\Grpc\PBAnd())
-            ->setInput((new Input())
-                ->setData((new Data())
+        return ((new _And())
+            ->setInput((new _Input())
+                ->setData((new _Data())
                     ->setImage($image))));
     }
 }

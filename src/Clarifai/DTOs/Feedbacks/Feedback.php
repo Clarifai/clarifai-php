@@ -1,8 +1,8 @@
 <?php
 
 namespace Clarifai\DTOs\Feedbacks;
-use Clarifai\Grpc\FeedbackInfo;
-use Clarifai\Grpc\RegionInfoFeedback;
+
+use Clarifai\Internal\_RegionInfoFeedback;
 
 /**
  * Feedback to give to the region's prediction.
@@ -11,22 +11,22 @@ class Feedback
 {
     public static function accurate()
     {
-        return new Feedback(RegionInfoFeedback::accurate);
+        return new Feedback(_RegionInfoFeedback::accurate);
     }
 
     public static function misplaced()
     {
-        return new Feedback(RegionInfoFeedback::misplaced);
+        return new Feedback(_RegionInfoFeedback::misplaced);
     }
 
     public static function notDetected()
     {
-        return new Feedback(RegionInfoFeedback::not_detected);
+        return new Feedback(_RegionInfoFeedback::not_detected);
     }
 
     public static function falsePositive()
     {
-        return new Feedback(RegionInfoFeedback::false_positive);
+        return new Feedback(_RegionInfoFeedback::false_positive);
     }
 
     private $value;

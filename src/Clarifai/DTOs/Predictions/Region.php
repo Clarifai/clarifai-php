@@ -10,5 +10,8 @@ class Region
 
     public function __construct($id, $crop, $concepts)
     {
+        $this->id = $id;
+        $this->crop = $crop;
+        $this->concepts = $concepts;
     }
 }

@@ -3,12 +3,13 @@
 namespace Clarifai\API\Requests\Models;
 
 use Clarifai\DTOs\Models\ModelType;
-use Clarifai\Grpc\SingleModelResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Models\Model;
+use Clarifai\Internal\_GetModelRequest;
+use Clarifai\Internal\_SingleModelResponse;
 
 /**
  * Retrieves a model.
@@ -43,12 +44,12 @@ class GetModelRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $r = $grpcClient->GetModel(new \Clarifai\Grpc\GetModelRequest());
+        $r = $grpcClient->GetModel(new _GetModelRequest());
         return $r;
     }
 
     /**
-     * @param SingleModelResponse $response
+     * @param _SingleModelResponse $response
      * @return Model The serialized model.
      * @throws \Clarifai\Exceptions\ClarifaiException
      */

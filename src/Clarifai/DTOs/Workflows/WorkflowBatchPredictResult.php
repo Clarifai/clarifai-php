@@ -2,7 +2,8 @@
 
 namespace Clarifai\DTOs\Workflows;
 
-use Clarifai\Grpc\PostWorkflowResultsResponse;
+use Clarifai\Internal\_PostWorkflowResultsResponse;
+use Clarifai\Internal\_WorkflowResult;
 
 class WorkflowBatchPredictResult
 {
@@ -37,13 +38,13 @@ class WorkflowBatchPredictResult
     }
 
     /**
-     * @param PostWorkflowResultsResponse $response
+     * @param _PostWorkflowResultsResponse $response
      * @return WorkflowBatchPredictResult
      */
     public static function deserialize($response)
     {
         $workflowResults = [];
-        /** @var \Clarifai\Grpc\WorkflowResult $result */
+        /** @var _WorkflowResult $result */
         foreach ($response->getResults() as $result) {
             $workflowResult = WorkflowResult::deserialize($result);
             array_push($workflowResults, $workflowResult);

@@ -1,8 +1,8 @@
 <?php
 
 namespace Clarifai\DTOs;
-use Clarifai\Grpc\BoundingBox;
-use Google\Protobuf\Internal\RepeatedField;
+
+use Clarifai\Internal\_BoundingBox;
 
 /**
  * Crop / bounding box. Crop points are percentages from the edge.
@@ -41,11 +41,11 @@ class Crop
 
     /**
      * Serializes this object to a Protobuf object.
-     * @return BoundingBox
+     * @return _BoundingBox
      */
     public function serializeAsObject()
     {
-        return (new BoundingBox())
+        return (new _BoundingBox())
             ->setTopRow($this->top)
             ->setLeftCol($this->left)
             ->setBottomRow($this->bottom)
@@ -53,7 +53,7 @@ class Crop
     }
 
     /**
-     * @param \Clarifai\Grpc\BoundingBox|\Google\Protobuf\Internal\RepeatedField $boxResponse
+     * @param _BoundingBox|\Google\Protobuf\Internal\RepeatedField $boxResponse
      * @return Crop
      */
     public static function deserialize($boxResponse)

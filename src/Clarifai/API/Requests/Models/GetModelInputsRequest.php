@@ -4,16 +4,11 @@ namespace Clarifai\API\Requests\Models;
 
 use Clarifai\API\Requests\ClarifaiPaginatedRequest;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
-use Clarifai\DTOs\Inputs\ClarifaiURLImage;
-use Clarifai\Grpc\ListModelInputsRequest;
-use Clarifai\Grpc\ListModelsRequest;
-use Clarifai\Grpc\MultiModelResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
-use Clarifai\API\Requests\ClarifaiRequest;
-use Clarifai\DTOs\Models\Model;
-use Clarifai\DTOs\Models\ModelType;
+use Clarifai\Internal\_ListModelInputsRequest;
+use Clarifai\Internal\_MultiInputResponse;
 
 class GetModelInputsRequest extends ClarifaiPaginatedRequest
 {
@@ -56,12 +51,12 @@ class GetModelInputsRequest extends ClarifaiPaginatedRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $response = $grpcClient->ListModelInputs(new ListModelInputsRequest());
+        $response = $grpcClient->ListModelInputs(new _ListModelInputsRequest());
         return $response;
     }
 
     /**
-     * @param \Clarifai\Grpc\MultiInputResponse $inputsResponse
+     * @param _MultiInputResponse $inputsResponse
      * @return ClarifaiInput[]
      */
     protected function unmarshaller($inputsResponse)

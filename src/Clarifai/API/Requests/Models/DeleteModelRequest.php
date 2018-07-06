@@ -6,6 +6,8 @@ use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
+use Clarifai\Internal\_DeleteModelRequest;
+use Clarifai\Internal\Status\_BaseResponse;
 
 /**
  * Deletes a model.
@@ -37,11 +39,11 @@ class DeleteModelRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $client)
     {
-        return $client->DeleteModel(new \Clarifai\Grpc\DeleteModelRequest());
+        return $client->DeleteModel(new _DeleteModelRequest());
     }
 
     /**
-     * @param \Clarifai\Grpc\Status\BaseResponse $response The response.
+     * @param _BaseResponse $response The response.
      * @return void
      */
     protected function unmarshaller($response)

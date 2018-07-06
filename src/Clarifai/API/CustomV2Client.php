@@ -5,7 +5,7 @@ namespace Clarifai\API;
 use Clarifai\Exceptions\ClarifaiException;
 use function Google\Protobuf\Internal\camel2underscore;
 
-class CustomV2Client extends \Clarifai\Grpc\V2Client
+class CustomV2Client extends \Clarifai\Internal\V2Client
 {
     private $url;
     private $requestMethod;

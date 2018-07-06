@@ -3,9 +3,9 @@
 namespace Clarifai\DTOs\Feedbacks;
 
 use Clarifai\DTOs\Crop;
-use Clarifai\Grpc\Data;
-use Clarifai\Grpc\Region;
-use Clarifai\Grpc\RegionInfo;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_Region;
+use Clarifai\Internal\_RegionInfo;
 
 class RegionFeedback
 {
@@ -69,12 +69,12 @@ class RegionFeedback
 
     /**
      * Serializes this object to a Protobuf object.
-     * @return Region
+     * @return _Region
      */
     public function serialize()
     {
         $anyData = false;
-        $data = new Data();
+        $data = new _Data();
         if (!is_null($this->conceptFeedbacks)) {
             $concepts = [];
             /** @var ConceptFeedback $conceptFeedback */
@@ -91,7 +91,7 @@ class RegionFeedback
             $anyData = true;
         }
 
-        $regionInfo = new RegionInfo();
+        $regionInfo = new _RegionInfo();
         $anyRegionInfo = false;
         if (!is_null($this->crop)) {
             $regionInfo->setBoundingBox($this->crop->serializeAsObject());
@@ -103,7 +103,7 @@ class RegionFeedback
             $anyRegionInfo = true;
         }
 
-        $region = new Region();
+        $region = new _Region();
         if (!is_null($this->regionID)) {
             $region->setId($this->regionID);
         }

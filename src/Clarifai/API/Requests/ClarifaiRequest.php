@@ -2,13 +2,10 @@
 namespace Clarifai\API\Requests;
 
 use Clarifai\API\ClarifaiClientInterface;
-use Clarifai\API\ClarifaiHttpClient;
 use Clarifai\API\ClarifaiResponse;
 use Clarifai\API\CustomV2Client;
-use Clarifai\API\RequestMethod;
 use Clarifai\DTOs\ClarifaiStatus;
 use Clarifai\DTOs\StatusType;
-use Clarifai\Exceptions\ClarifaiException;
 
 abstract class ClarifaiRequest
 {

@@ -4,7 +4,7 @@ namespace Clarifai\DTOs\Models;
 
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\FaceDetectionOutputInfo;
-use Clarifai\Helpers\DateTimeHelper;
+use Clarifai\Internal\_Model;
 
 /**
  * The face detection model finds regions where faces are detected.
@@ -31,7 +31,7 @@ class FaceDetectionModel extends Model
 
     /**
      * @param ClarifaiClientInterface $client
-     * @param \Clarifai\Grpc\Model $modelResponse
+     * @param _Model $modelResponse
      * @return FaceDetectionModel
      */
     public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {

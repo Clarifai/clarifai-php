@@ -2,6 +2,8 @@
 
 namespace Clarifai\DTOs\Workflows;
 
+use Clarifai\Internal\_Workflow;
+
 class Workflow
 {
     /**
@@ -45,7 +47,7 @@ class Workflow
     }
 
     /**
-     * @param \Clarifai\Grpc\Workflow $workflowResponse
+     * @param _Workflow $workflowResponse
      * @return Workflow
      */
     public static function deserialize($workflowResponse)

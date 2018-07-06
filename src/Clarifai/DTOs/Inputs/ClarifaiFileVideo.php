@@ -2,8 +2,8 @@
 
 namespace Clarifai\DTOs\Inputs;
 
-use Clarifai\Grpc\Video;
-use Clarifai\DTOs\Crop;
+use Clarifai\Internal\_Input;
+use Clarifai\Internal\_Video;
 
 /**
  * A file video.
@@ -27,11 +27,12 @@ class ClarifaiFileVideo extends ClarifaiInput
     }
 
     /**
-     * @return \Clarifai\Grpc\Input
+     * @return _Input
+     * @throws \Clarifai\Exceptions\ClarifaiException
      */
     public function serialize()
     {
-        $video = (new \Clarifai\Grpc\Video())
+        $video = (new _Video())
             ->setBase64($this->content);
         return parent::serializeInner('video', $video);
     }

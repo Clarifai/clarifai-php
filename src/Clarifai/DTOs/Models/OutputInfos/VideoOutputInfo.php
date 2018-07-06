@@ -2,10 +2,8 @@
 
 namespace Clarifai\DTOs\Models\OutputInfos;
 
-use Clarifai\Grpc\Data;
-use Clarifai\Grpc\OutputConfig;
-use Clarifai\Grpc\OutputInfo;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\Internal\_OutputInfo;
 
 class VideoOutputInfo implements OutputInfoInterface
 {
@@ -79,11 +77,11 @@ class VideoOutputInfo implements OutputInfoInterface
      */
     public function serialize()
     {
-        return new OutputInfo();
+        return new _OutputInfo();
     }
 
     /**
-     * @param \Clarifai\Grpc\OutputInfo $outputInfoResponse
+     * @param _OutputInfo $outputInfoResponse
      * @return VideoOutputInfo
      */
     public static function deserialize($outputInfoResponse)

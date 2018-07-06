@@ -2,6 +2,8 @@
 
 namespace Clarifai\DTOs\Models\OutputInfos;
 
+use Clarifai\Internal\_OutputInfo;
+
 interface OutputInfoInterface
 {
     /**
@@ -20,7 +22,7 @@ interface OutputInfoInterface
     function message();
 
     /**
-     * @return \Clarifai\Grpc\OutputInfo Serialized Protobuf object.
+     * @return _OutputInfo Serialized Protobuf object.
      */
     function serialize();
 }

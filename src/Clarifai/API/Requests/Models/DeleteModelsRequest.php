@@ -2,12 +2,13 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\Grpc\Status\BaseResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\Exceptions\ClarifaiException;
+use Clarifai\Internal\_DeleteModelsRequest;
+use Clarifai\Internal\Status\_BaseResponse;
 
 /**
  * Deletes all custom models.
@@ -46,7 +47,7 @@ class DeleteModelsRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $req = new \Clarifai\Grpc\DeleteModelsRequest();
+        $req = new _DeleteModelsRequest();
         if (count($this->modelIDs) > 0) {
             $req->setIds($this->modelIDs);
         }
@@ -57,7 +58,7 @@ class DeleteModelsRequest extends ClarifaiRequest
     }
 
     /**
-     * @param BaseResponse $response The response.
+     * @param _BaseResponse $response The response.
      * @return void
      */
     protected function unmarshaller($response)

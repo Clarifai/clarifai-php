@@ -2,6 +2,8 @@
 
 namespace Clarifai\DTOs\Models;
 
+use Clarifai\Internal\Status\_Status;
+
 /**
  * The current status of a model.
  */
@@ -121,7 +123,7 @@ class ModelTrainingStatus
     }
 
     /**
-     * @param \Clarifai\Grpc\Status\Status $statusResponse
+     * @param _Status $statusResponse
      * @return ModelTrainingStatus
      */
     public static function deserialize($statusResponse)

@@ -8,15 +8,13 @@ use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Feedbacks\ConceptFeedback;
 use Clarifai\DTOs\Feedbacks\RegionFeedback;
-use Clarifai\DTOs\Predictions\Concept;
-use Clarifai\Grpc\Data;
-use Clarifai\Grpc\EventType;
-use Clarifai\Grpc\FeedbackInfo;
-use Clarifai\Grpc\Image;
-use Clarifai\Grpc\Input;
-use Clarifai\Grpc\PostModelFeedbackRequest;
-use Clarifai\Grpc\Region;
-use Clarifai\Grpc\Status\BaseResponse;
+use Clarifai\Internal\_Data;
+use Clarifai\Internal\_EventType;
+use Clarifai\Internal\_FeedbackInfo;
+use Clarifai\Internal\_Image;
+use Clarifai\Internal\_Input;
+use Clarifai\Internal\_PostModelFeedbackRequest;
+use Clarifai\Internal\Status\_BaseResponse;
 
 class ModelFeedbackRequest extends ClarifaiRequest
 {
@@ -116,8 +114,8 @@ class ModelFeedbackRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $data = (new Data())
-            ->setImage((new Image())
+        $data = (new _Data())
+            ->setImage((new _Image())
                 ->setUrl($this->imageURL));
         if (!is_null($this->conceptFeedbacks)) {
             $concepts = [];
@@ -136,19 +134,19 @@ class ModelFeedbackRequest extends ClarifaiRequest
             $data->setRegions($regions);
         }
         return $grpcClient
-            ->PostModelFeedback((new PostModelFeedbackRequest())
-                ->setInput((new Input())
+            ->PostModelFeedback((new _PostModelFeedbackRequest())
+                ->setInput((new _Input())
                     ->setId($this->inputID)
                     ->setData($data)
-                    ->setFeedbackInfo((new FeedbackInfo())
-                        ->setEventType(EventType::annotation)
+                    ->setFeedbackInfo((new _FeedbackInfo())
+                        ->setEventType(_EventType::annotation)
                         ->setOutputId($this->outputID)
                         ->setEndUserId($this->endUserID)
                         ->setSessionId($this->sessionID))));
     }
 
     /**
-     * @param BaseResponse $response The response.
+     * @param _BaseResponse $response The response.
      * @return void
      */
     protected function unmarshaller($response)

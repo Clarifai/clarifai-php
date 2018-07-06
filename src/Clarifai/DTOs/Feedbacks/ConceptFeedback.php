@@ -2,7 +2,7 @@
 
 namespace Clarifai\DTOs\Feedbacks;
 
-use Clarifai\Grpc\Concept;
+use Clarifai\Internal\_Concept;
 
 /**
  * Concept feedback.
@@ -31,11 +31,11 @@ class ConceptFeedback
 
     /**
      * Serializes this object to a Protobuf object.
-     * @return Concept
+     * @return _Concept
      */
     public function serialize()
     {
-        return (new Concept())
+        return (new _Concept())
             ->setId($this->conceptID)
             ->setValue($this->value ? 1.0 : -1.0);
     }

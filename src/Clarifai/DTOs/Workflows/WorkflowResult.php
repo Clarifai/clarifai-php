@@ -6,6 +6,8 @@ use Clarifai\DTOs\ClarifaiStatus;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Outputs\ClarifaiOutput;
+use Clarifai\Internal\_Output;
+use Clarifai\Internal\_WorkflowResult;
 
 class WorkflowResult
 {
@@ -50,7 +52,7 @@ class WorkflowResult
     }
 
     /**
-     * @param \Clarifai\Grpc\WorkflowResult $workflowResultResponse
+     * @param _WorkflowResult $workflowResultResponse
      */
     public static function deserialize($workflowResultResponse)
     {
@@ -59,7 +61,7 @@ class WorkflowResult
 
         $predictions = [];
         foreach ($workflowResultResponse->getOutputs() as $output) {
-            /* @var \Clarifai\Grpc\Output $output */
+            /* @var _Output $output */
             $model = $output->getModel();
             $modelType = ModelType::determineModelType($model->getOutputInfo()->getTypeExt());
 

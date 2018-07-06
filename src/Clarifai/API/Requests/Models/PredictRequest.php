@@ -1,7 +1,6 @@
 <?php
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\Grpc\MultiOutputResponse;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
@@ -11,7 +10,11 @@ use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Outputs\ClarifaiOutput;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\Exceptions\ClarifaiException;
-use function PHPSTORM_META\type;
+use Clarifai\Internal\_Model;
+use Clarifai\Internal\_MultiOutputResponse;
+use Clarifai\Internal\_OutputConfig;
+use Clarifai\Internal\_OutputInfo;
+use Clarifai\Internal\_PostModelOutputsRequest;
 
 /**
  * Predicts on an input (image/video) using a certain model.
@@ -81,10 +84,10 @@ class PredictRequest extends ClarifaiRequest
     }
 
     public function httpRequestBody(CustomV2Client $grpcClient) {
-        $postModelOutputsRequest = (new \Clarifai\Grpc\PostModelOutputsRequest())
+        $postModelOutputsRequest = (new _PostModelOutputsRequest())
             ->setInputs([$this->input->serialize()]);
 
-        $outputConfig = (new \Clarifai\Grpc\OutputConfig());
+        $outputConfig = (new _OutputConfig());
         $anyOutputConfig = false;
 
         if (!is_null($this->language)) {
@@ -115,15 +118,15 @@ class PredictRequest extends ClarifaiRequest
 
         if ($anyOutputConfig) {
             $postModelOutputsRequest
-                ->setModel((new \Clarifai\Grpc\Model())
-                    ->setOutputInfo((new \Clarifai\Grpc\OutputInfo())
+                ->setModel((new _Model())
+                    ->setOutputInfo((new _OutputInfo())
                         ->setOutputConfig($outputConfig)));
         }
         return $grpcClient->PostModelOutputs($postModelOutputsRequest);
     }
 
     /**
-     * @param MultiOutputResponse $response
+     * @param _MultiOutputResponse $response
      * @return ClarifaiOutput Our serialized object.
      * @throws ClarifaiException
      */
