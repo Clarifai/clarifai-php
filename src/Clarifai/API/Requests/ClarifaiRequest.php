@@ -27,8 +27,9 @@ abstract class ClarifaiRequest
 
     public function executeSync()
     {
+        $request = $this->httpRequest();
         try {
-            list($response, $rawBody, $httpStatusCode) = $this->httpRequest()->wait();
+            list($response, $rawBody, $httpStatusCode) = $request->wait();
         } catch (\Throwable $e) {
             return new ClarifaiResponse(
                 new ClarifaiStatus(StatusType::networkError(), 404, 'HTTP request failed.',
