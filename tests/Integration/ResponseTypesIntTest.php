@@ -5,9 +5,8 @@ namespace Integration;
 use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\StatusType;
-use ClarifaiIntTests\BaseIntTest;
 
-class ResponseTypesIntTest extends BaseIntTest
+class ResponseTypesIntTest extends BaseInt
 {
     public function testSuccessfulResponse()
     {

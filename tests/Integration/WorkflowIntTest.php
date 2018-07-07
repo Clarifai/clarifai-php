@@ -1,12 +1,12 @@
 <?php
 
-namespace ClarifaiIntTests;
+namespace Integration;
 
 use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Workflows\WorkflowBatchPredictResult;
 use Clarifai\DTOs\Workflows\WorkflowPredictResult;
 
-class WorkflowIntTest extends BaseIntTest
+class WorkflowIntTest extends BaseInt
 {
 
     public function testWorkflowPredict()
@@ -17,6 +17,7 @@ class WorkflowIntTest extends BaseIntTest
 
         /** @var WorkflowPredictResult $result */
         $result = $response->get();
+
         $workflowResult = $result->workflowResult();
         $predictions = $workflowResult->predictions();
 

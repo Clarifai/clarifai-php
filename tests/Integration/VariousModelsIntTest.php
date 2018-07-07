@@ -20,9 +20,8 @@ use Clarifai\DTOs\Predictions\FaceDetection;
 use Clarifai\DTOs\Predictions\FaceEmbedding;
 use Clarifai\DTOs\Predictions\Focus;
 use Clarifai\DTOs\Predictions\Logo;
-use ClarifaiIntTests\BaseIntTest;
 
-class VariousModelsIntTest extends BaseIntTest
+class VariousModelsIntTest extends BaseInt
 {
     public function testGetColorModel()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace ClarifaiUnitTests;
+namespace Unit;
 
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\Outputs\ClarifaiOutput;

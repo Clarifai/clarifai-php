@@ -67,9 +67,11 @@ class ClarifaiURLImage extends ClarifaiInput
      */
     public static function deserialize($imageResponse)
     {
+        $data = $imageResponse->getData();
+
         $positiveConcepts = [];
         $negativeConcepts = [];
-        foreach ($imageResponse->getData()->getConcepts() as $c)
+        foreach ($data->getConcepts() as $c)
         {
             $concept = Concept::deserialize($c);
             if ($concept->value() == 0)
@@ -82,24 +84,25 @@ class ClarifaiURLImage extends ClarifaiInput
             }
         }
 
-        $image = (new ClarifaiURLImage($imageResponse->getData()->getImage()->getUrl()))
+        $image = (new ClarifaiURLImage($data->getImage()->getUrl()))
             ->withID($imageResponse->getId())
             ->withPositiveConcepts($positiveConcepts)
             ->withNegativeConcepts($negativeConcepts);
 
-        if (!is_null($imageResponse->getData()->getImage()->getCrop())) {
-            $image->withCrop(Crop::deserialize($imageResponse->getData()->getImage()->getCrop()));
+        $crop = $data->getImage()->getCrop();
+        if (!is_null($crop) && $crop->count() > 0) {
+            $image->withCrop(Crop::deserialize($crop));
         }
 
-        if (!is_null($imageResponse->getData()->getMetadata())) {
+        if (!is_null($data->getMetadata())) {
             $a = new ProtobufHelper();
 
-            $image->withMetadata($a->structToArray($imageResponse->getData()->getMetadata()));
+            $image->withMetadata($a->structToArray($data->getMetadata()));
         }
 
-        if (!is_null($imageResponse->getData()->getGeo())) {
+        if (!is_null($data->getGeo())) {
             $image->withGeo(
-                GeoPoint::deserialize($imageResponse->getData()->getGeo()->getGeoPoint()));
+                GeoPoint::deserialize($data->getGeo()->getGeoPoint()));
         }
 
         if (!is_null($imageResponse->getCreatedAt())) {

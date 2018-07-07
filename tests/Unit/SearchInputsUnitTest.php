@@ -11,7 +11,6 @@ use Clarifai\DTOs\Inputs\InputForm;
 use Clarifai\DTOs\Inputs\InputType;
 use Clarifai\DTOs\Searches\SearchBy;
 use Clarifai\DTOs\Searches\SearchInputsResult;
-use ClarifaiUnitTests\FkClarifaiHttpClientTest;
 use PHPUnit\Framework\TestCase;
 
 class SearchInputsUnitTest extends TestCase

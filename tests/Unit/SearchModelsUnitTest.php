@@ -3,17 +3,8 @@
 namespace Unit;
 
 use Clarifai\API\ClarifaiClient;
-use Clarifai\DTOs\GeoPoint;
-use Clarifai\DTOs\GeoRadius;
-use Clarifai\DTOs\GeoRadiusUnit;
-use Clarifai\DTOs\Inputs\ClarifaiURLImage;
-use Clarifai\DTOs\Inputs\InputForm;
-use Clarifai\DTOs\Inputs\InputType;
 use Clarifai\DTOs\Models\Model;
 use Clarifai\DTOs\Models\ModelType;
-use Clarifai\DTOs\Searches\SearchBy;
-use Clarifai\DTOs\Searches\SearchInputsResult;
-use ClarifaiUnitTests\FkClarifaiHttpClientTest;
 use PHPUnit\Framework\TestCase;
 
 class SearchModelsUnitTest extends TestCase

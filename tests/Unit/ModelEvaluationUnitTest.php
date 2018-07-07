@@ -4,7 +4,6 @@ namespace Unit;
 
 use Clarifai\API\ClarifaiClient;
 use Clarifai\DTOs\Models\ModelVersion;
-use ClarifaiUnitTests\FkClarifaiHttpClientTest;
 use PHPUnit\Framework\TestCase;
 
 class ModelEvaluationUnitTest extends TestCase

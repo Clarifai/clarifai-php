@@ -8,9 +8,8 @@ use Clarifai\DTOs\GeoRadius;
 use Clarifai\DTOs\GeoRadiusUnit;
 use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Searches\SearchBy;
-use ClarifaiIntTests\BaseIntTest;
 
-class SearchInputsIntTest extends BaseIntTest
+class SearchInputsIntTest extends BaseInt
 {
     public function testSearchInputsByConceptID()
     {

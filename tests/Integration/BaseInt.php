@@ -1,12 +1,12 @@
 <?php
 
-namespace ClarifaiIntTests;
+namespace Integration;
 
 use PHPUnit\Framework\TestCase;
 
 use Clarifai\API\ClarifaiClient;
 
-class BaseIntTest extends TestCase
+class BaseInt extends TestCase
 {
     const CELEB_IMG_URL =
         'https://clarifai.com/developer/static/images/model-samples/celeb-001.jpg';
@@ -23,7 +23,7 @@ class BaseIntTest extends TestCase
     public function __construct()
     {
         parent::__construct();
-        $this->client = new ClarifaiClient($_ENV['CLARIFAI_API_KEY']);
+        $this->client = new ClarifaiClient(getenv('CLARIFAI_API_KEY'));
     }
 
     /**

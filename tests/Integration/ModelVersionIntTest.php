@@ -5,9 +5,8 @@ namespace Integration;
 use Clarifai\DTOs\Models\Model;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Models\ModelVersion;
-use ClarifaiIntTests\BaseIntTest;
 
-class ModelVersionIntTest extends BaseIntTest
+class ModelVersionIntTest extends BaseInt
 {
     public function testGetModelVersion()
     {

@@ -2,16 +2,9 @@
 
 namespace Integration;
 
-use Clarifai\DTOs\Crop;
-use Clarifai\DTOs\GeoPoint;
-use Clarifai\DTOs\GeoRadius;
-use Clarifai\DTOs\GeoRadiusUnit;
-use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Models\ModelType;
-use Clarifai\DTOs\Searches\SearchBy;
-use ClarifaiIntTests\BaseIntTest;
 
-class SearchModelsIntTest extends BaseIntTest
+class SearchModelsIntTest extends BaseInt
 {
     public function testSearchModelsByName()
     {

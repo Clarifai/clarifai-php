@@ -1,6 +1,6 @@
 <?php
 
-namespace ClarifaiUnitTests;
+namespace Unit;
 
 use Clarifai\API\ClarifaiClient;
 use Clarifai\DTOs\Feedbacks\ConceptFeedback;

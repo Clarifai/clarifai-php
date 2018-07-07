@@ -3,9 +3,8 @@
 namespace Integration;
 
 use Clarifai\DTOs\Predictions\Concept;
-use ClarifaiIntTests\BaseIntTest;
 
-class ConceptIntTest extends BaseIntTest
+class ConceptIntTest extends BaseInt
 {
     public function testGetConcept()
     {

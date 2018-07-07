@@ -8,9 +8,8 @@ use Clarifai\DTOs\Models\ConceptModel;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Models\OutputInfos\FaceConceptsOutputInfo;
 use Clarifai\DTOs\Predictions\Concept;
-use ClarifaiIntTests\BaseIntTest;
 
-class ModelIntTest extends BaseIntTest
+class ModelIntTest extends BaseInt
 {
     public function testCreateModifyGetAndDeleteModel()
     {

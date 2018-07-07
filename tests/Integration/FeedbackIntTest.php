@@ -6,9 +6,8 @@ use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\Feedbacks\ConceptFeedback;
 use Clarifai\DTOs\Feedbacks\Feedback;
 use Clarifai\DTOs\Feedbacks\RegionFeedback;
-use ClarifaiIntTests\BaseIntTest;
 
-class FeedbackIntTest extends BaseIntTest
+class FeedbackIntTest extends BaseInt
 {
 
     public function testModelFeedback()

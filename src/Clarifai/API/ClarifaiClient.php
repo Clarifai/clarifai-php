@@ -51,7 +51,7 @@ class ClarifaiClient implements ClarifaiClientInterface
     public function __construct($apiKey = null, $customHttpClient = null)
     {
         if ($apiKey == null) {
-            $apiKey = $_ENV['CLARIFAI_API_KEY'];
+            $apiKey = getenv('CLARIFAI_API_KEY');
         }
 
         if ($customHttpClient == null) {

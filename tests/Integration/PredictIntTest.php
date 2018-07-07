@@ -1,6 +1,6 @@
 <?php
 
-namespace ClarifaiIntTests;
+namespace Integration;
 
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\Inputs\ClarifaiFileImage;
@@ -10,7 +10,7 @@ use Clarifai\DTOs\Models\ConceptModel;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Predictions\Concept;
 
-class PredictIntTest extends BaseIntTest
+class PredictIntTest extends BaseInt
 {
     public function testPredictURLImage()
     {

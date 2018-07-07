@@ -64,6 +64,7 @@ class ConceptModel extends Model
             $model->setCreatedAt($dt);
         }
 
+        $hasAnyOutputInfo = false;
         $outputInfo = new _OutputInfo();
         if (!is_null($concepts)) {
             $serializedConcepts = [];

@@ -1,6 +1,6 @@
 <?php
 
-namespace ClarifaiIntTests;
+namespace Integration;
 
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\GeoPoint;
@@ -9,7 +9,7 @@ use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Inputs\ModifyAction;
 use Clarifai\DTOs\Predictions\Concept;
 
-class InputIntTest extends BaseIntTest
+class InputIntTest extends BaseInt
 {
     public function testAddGetAndDeleteInputs()
     {

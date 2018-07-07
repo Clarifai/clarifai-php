@@ -6,7 +6,6 @@ use Clarifai\API\ClarifaiClient;
 use Clarifai\DTOs\Inputs\ModifyAction;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Predictions\Concept;
-use ClarifaiUnitTests\FkClarifaiHttpClientTest;
 use PHPUnit\Framework\TestCase;
 
 class ModelUnitTest extends TestCase
