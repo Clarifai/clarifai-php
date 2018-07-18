@@ -1,4 +1,4 @@
-## [[0.2]](https://github.com/Clarifai/clarifai-php/releases/tag/0.2) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.2) - 2018-07-18
+## [[0.2.0]](https://github.com/Clarifai/clarifai-php/releases/tag/0.2.0) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.2.0) - 2018-07-18
 
 ### Added
 - Support for input metadata.
