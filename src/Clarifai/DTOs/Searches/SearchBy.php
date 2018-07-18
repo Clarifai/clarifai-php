@@ -91,4 +91,15 @@ abstract class SearchBy
     {
         return new SearchByGeoRectangle($geoPoint1, $geoPoint2);
     }
+
+    /**
+     * After you have added inputs with custom metadata, you can search by that metadata.
+     * You can exact-match any key-value pair no matter how nested it is.
+     * @param $metadata
+     * @return SearchByMetadata
+     */
+    public static function metadata($metadata)
+    {
+        return new SearchByMetadata($metadata);
+    }
 }

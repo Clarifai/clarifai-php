@@ -8,6 +8,7 @@ use Clarifai\DTOs\GeoRadius;
 use Clarifai\DTOs\GeoRadiusUnit;
 use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Searches\SearchBy;
+use Clarifai\DTOs\Searches\SearchInputsResult;
 
 class SearchInputsIntTest extends BaseInt
 {
@@ -103,8 +104,8 @@ class SearchInputsIntTest extends BaseInt
     public function testSearchInputsByTwoGeoPoints()
     {
         $addInputsResponse = $this->client->addInputs((new ClarifaiURLImage(parent::CAT_IMG_URL))
-            ->withAllowDuplicateUrl(true)
-            ->withGeo(new GeoPoint(30, 40)))
+                ->withAllowDuplicateUrl(true)
+                ->withGeo(new GeoPoint(30, 40)))
             ->executeSync();
         $this->assertTrue($addInputsResponse->isSuccessful());
 
@@ -115,6 +116,35 @@ class SearchInputsIntTest extends BaseInt
 
             $this->assertTrue($response->isSuccessful());
             $this->assertNotEquals(0, count($response->get()->searchHits()));
+        } finally {
+            $id = $addInputsResponse->get()[0]->id();
+            $deleteInputsResponse = $this->client->deleteInputs($id)
+                ->executeSync();
+            $this->assertTrue($deleteInputsResponse->isSuccessful());
+        }
+    }
+
+    public function testSearchInputsByMetadata()
+    {
+        $randomVal = parent::generateRandomID();
+
+        $addInputsResponse = $this->client->addInputs((new ClarifaiURLImage(parent::CAT_IMG_URL))
+                ->withAllowDuplicateUrl(true)
+                ->withMetadata(['key1' => 'val1', 'key2' => $randomVal]))
+            ->executeSync();
+        $this->assertTrue($addInputsResponse->isSuccessful());
+
+        try {
+            $response = $this->client->searchInputs(SearchBy::metadata(['key2' => $randomVal]))
+                ->executeSync();
+
+            $this->assertTrue($response->isSuccessful());
+
+            /** @var SearchInputsResult $searchResult */
+            $searchResult = $response->get();
+
+            // Exactly one hit should have this exact key/value pair metadata.
+            $this->assertEquals(1, count($searchResult->searchHits()));
         } finally {
             $id = $addInputsResponse->get()[0]->id();
             $deleteInputsResponse = $this->client->deleteInputs($id)

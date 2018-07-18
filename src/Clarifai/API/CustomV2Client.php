@@ -119,7 +119,6 @@ class CustomGrpcRequest {
 
     public function wait()
     {
-
         switch ($this->requestMethod) {
             case RequestMethod::GET: {
                 list($rawBody, $httpStatusCode) = $this->httpClient->getSync($this->url);

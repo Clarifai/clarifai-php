@@ -60,8 +60,6 @@ class ClarifaiURLVideo extends ClarifaiInput
             ->withPositiveConcepts($positiveConcepts)
             ->withNegativeConcepts($negativeConcepts);
 
-        // TODO(Rok) HIGH: Implement metadata deserialization.
-
         if (!is_null($videoResponse->getData()->getGeo())) {
             $video->withGeo(
                 GeoPoint::deserialize($videoResponse->getData()->getGeo()->getGeoPoint()));
