@@ -5,6 +5,7 @@ namespace Integration;
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\GeoPoint;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
+use Clarifai\DTOs\Inputs\ClarifaiInputsStatus;
 use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Inputs\ModifyAction;
 use Clarifai\DTOs\Predictions\Concept;
@@ -146,5 +147,31 @@ class InputIntTest extends BaseInt
                 ->executeSync();
             $this->assertTrue($response->isSuccessful());
         }
+    }
+
+    public function testDeleteAllInputs()
+    {
+        $inputID = $this->generateRandomID();
+
+        $addResponse = $this->client->addInputs(
+            (new ClarifaiURLImage(parent::CAT_IMG_URL))
+                ->withID($inputID)
+                ->withAllowDuplicateUrl(true))
+            ->executeSync();
+        $this->assertTrue($addResponse->isSuccessful());
+
+        sleep(2);
+
+        $deleteResponse = $this->client
+            ->deleteInputs([], true)
+            ->executeSync();
+        $this->assertTrue($deleteResponse->isSuccessful());
+
+        $getResponse = $this->client
+            ->getInputs()
+            ->executeSync();
+        $this->assertTrue($getResponse->isSuccessful());
+
+        $this->assertEquals(0, count($getResponse->get()));
     }
 }
