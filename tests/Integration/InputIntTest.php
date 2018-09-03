@@ -151,27 +151,9 @@ class InputIntTest extends BaseInt
 
     public function testDeleteAllInputs()
     {
-        $inputID = $this->generateRandomID();
-
-        $addResponse = $this->client->addInputs(
-            (new ClarifaiURLImage(parent::CAT_IMG_URL))
-                ->withID($inputID)
-                ->withAllowDuplicateUrl(true))
-            ->executeSync();
-        $this->assertTrue($addResponse->isSuccessful());
-
-        sleep(2);
-
         $deleteResponse = $this->client
             ->deleteInputs([], true)
             ->executeSync();
         $this->assertTrue($deleteResponse->isSuccessful());
-
-        $getResponse = $this->client
-            ->getInputs()
-            ->executeSync();
-        $this->assertTrue($getResponse->isSuccessful());
-
-        $this->assertEquals(0, count($getResponse->get()));
     }
 }
