@@ -6,4 +6,4 @@ php:
   - nightly
 
 install: composer install
-script: phpunit -c phpunit.xml
+script: phpunit -c phpunit.xml -v
