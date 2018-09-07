@@ -139,7 +139,8 @@ class BatchPredictRequest extends ClarifaiRequest
     {
         $outputs = [];
         foreach ($response->getOutputs() as $output) {
-            array_push($outputs, ClarifaiOutput::deserialize($this->modelType, $output));
+            array_push($outputs,
+                ClarifaiOutput::deserialize($this->client, $this->modelType, $output));
         }
         return $outputs;
     }

@@ -76,6 +76,6 @@ class WorkflowPredictRequest extends ClarifaiRequest
      */
     protected function unmarshaller($response)
     {
-        return WorkflowPredictResult::deserialize($response);
+        return WorkflowPredictResult::deserialize($this->client, $response);
     }
 }

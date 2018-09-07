@@ -2,6 +2,7 @@
 
 namespace Clarifai\DTOs\Workflows;
 
+use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\ClarifaiStatus;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Models\ModelType;
@@ -52,9 +53,12 @@ class WorkflowResult
     }
 
     /**
+     * @param ClarifaiClientInterface $client
      * @param _WorkflowResult $workflowResultResponse
+     * @return WorkflowResult
+     * @throws \Clarifai\Exceptions\ClarifaiException
      */
-    public static function deserialize($workflowResultResponse)
+    public static function deserialize(ClarifaiClientInterface $client, $workflowResultResponse)
     {
         $status = ClarifaiStatus::deserialize($workflowResultResponse->getStatus());
         $input = ClarifaiInput::deserialize($workflowResultResponse->getInput());
@@ -66,7 +70,7 @@ class WorkflowResult
             $modelType = ModelType::determineModelType($model->getOutputInfo()->getTypeExt());
 
             array_push($predictions,
-                ClarifaiOutput::deserialize($modelType, $output));
+                ClarifaiOutput::deserialize($client, $modelType, $output));
         }
 
         return new WorkflowResult($status, $input, $predictions);

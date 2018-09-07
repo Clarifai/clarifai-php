@@ -23,9 +23,14 @@ class WorkflowIntTest extends BaseInt
 
         $this->assertEquals(2, count($predictions));
         $this->assertNotNull($predictions[0]->id());
-        $this->assertNotNull($predictions[1]->id());
         $this->assertNotNull($predictions[0]->data());
+        $this->assertNotNull($predictions[0]->createdAt());
+        $this->assertNotNull($predictions[0]->model()->modelID());
+        $this->assertNotNull($predictions[0]->status()->statusCode());
+
+        $this->assertNotNull($predictions[1]->id());
         $this->assertNotNull($predictions[1]->data());
+
     }
 
     public function testWorkflowBatchPredict()
@@ -45,8 +50,12 @@ class WorkflowIntTest extends BaseInt
 
         $this->assertEquals(2, count($predictions));
         $this->assertNotNull($predictions[0]->id());
-        $this->assertNotNull($predictions[1]->id());
         $this->assertNotNull($predictions[0]->data());
+        $this->assertNotNull($predictions[0]->createdAt());
+        $this->assertNotNull($predictions[0]->model()->modelID());
+        $this->assertNotNull($predictions[0]->status()->statusCode());
+
+        $this->assertNotNull($predictions[1]->id());
         $this->assertNotNull($predictions[1]->data());
     }
 }

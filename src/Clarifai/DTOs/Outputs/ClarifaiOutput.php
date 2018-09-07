@@ -1,6 +1,10 @@
 <?php
 namespace Clarifai\DTOs\Outputs;
 
+use Clarifai\API\ClarifaiClient;
+use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\DTOs\ClarifaiStatus;
+use Clarifai\DTOs\Models\Model;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Predictions\Color;
 use Clarifai\DTOs\Predictions\Concept;
@@ -19,12 +23,18 @@ use Clarifai\Internal\_Output;
 class ClarifaiOutput
 {
     private $id;
+    private $createdAt;
+    private $model;
     private $predictions;
+    private $status;
 
-    protected function __construct($id, $predictions)
+    protected function __construct($id, $createdAt, $model, $predictions, $status)
     {
         $this->id = $id;
+        $this->createdAt = $createdAt;
+        $this->model = $model;
         $this->predictions = $predictions;
+        $this->status = $status;
     }
 
     public function id()
@@ -32,20 +42,39 @@ class ClarifaiOutput
         return $this->id;
     }
 
+    public function createdAt() {
+        return $this->createdAt;
+    }
+
+    public function model() {
+        return $this->model;
+    }
+
     public function data() {
         return $this->predictions;
     }
 
+    public function status() {
+        return $this->status;
+    }
+
     /**
+     * @param ClarifaiClientInterface $client
      * @param ModelType $modelType
      * @param _Output $outputResponse
      * @return ClarifaiOutput
      * @throws ClarifaiException
      */
-    public static function deserialize(ModelType $modelType, $outputResponse)
+    public static function deserialize(ClarifaiClientInterface $client, ModelType $modelType,
+        $outputResponse)
     {
-        $predictions = self::deserializePredictions($modelType, $outputResponse);
-        return new ClarifaiOutput($outputResponse->getId(), $predictions);
+        return new ClarifaiOutput(
+            $outputResponse->getId(),
+            $outputResponse->getCreatedAt()->toDateTime(),
+            Model::deserialize($client, $modelType, $outputResponse->getModel()),
+            self::deserializePredictions($modelType, $outputResponse),
+            ClarifaiStatus::deserialize($outputResponse->getStatus())
+        );
     }
 
     private static function deserializePredictions(ModelType $modelType, $outputResponse)

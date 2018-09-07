@@ -8,6 +8,7 @@ use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Inputs\ClarifaiURLVideo;
 use Clarifai\DTOs\Models\ConceptModel;
 use Clarifai\DTOs\Models\ModelType;
+use Clarifai\DTOs\Outputs\ClarifaiOutput;
 use Clarifai\DTOs\Predictions\Concept;
 
 class PredictIntTest extends BaseInt
@@ -18,9 +19,17 @@ class PredictIntTest extends BaseInt
         $response = $this->client->predict(ModelType::concept(), $modelID,
             new ClarifaiURLImage(parent::FOCUS_IMG_URL))
             ->executeSync();
-        $this->assertNotNull($response->get());
-        $this->assertNotNull($response->get()->id());
-        $this->assertNotNull($response->get()->data()[0]->name());
+
+        /** @var ClarifaiOutput $output */
+        $output = $response->get();
+
+        $this->assertNotNull($output);
+        $this->assertNotNull($output->id());
+        $this->assertNotNull($output->data()[0]->name());
+
+        $this->assertNotNull($output->createdAt());
+        $this->assertNotNull($output->model()->modelID());
+        $this->assertNotNull($output->status()->statusCode());
     }
 
     public function testPredictURLImageWithCrop()

@@ -135,7 +135,7 @@ class PredictRequest extends ClarifaiRequest
         $outputResponses = $response->getOutputs();
         if ($outputResponses != null && count($outputResponses) === 1) {
             $outputResponse = $outputResponses[0];
-            return ClarifaiOutput::deserialize($this->modelType, $outputResponse);
+            return ClarifaiOutput::deserialize($this->client, $this->modelType, $outputResponse);
         }
         throw new ClarifaiException('There should be a single output.');
     }

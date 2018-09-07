@@ -2,6 +2,7 @@
 
 namespace Clarifai\DTOs\Workflows;
 
+use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\Internal\_PostWorkflowResultsResponse;
 
 class WorkflowPredictResult
@@ -32,16 +33,17 @@ class WorkflowPredictResult
     }
 
     /**
+     * @param ClarifaiClientInterface $client
      * @param _PostWorkflowResultsResponse $response
      * @return WorkflowPredictResult
      */
-    public static function deserialize($response)
+    public static function deserialize(ClarifaiClientInterface $client, $response)
     {
         return new WorkflowPredictResult(
             !is_null($response->getWorkflow())
                 ? Workflow::deserialize($response->getWorkflow())
                 : null,
-            WorkflowResult::deserialize($response->getResults()[0]));
+            WorkflowResult::deserialize($client, $response->getResults()[0]));
     }
 
 }
