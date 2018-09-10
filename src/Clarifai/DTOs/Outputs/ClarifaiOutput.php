@@ -4,6 +4,7 @@ namespace Clarifai\DTOs\Outputs;
 use Clarifai\API\ClarifaiClient;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\ClarifaiStatus;
+use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Models\Model;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Predictions\Color;
@@ -25,14 +26,16 @@ class ClarifaiOutput
     private $id;
     private $createdAt;
     private $model;
+    private $input;
     private $predictions;
     private $status;
 
-    protected function __construct($id, $createdAt, $model, $predictions, $status)
+    protected function __construct($id, $createdAt, $model, $input, $predictions, $status)
     {
         $this->id = $id;
         $this->createdAt = $createdAt;
         $this->model = $model;
+        $this->input = $input;
         $this->predictions = $predictions;
         $this->status = $status;
     }
@@ -48,6 +51,10 @@ class ClarifaiOutput
 
     public function model() {
         return $this->model;
+    }
+
+    public function input() {
+        return $this->input;
     }
 
     public function data() {
@@ -72,6 +79,9 @@ class ClarifaiOutput
             $outputResponse->getId(),
             $outputResponse->getCreatedAt()->toDateTime(),
             Model::deserialize($client, $modelType, $outputResponse->getModel()),
+            $outputResponse->getInput() ?
+                ClarifaiInput::deserialize($outputResponse->getInput()) :
+                null,
             self::deserializePredictions($modelType, $outputResponse),
             ClarifaiStatus::deserialize($outputResponse->getStatus())
         );

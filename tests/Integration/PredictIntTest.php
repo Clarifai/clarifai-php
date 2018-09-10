@@ -29,6 +29,8 @@ class PredictIntTest extends BaseInt
 
         $this->assertNotNull($output->createdAt());
         $this->assertNotNull($output->model()->modelID());
+        $this->assertNotNull($output->input()->id());
+        $this->assertNotNull($output->input()->url());
         $this->assertNotNull($output->status()->statusCode());
     }
 
