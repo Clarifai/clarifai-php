@@ -1,3 +1,9 @@
+## [[0.4.0]](https://github.com/Clarifai/clarifai-php/releases/tag/0.4.0) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.4.0) - 2018-10-18
+
+### Added
+- Moderation solution.
+
+
 ## [[0.3.0]](https://github.com/Clarifai/clarifai-php/releases/tag/0.3.0) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.3.0) - 2018-09-10
 
 ### Added
