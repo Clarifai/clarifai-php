@@ -5,6 +5,7 @@ namespace Clarifai\DTOs\Models;
 use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\ConceptOutputInfo;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\Helpers\DateTimeHelper;
 use Clarifai\Internal\_Data;
 use Clarifai\Internal\_Model;
 use Clarifai\Internal\_OutputConfig;
@@ -114,5 +115,19 @@ class ConceptModel extends Model
             ->withAppID($modelResponse->getAppId())
             ->withOutputInfo(ConceptOutputInfo::deserialize($modelResponse->getOutputInfo()))
             ->withModelVersion(ModelVersion::deserialize($modelResponse->getModelVersion()));
+    }
+
+    /**
+     * @param ClarifaiClientInterface $client
+     * @param array $jsonObject
+     * @return ConceptModel
+     */
+    public static function deserializeJsonInner(ClarifaiClientInterface $client, $jsonObject) {
+        return (new ConceptModel($client, $jsonObject['id']))
+            ->withName($jsonObject['name'])
+            ->withCreatedAt(DateTimeHelper::parseDateTime($jsonObject['created_at']))
+            ->withAppID($jsonObject['app_id'])
+            ->withOutputInfo(ConceptOutputInfo::deserializeJson($jsonObject['output_info']))
+            ->withModelVersion(ModelVersion::deserializeJson($jsonObject['model_version']));
     }
 }

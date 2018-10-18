@@ -128,4 +128,14 @@ class ConceptOutputInfo implements OutputInfoInterface
             $outputInfoResponse->getTypeExt(), $outputInfoResponse->getMessage(), $concepts,
             $areConceptsMutuallyExclusive, $isEnvironmentClosed, $language);
     }
+
+    /**
+     * @param array $jsonObject
+     * @return ConceptOutputInfo
+     */
+    public static function deserializeJson($jsonObject)
+    {
+        return new ConceptOutputInfo($jsonObject['type'], $jsonObject['type_ext'],
+            $jsonObject['message'], [], false, false, '');
+    }
 }

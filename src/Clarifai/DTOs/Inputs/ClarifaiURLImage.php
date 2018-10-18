@@ -95,9 +95,9 @@ class ClarifaiURLImage extends ClarifaiInput
         }
 
         if (!is_null($data->getMetadata())) {
-            $a = new ProtobufHelper();
+            $protobufHelper = new ProtobufHelper();
 
-            $image->withMetadata($a->structToArray($data->getMetadata()));
+            $image->withMetadata($protobufHelper->structToArray($data->getMetadata()));
         }
 
         if (!is_null($data->getGeo())) {
@@ -110,5 +110,16 @@ class ClarifaiURLImage extends ClarifaiInput
         }
 
         return $image;
+    }
+
+    /**
+     * @param array $jsonObject
+     * @return ClarifaiInput
+     */
+    public static function deserializeJson($jsonObject)
+    {
+        // These are the only currently supported fields in moderation solution.
+        return (new ClarifaiURLImage($jsonObject['data']['image']['url']))
+            ->withID($jsonObject['id']);
     }
 }

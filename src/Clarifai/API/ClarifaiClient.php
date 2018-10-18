@@ -37,10 +37,12 @@ use Clarifai\API\Requests\Models\WorkflowPredictRequest;
 use Clarifai\DTOs\Inputs\ModifyAction;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Models\PublicModels;
+use Clarifai\Solutions\Solutions;
 
 class ClarifaiClient implements ClarifaiClientInterface
 {
     private $httpClient;
+    private $apiKey;
     private $publicModels;
 
     /**
@@ -59,6 +61,7 @@ class ClarifaiClient implements ClarifaiClientInterface
         } else {
             $this->httpClient = $customHttpClient;
         }
+        $this->apiKey = $apiKey;
 
         $this->publicModels = new PublicModels($this);
     }
@@ -77,6 +80,14 @@ class ClarifaiClient implements ClarifaiClientInterface
     public function publicModels()
     {
         return $this->publicModels;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function solutions()
+    {
+        return new Solutions($this->apiKey);
     }
 
     /**

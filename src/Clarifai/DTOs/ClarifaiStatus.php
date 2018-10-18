@@ -66,7 +66,7 @@ class ClarifaiStatus
 
     private $errorDetails;
     /**
-     * @return string The error details.
+     * @return string|null The error details.
      */
     public function errorDetails() { return $this->errorDetails; }
 
@@ -93,19 +93,43 @@ class ClarifaiStatus
     public static function deserialize($statusResponse, $httpStatusCode = 200)
     {
         if (200 <= $httpStatusCode && $httpStatusCode < 300) {
-            if ($statusResponse->getCode() === 10010)
-            {
+            if ($statusResponse->getCode() === 10010) {
                 $statusType = StatusType::mixedSuccess();
-            }
-            else
-            {
+            } else {
                 $statusType = StatusType::successful();
             }
         } else {
             $statusType = StatusType::failure();
         }
+        return new ClarifaiStatus(
+            $statusType,
+            $statusResponse->getCode(),
+            $statusResponse->getDescription(),
+            $statusResponse->getDetails()
+        );
+    }
 
-        return new ClarifaiStatus($statusType, $statusResponse->getCode(),
-            $statusResponse->getDescription(), $statusResponse->getDetails());
+    /**
+     * @param array $jsonObject The response JSON object.
+     * @param int $httpStatusCode The HTTP status code.
+     * @return ClarifaiStatus The ClarifaiStatus object.
+     */
+    public static function deserializeJson($jsonObject, $httpStatusCode = 200)
+    {
+        if (200 <= $httpStatusCode && $httpStatusCode < 300) {
+            if ($jsonObject['code'] === 10010) {
+                $statusType = StatusType::mixedSuccess();
+            } else {
+                $statusType = StatusType::successful();
+            }
+        } else {
+            $statusType = StatusType::failure();
+        }
+        return new ClarifaiStatus(
+            $statusType,
+            $jsonObject['code'],
+            $jsonObject['descriptions'],
+            array_key_exists('details', $jsonObject) ? $jsonObject['details'] : null
+        );
     }
 }

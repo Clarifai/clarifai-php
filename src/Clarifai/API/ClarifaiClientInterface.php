@@ -40,6 +40,7 @@ use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Models\PublicModels;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\DTOs\Searches\SearchBy;
+use Clarifai\Solutions\Solutions;
 
 interface ClarifaiClientInterface
 {
@@ -52,6 +53,11 @@ interface ClarifaiClientInterface
      * @return PublicModels All public models.
      */
     public function publicModels();
+
+    /**
+     * @return Solutions All available solutions.
+     */
+    public function solutions();
 
     /**
      * @param ModelType $type The model type.

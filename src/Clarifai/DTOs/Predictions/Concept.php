@@ -1,6 +1,7 @@
 <?php
 namespace Clarifai\DTOs\Predictions;
 
+use Clarifai\Helpers\DateTimeHelper;
 use Clarifai\Internal\_Concept;
 
 /**
@@ -86,5 +87,23 @@ class Concept implements PredictionInterface
             ->withValue($conceptResponse->getValue())
             ->withCreatedAt($createdAt)
             ->withAppID($conceptResponse->getAppId());
+    }
+
+    /**
+     * @param array $jsonObject
+     * @return Concept
+     */
+    public static function deserializeJson($jsonObject)
+    {
+        $createdAt = null;
+        if (array_key_exists('created_at', $jsonObject)) {
+            $createdAt = DateTimeHelper::parseDateTime($jsonObject['created_at']);
+        }
+        return (new Concept($jsonObject['id']))
+            ->withName($jsonObject['name'])
+            ->withLanguage($jsonObject['language'])
+            ->withValue($jsonObject['value'])
+            ->withCreatedAt($createdAt)
+            ->withAppID($jsonObject['app_id']);
     }
 }

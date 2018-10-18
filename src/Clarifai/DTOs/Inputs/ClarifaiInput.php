@@ -193,4 +193,15 @@ abstract class ClarifaiInput
             throw new ClarifaiException("Unknown ClarifaiInput type. Neither image or video.");
         }
     }
+
+    /**
+     * @param array $jsonObject
+     * @return ClarifaiInput Serialized input.
+     */
+    public static function deserializeJson($jsonObject)
+    {
+        // Currently, the moderation solution, which calls this function, only supports an URL
+        // image, so it's the only one we need to deserialize.
+        return ClarifaiURLImage::deserializeJson($jsonObject);
+    }
 }

@@ -12,6 +12,7 @@ class ModelTrainingStatus
     const UNKNOWN_STATUS_CODE = -1;
 
     private $statusCode;
+
     /**
      * @return int the status code
      */
@@ -128,12 +129,32 @@ class ModelTrainingStatus
      */
     public static function deserialize($statusResponse)
     {
-        $statusCode = $statusResponse->getCode();
+        return self::innerDeserialize(
+            $statusResponse->getCode(), $statusResponse->getDescription()
+        );
+    }
+
+    /**
+     * @param array $jsonObject
+     * @return ModelTrainingStatus
+     */
+    public static function deserializeJson($jsonObject)
+    {
+        return self::innerDeserialize($jsonObject['code'], $jsonObject['description']);
+    }
+
+    /**
+     * @param $statusCode
+     * @param $description
+     * @return ModelTrainingStatus
+     */
+    private static function innerDeserialize($statusCode, $description): ModelTrainingStatus
+    {
         if (!(21100 <= $statusCode && $statusCode <= 21103 ||
             21110 <= $statusCode && $statusCode <= 21115)) {
             $statusCode = ModelTrainingStatus::UNKNOWN_STATUS_CODE;
         }
-        return new ModelTrainingStatus($statusCode, $statusResponse->getDescription());
+        return new ModelTrainingStatus($statusCode, $description);
     }
 
     public function __toString()

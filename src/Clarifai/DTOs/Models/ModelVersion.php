@@ -2,6 +2,7 @@
 
 namespace Clarifai\DTOs\Models;
 
+use Clarifai\Helpers\DateTimeHelper;
 use Clarifai\Internal\_ModelVersion;
 
 class ModelVersion
@@ -83,5 +84,21 @@ class ModelVersion
             $modelVersionResponse->getActiveConceptCount(),
             $modelVersionResponse->getTotalInputCount(),
             $modelMetricsStatus);
+    }
+
+    /**
+     * @param array $jsonObject
+     * @return ModelVersion
+     */
+    public static function deserializeJson($jsonObject)
+    {
+        return new ModelVersion(
+            $jsonObject['id'],
+            DateTimeHelper::parseDateTime($jsonObject['created_at']),
+            ModelTrainingStatus::deserializeJson($jsonObject['status']),
+            -1,
+            -1,
+            null
+        );
     }
 }

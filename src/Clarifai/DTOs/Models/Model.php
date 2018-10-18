@@ -112,6 +112,12 @@ abstract class Model
         }
     }
 
+    public static function deserializeJson(ClarifaiClientInterface $client, $type, $jsonObject)
+    {
+        // Only concept model is currently supported in moderation solution.
+        return ConceptModel::deserializeJsonInner($client, $jsonObject);
+    }
+
     /**
      * @return ModelType The model type.
      */
