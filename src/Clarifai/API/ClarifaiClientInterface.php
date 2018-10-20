@@ -181,7 +181,7 @@ interface ClarifaiClientInterface
     /**
      * Adds inputs.
      *
-     * @param $inputs
+     * @param ClarifaiClient|ClarifaiInput[] $inputs
      * @return AddInputsRequest A new instance.
      */
     public function addInputs($inputs);

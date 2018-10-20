@@ -16,6 +16,7 @@ use Clarifai\DTOs\Predictions\FaceEmbedding;
 use Clarifai\DTOs\Predictions\Focus;
 use Clarifai\DTOs\Predictions\Frame;
 use Clarifai\DTOs\Predictions\Logo;
+use Clarifai\DTOs\Predictions\PredictionInterface;
 use Clarifai\Exceptions\ClarifaiException;
 use Clarifai\Internal\_Data;
 use Clarifai\Internal\_Output;
@@ -23,11 +24,40 @@ use Clarifai\Internal\_Output;
 class ClarifaiOutput
 {
     private $id;
+    /**
+     * @return string
+     */
+    public function id() { return $this->id; }
+
     private $createdAt;
+    /**
+     * @return \DateTime
+     */
+    public function createdAt() { return $this->createdAt; }
+
     private $model;
+    /**
+     * @return Model
+     */
+    public function model() { return $this->model; }
+
     private $input;
+    /**
+     * @return ClarifaiInput
+     */
+    public function input() { return $this->input; }
+
     private $predictions;
+    /**
+     * @return PredictionInterface[]
+     */
+    public function data() { return $this->predictions; }
+
     private $status;
+    /**
+     * @return ClarifaiStatus
+     */
+    public function status() { return $this->status; }
 
     protected function __construct($id, $createdAt, $model, $input, $predictions, $status)
     {
@@ -37,31 +67,6 @@ class ClarifaiOutput
         $this->input = $input;
         $this->predictions = $predictions;
         $this->status = $status;
-    }
-
-    public function id()
-    {
-        return $this->id;
-    }
-
-    public function createdAt() {
-        return $this->createdAt;
-    }
-
-    public function model() {
-        return $this->model;
-    }
-
-    public function input() {
-        return $this->input;
-    }
-
-    public function data() {
-        return $this->predictions;
-    }
-
-    public function status() {
-        return $this->status;
     }
 
     /**
