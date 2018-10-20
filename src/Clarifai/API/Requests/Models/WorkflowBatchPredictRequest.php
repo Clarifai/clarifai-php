@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -33,13 +33,13 @@ class WorkflowBatchPredictRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $workflowID
      * @param ClarifaiInput[] $inputs
      */
-    public function __construct(ClarifaiClientInterface $client, $workflowID, $inputs)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $workflowID, $inputs)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->workflowID = $workflowID;
         $this->inputs = $inputs;
     }
@@ -86,6 +86,6 @@ class WorkflowBatchPredictRequest extends ClarifaiRequest
      */
     protected function unmarshaller($response)
     {
-        return WorkflowBatchPredictResult::deserialize($this->client, $response);
+        return WorkflowBatchPredictResult::deserialize($this->httpClient, $response);
     }
 }

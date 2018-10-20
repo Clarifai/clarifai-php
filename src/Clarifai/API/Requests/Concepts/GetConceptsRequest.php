@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Concepts;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -13,9 +13,13 @@ use Clarifai\Internal\_MultiConceptResponse;
 class GetConceptsRequest extends ClarifaiRequest
 {
 
-    public function __construct(ClarifaiClientInterface $client)
+    /**
+     * Ctor.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
+     */
+    public function __construct(ClarifaiHttpClientInterface $httpClient)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
     }
 
     protected function requestMethod()

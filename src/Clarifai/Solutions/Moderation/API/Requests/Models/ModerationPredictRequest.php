@@ -2,7 +2,7 @@
 
 namespace Clarifai\Solutions\Moderation\API\Requests\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiJsonRequest;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
@@ -17,14 +17,14 @@ class ModerationPredictRequest extends ClarifaiJsonRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $modelID The model ID.
      * @param ClarifaiInput $input The input.
      */
-    public function __construct(ClarifaiClientInterface $client, $modelID,
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $modelID,
         ClarifaiInput $input)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->modelID = $modelID;
         $this->input = $input;
     }
@@ -65,7 +65,7 @@ class ModerationPredictRequest extends ClarifaiJsonRequest
         $outputs = $jsonObject['outputs'];
         if ($outputs != null && count($outputs) === 1) {
             $output = $outputs[0];
-            return ModerationOutput::deserialize($this->client, $output);
+            return ModerationOutput::deserialize($this->httpClient, $output);
         }
         throw new ClarifaiException('There should be a single output.');
     }

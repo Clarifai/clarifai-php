@@ -1,7 +1,7 @@
 <?php
 namespace Clarifai\API\Requests;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\ClarifaiResponse;
 use Clarifai\API\RequestMethod;
 use Clarifai\DTOs\ClarifaiStatus;
@@ -11,13 +11,13 @@ use Clarifai\Exceptions\ClarifaiException;
 abstract class ClarifaiJsonRequest
 {
     /**
-     * @var ClarifaiClientInterface the Clarifai client
+     * @var ClarifaiHttpClientInterface The Clarifai HTTP client.
      */
-    protected $client;
+    protected $httpClient;
 
-    protected function __construct(ClarifaiClientInterface $client)
+    protected function __construct(ClarifaiHttpClientInterface $httpClient)
     {
-        $this->client = $client;
+        $this->httpClient = $httpClient;
     }
 
     protected abstract function requestMethod();
@@ -74,21 +74,21 @@ abstract class ClarifaiJsonRequest
         {
             case RequestMethod::GET:
             {
-                return $this->client->httpClient()->getSync($this->url());
+                return $this->httpClient->getSync($this->url());
             }
             case RequestMethod::POST:
             {
-                return $this->client->httpClient()->postSync($this->url(),
+                return $this->httpClient->postSync($this->url(),
                     $this->httpRequestBody());
             }
             case RequestMethod::PATCH:
             {
-                return $this->client->httpClient()->patchSync($this->url(),
+                return $this->httpClient->patchSync($this->url(),
                     $this->httpRequestBody());
             }
             case RequestMethod::DELETE:
             {
-                return $this->client->httpClient()->deleteSync($this->url(),
+                return $this->httpClient->deleteSync($this->url(),
                     $this->httpRequestBody());
             }
             default:

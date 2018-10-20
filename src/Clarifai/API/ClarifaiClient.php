@@ -44,6 +44,7 @@ class ClarifaiClient implements ClarifaiClientInterface
     private $httpClient;
     private $apiKey;
     private $publicModels;
+    private $solutions;
 
     /**
      * Ctor.
@@ -63,7 +64,8 @@ class ClarifaiClient implements ClarifaiClientInterface
         }
         $this->apiKey = $apiKey;
 
-        $this->publicModels = new PublicModels($this);
+        $this->publicModels = new PublicModels($this->httpClient);
+        $this->solutions = new Solutions($this->apiKey);
     }
 
     /**
@@ -87,7 +89,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function solutions()
     {
-        return new Solutions($this->apiKey);
+        return $this->solutions;
     }
 
     /**
@@ -95,7 +97,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function getModel($type, $modelID)
     {
-        return new GetModelRequest($this, $type, $modelID);
+        return new GetModelRequest($this->httpClient, $type, $modelID);
     }
 
     /**
@@ -103,7 +105,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function getModels()
     {
-        return new GetModelsRequest($this);
+        return new GetModelsRequest($this->httpClient);
     }
 
     /**
@@ -111,7 +113,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function createModel($modelID)
     {
-        return new CreateModelRequest($this, $modelID);
+        return new CreateModelRequest($this->httpClient, $modelID);
     }
 
     /**
@@ -119,7 +121,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function createModelGeneric($modelID)
     {
-        return new CreateModelGenericRequest($this, $modelID);
+        return new CreateModelGenericRequest($this->httpClient, $modelID);
     }
 
     /**
@@ -127,7 +129,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function modifyModel($modelID)
     {
-        return new ModifyModelRequest($this, $modelID);
+        return new ModifyModelRequest($this->httpClient, $modelID);
     }
 
     /**
@@ -135,7 +137,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function deleteModel($modelID)
     {
-        return new DeleteModelRequest($this, $modelID);
+        return new DeleteModelRequest($this->httpClient, $modelID);
     }
 
     /**
@@ -144,7 +146,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function deleteModels($modelIDs)
     {
-        return new DeleteModelsRequest($this, $modelIDs, false);
+        return new DeleteModelsRequest($this->httpClient, $modelIDs, false);
     }
 
     /**
@@ -153,7 +155,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function deleteAllModels()
     {
-        return new DeleteModelsRequest($this, [], true);
+        return new DeleteModelsRequest($this->httpClient, [], true);
     }
 
     /**
@@ -161,7 +163,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function trainModel($type, $modelID)
     {
-        return new TrainModelRequest($this, $type, $modelID);
+        return new TrainModelRequest($this->httpClient, $type, $modelID);
     }
 
     /**
@@ -169,7 +171,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function modelEvaluation($modelID, $modelVersionID)
     {
-        return new ModelEvaluationRequest($this, $modelID, $modelVersionID);
+        return new ModelEvaluationRequest($this->httpClient, $modelID, $modelVersionID);
     }
 
     /**
@@ -177,7 +179,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function getModelVersions($modelID)
     {
-        return new GetModelVersionsRequest($this, $modelID);
+        return new GetModelVersionsRequest($this->httpClient, $modelID);
     }
 
     /**
@@ -185,7 +187,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function getModelVersion($modelID, $modelVersionID)
     {
-        return new GetModelVersionRequest($this, $modelID, $modelVersionID);
+        return new GetModelVersionRequest($this->httpClient, $modelID, $modelVersionID);
     }
 
     /**
@@ -193,7 +195,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function deleteModelVersion($modelID, $modelVersionID)
     {
-        return new DeleteModelVersionRequest($this, $modelID, $modelVersionID);
+        return new DeleteModelVersionRequest($this->httpClient, $modelID, $modelVersionID);
     }
 
     /**
@@ -201,7 +203,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function addConcepts($concepts)
     {
-        return new AddConceptsRequest($this, $concepts);
+        return new AddConceptsRequest($this->httpClient, $concepts);
     }
 
     /**
@@ -209,7 +211,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function getConcept($conceptID)
     {
-        return new GetConceptRequest($this, $conceptID);
+        return new GetConceptRequest($this->httpClient, $conceptID);
     }
 
     /**
@@ -217,7 +219,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function getConcepts()
     {
-        return new GetConceptsRequest($this);
+        return new GetConceptsRequest($this->httpClient);
     }
 
     /**
@@ -225,7 +227,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function modifyConcepts($concepts)
     {
-        return new ModifyConceptsRequest($this, $concepts);
+        return new ModifyConceptsRequest($this->httpClient, $concepts);
     }
 
     /**
@@ -233,7 +235,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function searchConcepts($query)
     {
-        return new SearchConceptsRequest($this, $query);
+        return new SearchConceptsRequest($this->httpClient, $query);
     }
 
     /**
@@ -241,7 +243,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function addInputs($inputs)
     {
-        return new AddInputsRequest($this, $inputs);
+        return new AddInputsRequest($this->httpClient, $inputs);
     }
 
     /**
@@ -249,7 +251,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function modifyInput($inputID, ModifyAction $action)
     {
-        return new ModifyInputRequest($this, $inputID, $action);
+        return new ModifyInputRequest($this->httpClient, $inputID, $action);
     }
 
     /**
@@ -257,7 +259,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function getInput($inputID)
     {
-        return new GetInputRequest($this, $inputID);
+        return new GetInputRequest($this->httpClient, $inputID);
     }
 
     /**
@@ -265,7 +267,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function getInputs()
     {
-        return new GetInputsRequest($this);
+        return new GetInputsRequest($this->httpClient);
     }
 
     /**
@@ -273,7 +275,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function deleteInputs($inputIDs = [], $deleteAll = false)
     {
-        return new DeleteInputsRequest($this, $inputIDs, $deleteAll);
+        return new DeleteInputsRequest($this->httpClient, $inputIDs, $deleteAll);
     }
 
     /**
@@ -281,7 +283,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function getInputsStatus()
     {
-        return new GetInputsStatusRequest($this);
+        return new GetInputsStatusRequest($this->httpClient);
     }
 
     /**
@@ -289,7 +291,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function getModelInputs($modelID)
     {
-        return new GetModelInputsRequest($this, $modelID);
+        return new GetModelInputsRequest($this->httpClient, $modelID);
     }
 
     /**
@@ -297,7 +299,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function predict(ModelType $modelType, $modelID, $input)
     {
-        return new PredictRequest($this, $modelType, $modelID, $input);
+        return new PredictRequest($this->httpClient, $modelType, $modelID, $input);
     }
 
     /**
@@ -305,7 +307,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function batchPredict(ModelType $modelType, $modelID, $inputs)
     {
-        return new BatchPredictRequest($this, $modelType, $modelID, $inputs);
+        return new BatchPredictRequest($this->httpClient, $modelType, $modelID, $inputs);
     }
 
     /**
@@ -313,7 +315,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function workflowPredict($workflowID, $input)
     {
-        return new WorkflowPredictRequest($this, $workflowID, $input);
+        return new WorkflowPredictRequest($this->httpClient, $workflowID, $input);
     }
 
     /**
@@ -321,7 +323,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function workflowBatchPredict($workflowID, $inputs)
     {
-        return new WorkflowBatchPredictRequest($this, $workflowID, $inputs);
+        return new WorkflowBatchPredictRequest($this->httpClient, $workflowID, $inputs);
     }
 
     /**
@@ -329,7 +331,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function searchInputs($searchBys)
     {
-        return new SearchInputsRequest($this, $searchBys);
+        return new SearchInputsRequest($this->httpClient, $searchBys);
     }
 
     /**
@@ -337,7 +339,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function searchModels($name, $modelType = null)
     {
-        return new SearchModelsRequest($this, $name, $modelType);
+        return new SearchModelsRequest($this->httpClient, $name, $modelType);
     }
 
     /**
@@ -345,8 +347,8 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function modelFeedback($modelID, $imageURL, $inputID, $outputID, $endUserID, $sessionID)
     {
-        return new ModelFeedbackRequest($this, $modelID, $imageURL, $inputID, $outputID, $endUserID,
-            $sessionID);
+        return new ModelFeedbackRequest($this->httpClient, $modelID, $imageURL, $inputID, $outputID,
+            $endUserID, $sessionID);
     }
 
     /**
@@ -354,6 +356,7 @@ class ClarifaiClient implements ClarifaiClientInterface
      */
     public function searchesFeedback($inputID, $searchID, $endUserID, $sessionID)
     {
-        return new SearchesFeedbackRequest($this, $inputID, $searchID, $endUserID, $sessionID);
+        return new SearchesFeedbackRequest($this->httpClient, $inputID, $searchID, $endUserID,
+            $sessionID);
     }
 }

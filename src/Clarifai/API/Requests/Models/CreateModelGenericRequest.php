@@ -6,7 +6,7 @@ use Clarifai\DTOs\Models\Model;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Models\OutputInfos\OutputInfoInterface;
 use Clarifai\Exceptions\ClarifaiException;
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -38,12 +38,12 @@ class CreateModelGenericRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client the Clarifai client
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $modelID the model ID
      */
-    public function __construct(ClarifaiClientInterface $client, $modelID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $modelID)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->modelID = $modelID;
     }
 
@@ -86,6 +86,6 @@ class CreateModelGenericRequest extends ClarifaiRequest
             throw new ClarifaiException("Unknown model type '$typeExt'. Skipping.");
         }
 
-        return Model::deserialize($this->client, $modelType, $model);
+        return Model::deserialize($this->httpClient, $modelType, $model);
     }
 }

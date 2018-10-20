@@ -1,7 +1,7 @@
 <?php
 namespace Clarifai\API\Requests;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\ClarifaiResponse;
 use Clarifai\API\CustomV2Client;
 use Clarifai\DTOs\ClarifaiStatus;
@@ -10,13 +10,13 @@ use Clarifai\DTOs\StatusType;
 abstract class ClarifaiRequest
 {
     /**
-     * @var ClarifaiClientInterface the Clarifai client
+     * @var ClarifaiHttpClientInterface The Clarifai HTTP client.
      */
-    protected $client;
+    protected $httpClient;
 
-    protected function __construct(ClarifaiClientInterface $client)
+    protected function __construct(ClarifaiHttpClientInterface $httpClient)
     {
-        $this->client = $client;
+        $this->httpClient = $httpClient;
     }
 
     protected abstract function requestMethod();
@@ -52,7 +52,7 @@ abstract class ClarifaiRequest
     private function httpRequest()
     {
         return $this->httpRequestBody(new CustomV2Client(
-            $this->buildUrl(), $this->requestMethod(), $this->client->httpClient()));
+            $this->buildUrl(), $this->requestMethod(), $this->httpClient));
     }
 
     /**

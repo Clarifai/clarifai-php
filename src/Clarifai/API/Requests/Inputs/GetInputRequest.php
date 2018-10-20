@@ -2,8 +2,8 @@
 
 namespace Clarifai\API\Requests\Inputs;
 
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
-use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -16,12 +16,12 @@ class GetInputRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client the Clarifai client
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $inputID the input ID
      */
-    public function __construct(ClarifaiClientInterface $client, $inputID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $inputID)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->inputID = $inputID;
     }
 

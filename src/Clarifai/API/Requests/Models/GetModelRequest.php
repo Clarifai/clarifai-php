@@ -3,7 +3,7 @@
 namespace Clarifai\API\Requests\Models;
 
 use Clarifai\DTOs\Models\ModelType;
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -21,13 +21,13 @@ class GetModelRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param ModelType $type The prediction type.
      * @param string $modelID The model ID.
      */
-    public function __construct(ClarifaiClientInterface $client, $type, $modelID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $type, $modelID)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->type = $type;
         $this->modelID = $modelID;
     }
@@ -55,6 +55,6 @@ class GetModelRequest extends ClarifaiRequest
      */
     protected function unmarshaller($response)
     {
-        return Model::deserialize($this->client, $this->type, $response->getModel());
+        return Model::deserialize($this->httpClient, $this->type, $response->getModel());
     }
 }

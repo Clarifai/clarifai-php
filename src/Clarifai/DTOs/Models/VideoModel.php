@@ -3,8 +3,8 @@
 namespace Clarifai\DTOs\Models;
 
 use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\VideoOutputInfo;
-use Clarifai\Helpers\DateTimeHelper;
 use Clarifai\Internal\_Model;
 
 /**
@@ -25,9 +25,9 @@ class VideoModel extends Model
      */
     public function outputInfo() { return $this->outputInfo; }
 
-    public function __construct(ClarifaiClientInterface $client, $modelID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $modelID)
     {
-        parent::__construct($client, $modelID);
+        parent::__construct($httpClient, $modelID);
     }
 
     /**

@@ -10,7 +10,7 @@ use Clarifai\Solutions\Moderation\API\Requests\Models\ModerationPredictRequest;
 
 class Moderation
 {
-    private $client;
+    private $httpClient;
 
     /**
      * Ctor.
@@ -18,8 +18,7 @@ class Moderation
      */
     public function __construct($apiKey)
     {
-        $this->client = new ClarifaiClient(
-            null, new ClarifaiHttpClient($apiKey, 'https://api.clarifai-moderation.com'));
+        $this->httpClient = new ClarifaiHttpClient($apiKey, 'https://api.clarifai-moderation.com');
     }
 
     /**
@@ -31,7 +30,7 @@ class Moderation
      */
     public function predict($modelID, $input)
     {
-        return new ModerationPredictRequest($this->client, $modelID, $input);
+        return new ModerationPredictRequest($this->httpClient, $modelID, $input);
     }
 
     /**
@@ -40,6 +39,6 @@ class Moderation
      */
     public function getModerationStatus($inputID)
     {
-        return new GetModerationStatusRequest($this->client, $inputID);
+        return new GetModerationStatusRequest($this->httpClient, $inputID);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Clarifai\DTOs\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\ConceptOutputInfo;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\Helpers\DateTimeHelper;
@@ -33,12 +33,12 @@ class ConceptModel extends Model
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $modelID The model ID.
      */
-    public function __construct(ClarifaiClientInterface $client, $modelID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $modelID)
     {
-        parent::__construct($client, $modelID);
+        parent::__construct($httpClient, $modelID);
     }
 
     /**
@@ -104,12 +104,13 @@ class ConceptModel extends Model
     }
 
     /**
-     * @param ClarifaiClientInterface $client
+     * @param ClarifaiHttpClientInterface $httpClient
      * @param _Model $modelResponse
      * @return ConceptModel
      */
-    public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {
-        return (new ConceptModel($client, $modelResponse->getId()))
+    public static function deserializeInner(ClarifaiHttpClientInterface $httpClient,
+        $modelResponse) {
+        return (new ConceptModel($httpClient, $modelResponse->getId()))
             ->withName($modelResponse->getName())
             ->withCreatedAt($modelResponse->getCreatedAt()->toDateTime())
             ->withAppID($modelResponse->getAppId())
@@ -118,12 +119,13 @@ class ConceptModel extends Model
     }
 
     /**
-     * @param ClarifaiClientInterface $client
+     * @param ClarifaiHttpClientInterface $httpClient
      * @param array $jsonObject
      * @return ConceptModel
      */
-    public static function deserializeJsonInner(ClarifaiClientInterface $client, $jsonObject) {
-        return (new ConceptModel($client, $jsonObject['id']))
+    public static function deserializeJsonInner(ClarifaiHttpClientInterface $httpClient,
+        $jsonObject) {
+        return (new ConceptModel($httpClient, $jsonObject['id']))
             ->withName($jsonObject['name'])
             ->withCreatedAt(DateTimeHelper::parseDateTime($jsonObject['created_at']))
             ->withAppID($jsonObject['app_id'])

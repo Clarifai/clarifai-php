@@ -1,8 +1,7 @@
 <?php
 namespace Clarifai\DTOs\Outputs;
 
-use Clarifai\API\ClarifaiClient;
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\DTOs\ClarifaiStatus;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Models\Model;
@@ -66,13 +65,13 @@ class ClarifaiOutput
     }
 
     /**
-     * @param ClarifaiClientInterface $client
+     * @param ClarifaiHttpClientInterface $client
      * @param ModelType $modelType
      * @param _Output $outputResponse
      * @return ClarifaiOutput
      * @throws ClarifaiException
      */
-    public static function deserialize(ClarifaiClientInterface $client, ModelType $modelType,
+    public static function deserialize(ClarifaiHttpClientInterface $client, ModelType $modelType,
         $outputResponse)
     {
         return new ClarifaiOutput(

@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -23,13 +23,13 @@ class ModelEvaluationRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $modelID The model ID.
      * @param string $modelVersionID The model version ID.
      */
-    public function __construct(ClarifaiClientInterface $client, $modelID, $modelVersionID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $modelID, $modelVersionID)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->modelID = $modelID;
         $this->modelVersionID = $modelVersionID;
     }

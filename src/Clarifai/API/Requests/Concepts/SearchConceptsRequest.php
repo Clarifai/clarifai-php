@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Concepts;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiPaginatedRequest;
@@ -33,12 +33,12 @@ class SearchConceptsRequest extends ClarifaiPaginatedRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $query The query to search concepts by.
      */
-    public function __construct(ClarifaiClientInterface $client, $query)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $query)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->query = $query;
     }
 

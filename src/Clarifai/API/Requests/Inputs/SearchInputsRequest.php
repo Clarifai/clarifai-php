@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Inputs;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiPaginatedRequest;
@@ -37,13 +37,14 @@ class SearchInputsRequest extends ClarifaiPaginatedRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param SearchBy[]|SearchBy $searchBys The search clauses.
      * @param string|null $language The language.
      */
-    public function __construct(ClarifaiClientInterface $client, $searchBys, $language = null)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $searchBys,
+        $language = null)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->searchBys = is_array($searchBys) ? $searchBys : [$searchBys];
         $this->language = $language;
     }

@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Feedbacks;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -78,7 +78,7 @@ class ModelFeedbackRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai ID.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $modelID The model ID
      * @param string $imageURL The image URL.
      * @param string $inputID The input ID.
@@ -86,10 +86,10 @@ class ModelFeedbackRequest extends ClarifaiRequest
      * @param string $endUserID The end user ID.
      * @param string $sessionID The session ID.
      */
-    public function __construct(ClarifaiClientInterface $client, $modelID, $imageURL, $inputID,
-        $outputID, $endUserID, $sessionID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $modelID, $imageURL,
+        $inputID, $outputID, $endUserID, $sessionID)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->modelID = $modelID;
         $this->imageURL = $imageURL;
         $this->inputID = $inputID;

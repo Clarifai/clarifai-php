@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Inputs;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -18,14 +18,14 @@ class DeleteInputsRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client the Clarifai client
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string[]|string $inputIDs the input IDs
      * @param bool $deleteAll Whether to delete all inputs.
      * @throws ClarifaiException Throws when parameters are invalid.
      */
-    public function __construct(ClarifaiClientInterface $client, $inputIDs = [], $deleteAll = false)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $inputIDs = [], $deleteAll = false)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->inputIDs = is_array($inputIDs) ? $inputIDs : [$inputIDs];
         $this->deleteAll = $deleteAll;
         if ((count($this->inputIDs) > 0 && $deleteAll) ||

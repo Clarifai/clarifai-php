@@ -2,7 +2,7 @@
 
 namespace Clarifai\Solutions\Moderation\DTOs;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\DTOs\ClarifaiStatus;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Models\Model;
@@ -54,6 +54,16 @@ class ModerationOutput
      */
     public function moderationStatus() { return $this->moderationStatus; }
 
+    /**
+     * Ctor.
+     * @param string $id
+     * @param \DateTime $createdAt
+     * @param Model $model
+     * @param ClarifaiInput $input
+     * @param Concept[] $predictions
+     * @param ClarifaiStatus $status
+     * @param ModerationStatus $moderationStatus
+     */
     protected function __construct($id, $createdAt, $model, $input, $predictions, $status,
         $moderationStatus)
     {
@@ -67,11 +77,11 @@ class ModerationOutput
     }
 
     /**
-     * @param ClarifaiClientInterface $client
+     * @param ClarifaiHttpClientInterface $httpClient
      * @param array $jsonObject
      * @return ModerationOutput
      */
-    public static function deserialize(ClarifaiClientInterface $client, $jsonObject)
+    public static function deserialize(ClarifaiHttpClientInterface $httpClient, $jsonObject)
     {
         $data = $jsonObject['data'];
 
@@ -86,7 +96,7 @@ class ModerationOutput
         return new ModerationOutput(
             $jsonObject['id'],
             DateTimeHelper::parseDateTime($jsonObject['created_at']),
-            Model::deserializeJson($client, ModelType::concept(), $jsonObject['model']),
+            Model::deserializeJson($httpClient, ModelType::concept(), $jsonObject['model']),
             ClarifaiInput::deserializeJson($jsonObject['input']),
             $predictions,
             ClarifaiStatus::deserializeJson($jsonObject['status']),

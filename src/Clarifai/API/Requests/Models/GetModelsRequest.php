@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -17,11 +17,11 @@ class GetModelsRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      */
-    public function __construct(ClarifaiClientInterface $client)
+    public function __construct(ClarifaiHttpClientInterface $httpClient)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
     }
 
     protected function requestMethod()
@@ -57,7 +57,7 @@ class GetModelsRequest extends ClarifaiRequest
                 echo "Warning: Unknown model type '$typeExt'. Skipping.";
                 continue;
             }
-            array_push($models, Model::deserialize($this->client, $modelType, $model));
+            array_push($models, Model::deserialize($this->httpClient, $modelType, $model));
         }
         return $models;
     }

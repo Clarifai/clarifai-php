@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -68,12 +68,12 @@ class ModifyModelRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $modelID The model ID.
      */
-    public function __construct(ClarifaiClientInterface $client, $modelID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $modelID)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->modelID = $modelID;
     }
 
@@ -89,7 +89,7 @@ class ModifyModelRequest extends ClarifaiRequest
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $model = new ConceptModel($this->client, $this->modelID);
+        $model = new ConceptModel($this->httpClient, $this->modelID);
         if (!is_null($this->name)) {
             $model = $model->withName($this->name);
         }
@@ -107,7 +107,7 @@ class ModifyModelRequest extends ClarifaiRequest
      */
     protected function unmarshaller($response)
     {
-        return ConceptModel::deserialize($this->client, ModelType::concept(),
+        return ConceptModel::deserialize($this->httpClient, ModelType::concept(),
             $response->getModels()->offsetGet(0));
     }
 }

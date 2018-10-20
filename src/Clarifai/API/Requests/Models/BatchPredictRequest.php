@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -59,15 +59,15 @@ class BatchPredictRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param ModelType $modelType The model type.
      * @param string $modelID The model ID.
      * @param ClarifaiInput[] $inputs A list of inputs to run predictions on.
      */
-    public function __construct(ClarifaiClientInterface $client, ModelType $modelType, $modelID,
-        $inputs)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, ModelType $modelType,
+        $modelID, $inputs)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->modelType = $modelType;
         $this->modelID = $modelID;
         $this->inputs = $inputs;
@@ -140,7 +140,7 @@ class BatchPredictRequest extends ClarifaiRequest
         $outputs = [];
         foreach ($response->getOutputs() as $output) {
             array_push($outputs,
-                ClarifaiOutput::deserialize($this->client, $this->modelType, $output));
+                ClarifaiOutput::deserialize($this->httpClient, $this->modelType, $output));
         }
         return $outputs;
     }

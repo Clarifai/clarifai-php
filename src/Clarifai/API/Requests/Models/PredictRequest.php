@@ -1,7 +1,7 @@
 <?php
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -60,10 +60,17 @@ class PredictRequest extends ClarifaiRequest
      */
     public function withSelectConcepts($val) { $this->selectConcepts = $val; return $this; }
 
-    public function __construct(ClarifaiClientInterface $client, ModelType $modelType, $modelID,
-        ClarifaiInput $input)
+    /**
+     * Ctor.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
+     * @param ModelType $modelType The model type.
+     * @param string $modelID The model ID.
+     * @param ClarifaiInput $input The input.
+     */
+    public function __construct(ClarifaiHttpClientInterface $httpClient, ModelType $modelType,
+        $modelID, ClarifaiInput $input)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->modelID = $modelID;
         $this->modelType = $modelType;
         $this->input = $input;
@@ -135,7 +142,7 @@ class PredictRequest extends ClarifaiRequest
         $outputResponses = $response->getOutputs();
         if ($outputResponses != null && count($outputResponses) === 1) {
             $outputResponse = $outputResponses[0];
-            return ClarifaiOutput::deserialize($this->client, $this->modelType, $outputResponse);
+            return ClarifaiOutput::deserialize($this->httpClient, $this->modelType, $outputResponse);
         }
         throw new ClarifaiException('There should be a single output.');
     }

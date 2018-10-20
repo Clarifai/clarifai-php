@@ -2,9 +2,9 @@
 
 namespace Clarifai\API\Requests\Inputs;
 
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\Requests\ClarifaiPaginatedRequest;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
-use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\Internal\_ListInputsRequest;
@@ -15,11 +15,11 @@ class GetInputsRequest extends ClarifaiPaginatedRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client the clarifai client
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      */
-    public function __construct(ClarifaiClientInterface $client)
+    public function __construct(ClarifaiHttpClientInterface $httpClient)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
     }
 
     protected function requestMethod()

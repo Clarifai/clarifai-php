@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Inputs;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -18,11 +18,11 @@ class GetInputsStatusRequest extends ClarifaiRequest
 {
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      */
-    public function __construct(ClarifaiClientInterface $client)
+    public function __construct(ClarifaiHttpClientInterface $httpClient)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
     }
 
     protected function requestMethod()

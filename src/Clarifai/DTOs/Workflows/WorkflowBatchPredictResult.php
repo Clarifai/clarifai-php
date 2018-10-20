@@ -2,7 +2,7 @@
 
 namespace Clarifai\DTOs\Workflows;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\Internal\_PostWorkflowResultsResponse;
 use Clarifai\Internal\_WorkflowResult;
 
@@ -39,16 +39,16 @@ class WorkflowBatchPredictResult
     }
 
     /**
-     * @param ClarifaiClientInterface $client
+     * @param ClarifaiHttpClientInterface $httpClient
      * @param _PostWorkflowResultsResponse $response
      * @return WorkflowBatchPredictResult
      */
-    public static function deserialize($client, $response)
+    public static function deserialize($httpClient, $response)
     {
         $workflowResults = [];
         /** @var _WorkflowResult $result */
         foreach ($response->getResults() as $result) {
-            $workflowResult = WorkflowResult::deserialize($client, $result);
+            $workflowResult = WorkflowResult::deserialize($httpClient, $result);
             array_push($workflowResults, $workflowResult);
         }
 

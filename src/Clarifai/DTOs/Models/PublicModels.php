@@ -1,7 +1,7 @@
 <?php
 namespace Clarifai\DTOs\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 
 /**
  * A collection of already existing models provided by the API for immediate use.
@@ -175,47 +175,49 @@ class PublicModels
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client the client
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      */
-    public function __construct(ClarifaiClientInterface $client)
+    public function __construct(ClarifaiHttpClientInterface $httpClient)
     {
-        $this->colorModel = new ColorModel($client, 'eeed0b6733a644cea07cf4c60f87ebb7');
+        $this->colorModel = new ColorModel($httpClient, 'eeed0b6733a644cea07cf4c60f87ebb7');
 
-        $this->apparelModel = new ConceptModel($client, 'e0be3b9d6a454f0493ac3a30784001ff');
-        $this->foodModel = new ConceptModel($client, 'bd367be194cf45149e75f01d59f77ba7');
-        $this->generalModel = new ConceptModel($client, 'aaa03c23b3724a16a56b629203edc62c');
-        $this->landscapeQualityModel = new ConceptModel($client,
+        $this->apparelModel = new ConceptModel($httpClient, 'e0be3b9d6a454f0493ac3a30784001ff');
+        $this->foodModel = new ConceptModel($httpClient, 'bd367be194cf45149e75f01d59f77ba7');
+        $this->generalModel = new ConceptModel($httpClient, 'aaa03c23b3724a16a56b629203edc62c');
+        $this->landscapeQualityModel = new ConceptModel($httpClient,
             'bec14810deb94c40a05f1f0eb3c91403');
-        $this->moderationModel = new ConceptModel($client, 'd16f390eb32cad478c7ae150069bd2c6');
-        $this->nsfwModel = new ConceptModel($client, 'e9576d86d2004ed1a38ba0cf39ecb4b1');
-        $this->portraitQualityModel = new ConceptModel($client, 'de9bd05cfdbf4534af151beb2a5d0953');
-        $this->texturesAndPatternsModel = new ConceptModel($client,
+        $this->moderationModel = new ConceptModel($httpClient, 'd16f390eb32cad478c7ae150069bd2c6');
+        $this->nsfwModel = new ConceptModel($httpClient, 'e9576d86d2004ed1a38ba0cf39ecb4b1');
+        $this->portraitQualityModel = new ConceptModel($httpClient,
+            'de9bd05cfdbf4534af151beb2a5d0953');
+        $this->texturesAndPatternsModel = new ConceptModel($httpClient,
             'fbefb47f9fdb410e8ce14f24f54b47ff');
-        $this->travelModel = new ConceptModel($client, 'eee28c313d69466f836ab83287a54ed9');
-        $this->weddingModel = new ConceptModel($client, 'c386b7a870114f4a87477c0824499348');
+        $this->travelModel = new ConceptModel($httpClient, 'eee28c313d69466f836ab83287a54ed9');
+        $this->weddingModel = new ConceptModel($httpClient, 'c386b7a870114f4a87477c0824499348');
 
-        $this->demographicsModel = new DemographicsModel($client,
+        $this->demographicsModel = new DemographicsModel($httpClient,
             'c0c0ac362b03416da06ab3fa36fb58e3');
 
-        $this->generalEmbeddingModel = new EmbeddingModel($client,
+        $this->generalEmbeddingModel = new EmbeddingModel($httpClient,
             'bbb5f41425b8468d9b7a554ff10f8581');
 
-        $this->celebrityModel = new FaceConceptsModel($client, 'e466caa0619f444ab97497640cefc4dc');
-        $this->faceDetectionModel = new FaceDetectionModel($client,
+        $this->celebrityModel = new FaceConceptsModel($httpClient,
+            'e466caa0619f444ab97497640cefc4dc');
+        $this->faceDetectionModel = new FaceDetectionModel($httpClient,
             'a403429f2ddf4b49b307e318f00e528b');
 
-        $this->faceEmbeddingModel = new FaceEmbeddingModel($client,
+        $this->faceEmbeddingModel = new FaceEmbeddingModel($httpClient,
             'd02b4508df58432fbb84e800597b8959');
 
-        $this->focusModel = new FocusModel($client, 'c2cf7cecd8a6427da375b9f35fcd2381');
+        $this->focusModel = new FocusModel($httpClient, 'c2cf7cecd8a6427da375b9f35fcd2381');
 
-        $this->logoModel = new LogoModel($client, 'c443119bf2ed4da98487520d01a0b1e3');
+        $this->logoModel = new LogoModel($httpClient, 'c443119bf2ed4da98487520d01a0b1e3');
 
-        $this->apparelVideoModel = new VideoModel($client, 'e0be3b9d6a454f0493ac3a30784001ff');
-        $this->foodVideoModel = new VideoModel($client, 'bd367be194cf45149e75f01d59f77ba7');
-        $this->generalVideoModel = new VideoModel($client, 'aaa03c23b3724a16a56b629203edc62c');
-        $this->nsfwVideoModel = new VideoModel($client, 'e9576d86d2004ed1a38ba0cf39ecb4b1');
-        $this->travelVideoModel = new VideoModel($client, 'eee28c313d69466f836ab83287a54ed9');
-        $this->weddingVideoModel = new VideoModel($client, 'c386b7a870114f4a87477c0824499348');
+        $this->apparelVideoModel = new VideoModel($httpClient, 'e0be3b9d6a454f0493ac3a30784001ff');
+        $this->foodVideoModel = new VideoModel($httpClient, 'bd367be194cf45149e75f01d59f77ba7');
+        $this->generalVideoModel = new VideoModel($httpClient, 'aaa03c23b3724a16a56b629203edc62c');
+        $this->nsfwVideoModel = new VideoModel($httpClient, 'e9576d86d2004ed1a38ba0cf39ecb4b1');
+        $this->travelVideoModel = new VideoModel($httpClient, 'eee28c313d69466f836ab83287a54ed9');
+        $this->weddingVideoModel = new VideoModel($httpClient, 'c386b7a870114f4a87477c0824499348');
     }
 }

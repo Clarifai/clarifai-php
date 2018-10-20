@@ -2,7 +2,7 @@
 
 namespace Clarifai\DTOs\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\Requests\Models\BatchPredictRequest;
 use Clarifai\API\Requests\Models\DeleteModelVersionRequest;
 use Clarifai\API\Requests\Models\GetModelVersionRequest;
@@ -16,11 +16,7 @@ use Clarifai\Internal\_Model;
 
 abstract class Model
 {
-    private $client;
-    /**
-     * @return ClarifaiClientInterface The Clarifai client.
-     */
-    public function client() { return $this->client; }
+    private $httpClient;
 
     private $modelID;
     /**
@@ -67,52 +63,52 @@ abstract class Model
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai client.
      * @param string $modelID The model ID.
      */
-    protected function __construct(ClarifaiClientInterface $client, $modelID)
+    protected function __construct(ClarifaiHttpClientInterface $httpClient, $modelID)
     {
-        $this->client = $client;
+        $this->httpClient = $httpClient;
         $this->modelID = $modelID;
     }
 
     /**
      * Deserializes the model to a correct object instance.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai client.
      * @param ModelType $type The prediction type.
      * @param _Model $model The model object.
      * @return Model The deserialized model.
      * @throws ClarifaiException Thrown if unknown model type.
      */
-    public static function deserialize(ClarifaiClientInterface $client, $type, $model)
+    public static function deserialize(ClarifaiHttpClientInterface $httpClient, $type, $model)
     {
         switch ($type) {
             case ModelType::color():
-                return ColorModel::deserializeInner($client, $model);
+                return ColorModel::deserializeInner($httpClient, $model);
             case ModelType::concept():
-                return ConceptModel::deserializeInner($client, $model);
+                return ConceptModel::deserializeInner($httpClient, $model);
             case ModelType::demographics():
-                return DemographicsModel::deserializeInner($client, $model);
+                return DemographicsModel::deserializeInner($httpClient, $model);
             case ModelType::embedding():
-                return EmbeddingModel::deserializeInner($client, $model);
+                return EmbeddingModel::deserializeInner($httpClient, $model);
             case ModelType::faceConcepts():
-                return FaceConceptsModel::deserializeInner($client, $model);
+                return FaceConceptsModel::deserializeInner($httpClient, $model);
             case ModelType::faceDetection():
-                return FaceDetectionModel::deserializeInner($client, $model);
+                return FaceDetectionModel::deserializeInner($httpClient, $model);
             case ModelType::faceEmbedding():
-                return FaceEmbeddingModel::deserializeInner($client, $model);
+                return FaceEmbeddingModel::deserializeInner($httpClient, $model);
             case ModelType::focus():
-                return FocusModel::deserializeInner($client, $model);
+                return FocusModel::deserializeInner($httpClient, $model);
             case ModelType::logo():
-                return LogoModel::deserializeInner($client, $model);
+                return LogoModel::deserializeInner($httpClient, $model);
             case ModelType::video():
-                return VideoModel::deserializeInner($client, $model);
+                return VideoModel::deserializeInner($httpClient, $model);
             default:
                 throw new ClarifaiException("Unknown model type: {$type->typeExt()}");
         }
     }
 
-    public static function deserializeJson(ClarifaiClientInterface $client, $type, $jsonObject)
+    public static function deserializeJson(ClarifaiHttpClientInterface $client, $type, $jsonObject)
     {
         // Only concept model is currently supported in moderation solution.
         return ConceptModel::deserializeJsonInner($client, $jsonObject);
@@ -128,7 +124,7 @@ abstract class Model
      */
     public function train()
     {
-        return new TrainModelRequest($this->client, $this->type(), $this->modelID);
+        return new TrainModelRequest($this->httpClient, $this->type(), $this->modelID);
     }
 
     /**
@@ -139,7 +135,7 @@ abstract class Model
      */
     public function getModelVersion($modelVersionID)
     {
-        return new GetModelVersionRequest($this->client, $this->modelID, $modelVersionID);
+        return new GetModelVersionRequest($this->httpClient, $this->modelID, $modelVersionID);
     }
 
     /**
@@ -149,7 +145,7 @@ abstract class Model
      */
     public function getModelVersions()
     {
-        return new GetModelVersionsRequest($this->client, $this->modelID);
+        return new GetModelVersionsRequest($this->httpClient, $this->modelID);
     }
 
     /**
@@ -161,7 +157,7 @@ abstract class Model
      */
     public function deleteModelVersion($modelVersionID)
     {
-        return new DeleteModelVersionRequest($this->client, $this->modelID, $modelVersionID);
+        return new DeleteModelVersionRequest($this->httpClient, $this->modelID, $modelVersionID);
     }
 
 

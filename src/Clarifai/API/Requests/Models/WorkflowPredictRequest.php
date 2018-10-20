@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -31,9 +31,16 @@ class WorkflowPredictRequest extends ClarifaiRequest
      */
     public function withMaxConcepts($val) { $this->maxConcepts = $val; return $this; }
 
-    public function __construct(ClarifaiClientInterface $client, $workflowID, ClarifaiInput $input)
+    /**
+     * Ctor.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
+     * @param string $workflowID The workflow ID.
+     * @param ClarifaiInput $input The input.
+     */
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $workflowID,
+        ClarifaiInput $input)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->workflowID = $workflowID;
         $this->input = $input;
     }
@@ -76,6 +83,6 @@ class WorkflowPredictRequest extends ClarifaiRequest
      */
     protected function unmarshaller($response)
     {
-        return WorkflowPredictResult::deserialize($this->client, $response);
+        return WorkflowPredictResult::deserialize($this->httpClient, $response);
     }
 }

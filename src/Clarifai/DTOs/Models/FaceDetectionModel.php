@@ -2,7 +2,7 @@
 
 namespace Clarifai\DTOs\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\FaceDetectionOutputInfo;
 use Clarifai\Internal\_Model;
 
@@ -24,18 +24,19 @@ class FaceDetectionModel extends Model
      */
     public function outputInfo() { return $this->outputInfo; }
 
-    public function __construct(ClarifaiClientInterface $client, $modelID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $modelID)
     {
-        parent::__construct($client, $modelID);
+        parent::__construct($httpClient, $modelID);
     }
 
     /**
-     * @param ClarifaiClientInterface $client
+     * @param ClarifaiHttpClientInterface $httpClient
      * @param _Model $modelResponse
      * @return FaceDetectionModel
      */
-    public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {
-        return (new FaceDetectionModel($client, $modelResponse->getId()))
+    public static function deserializeInner(ClarifaiHttpClientInterface $httpClient,
+        $modelResponse) {
+        return (new FaceDetectionModel($httpClient, $modelResponse->getId()))
             ->withName($modelResponse->getName())
             ->withCreatedAt($modelResponse->getCreatedAt()->toDateTime())
             ->withAppID($modelResponse->getAppId())

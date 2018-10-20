@@ -2,7 +2,7 @@
 
 namespace Clarifai\API\Requests\Feedbacks;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
@@ -38,16 +38,16 @@ class SearchesFeedbackRequest extends ClarifaiRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $inputID The input ID of a correct image (hit).
      * @param string $searchID ID of the search from SearchInputsRequest.
      * @param string $endUserID The ID associated with your end user.
      * @param string $sessionID The ID associated with your user's interface.
      */
-    public function __construct(ClarifaiClientInterface $client, $inputID, $searchID, $endUserID,
-        $sessionID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $inputID, $searchID,
+        $endUserID, $sessionID)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->inputID = $inputID;
         $this->searchID = $searchID;
         $this->endUserID = $endUserID;

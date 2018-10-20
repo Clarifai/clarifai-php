@@ -2,7 +2,7 @@
 
 namespace Clarifai\Solutions\Moderation\API\Requests\Inputs;
 
-use Clarifai\API\ClarifaiClientInterface;
+use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiJsonRequest;
 use Clarifai\Solutions\Moderation\DTOs\ModerationStatus;
@@ -13,12 +13,12 @@ class GetModerationStatusRequest extends ClarifaiJsonRequest
 
     /**
      * Ctor.
-     * @param ClarifaiClientInterface $client The Clarifai client.
+     * @param ClarifaiHttpClientInterface $httpClient The Clarifai HTTP client.
      * @param string $inputID The input ID.
      */
-    public function __construct(ClarifaiClientInterface $client, $inputID)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $inputID)
     {
-        parent::__construct($client);
+        parent::__construct($httpClient);
         $this->inputID = $inputID;
     }
 
