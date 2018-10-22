@@ -4,6 +4,7 @@ namespace Clarifai\DTOs\Inputs;
 
 use Clarifai\DTOs\GeoPoint;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\DTOs\Predictions\Region;
 use Clarifai\Exceptions\ClarifaiException;
 use Clarifai\Internal\_Data;
 use Clarifai\Internal\_Geo;
@@ -89,7 +90,7 @@ abstract class ClarifaiInput
     public function positiveConcepts() { return $this->positiveConcepts; }
     /**
      * @param Concept[] $val
-     * @return ClarifaiInput $this
+     * @return $this
      */
     public function withPositiveConcepts($val) { $this->positiveConcepts = $val; return $this; }
 
@@ -100,16 +101,31 @@ abstract class ClarifaiInput
     public function negativeConcepts() { return $this->negativeConcepts; }
     /**
      * @param Concept[] $val
-     * @return ClarifaiInput $this
+     * @return $this
      */
     public function withNegativeConcepts($val) { $this->negativeConcepts = $val; return $this; }
 
     private $metadata;
+    /**
+     * @return array
+     */
     public function metadata() { return $this->metadata; }
+    /**
+     * @param array $val
+     * @return $this
+     */
     public function withMetadata($val) { $this->metadata = $val; return $this; }
 
     private $createdAt;
+
+    /**
+     * @return \DateTime
+     */
     public function createdAt() { return $this->createdAt; }
+    /**
+     * @param \DateTime $val
+     * @return $this
+     */
     public function withCreatedAt($val) { $this->createdAt = $val; return $this; }
 
     /** @var GeoPoint */
@@ -123,6 +139,14 @@ abstract class ClarifaiInput
      * @return $this
      */
     public function withGeo($val) { $this->geo = $val; return $this; }
+
+    private $regions;
+    /**
+     * @return Region[]
+     */
+    public function regions() { return $this->regions; }
+    public function withRegions($val) { $this->regions = $val; return $this; }
+
 
     public function __construct($type, $form)
     {

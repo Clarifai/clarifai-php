@@ -66,4 +66,9 @@ class Crop
                 $boxResponse->getBottomRow(), $boxResponse->getRightCol());
         }
     }
+
+    public function __toString()
+    {
+        return "[Crop: (top: $this->top, left: $this->left, bottom: $this->bottom, right: $this->right)]";
+    }
 }

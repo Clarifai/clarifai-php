@@ -6,6 +6,7 @@ use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
+use Clarifai\DTOs\Feedbacks\RegionFeedback;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Inputs\ModifyAction;
 use Clarifai\DTOs\Predictions\Concept;
@@ -25,10 +26,19 @@ class ModifyInputRequest extends ClarifaiRequest
 
     /* @var Concept[] $positiveConcepts */
     private $positiveConcepts;
+
+    /**
+     * @param Concept[] $val
+     * @return $this
+     */
     public function withPositiveConcepts($val) { $this->positiveConcepts = $val; return $this; }
 
     /* @var Concept[] $negativeConcepts */
     private $negativeConcepts;
+    /**
+     * @param Concept[] $val
+     * @return $this
+     */
     public function withNegativeConcepts($val) { $this->negativeConcepts = $val; return $this; }
 
     private $metadata;
@@ -37,6 +47,14 @@ class ModifyInputRequest extends ClarifaiRequest
      * @return $this This instance.
      */
     public function withMetadata($val) { $this->metadata = $val; return $this; }
+
+    /** @var RegionFeedback[] */
+    private $regionFeedbacks;
+    /**
+     * @param RegionFeedback[] $array
+     * @return $this
+     */
+    public function withRegionFeedbacks($val) { $this->regionFeedbacks = $val; return $this; }
 
     /**
      * Ctor.
@@ -79,8 +97,16 @@ class ModifyInputRequest extends ClarifaiRequest
         $data->setConcepts($concepts);
 
         if (!is_null($this->metadata)) {
-            $a = new ProtobufHelper();
-            $data->setMetadata($a->arrayToStruct($this->metadata));
+            $pbh = new ProtobufHelper();
+            $data->setMetadata($pbh->arrayToStruct($this->metadata));
+        }
+
+        if (!is_null($this->regionFeedbacks)) {
+            $regionFeedbacks = [];
+            foreach ($this->regionFeedbacks as $regionFeedback) {
+                array_push($regionFeedbacks, $regionFeedback->serialize());
+            }
+            $data->setRegions($regionFeedbacks);
         }
 
         return $grpcClient->PatchInputs((new _PatchInputsRequest())
@@ -98,6 +124,9 @@ class ModifyInputRequest extends ClarifaiRequest
      */
     protected function unmarshaller($inputsResponse)
     {
-        return ClarifaiInput::deserialize($inputsResponse->getInputs()[0]);
+        /** @var _Input[] $inputs */
+        $inputs = $inputsResponse->getInputs();
+        // Since only one input was added, only one output should be present.
+        return ClarifaiInput::deserialize($inputs[0]);
     }
 }

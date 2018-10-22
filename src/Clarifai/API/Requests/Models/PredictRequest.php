@@ -12,6 +12,7 @@ use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\Exceptions\ClarifaiException;
 use Clarifai\Internal\_Model;
 use Clarifai\Internal\_MultiOutputResponse;
+use Clarifai\Internal\_Output;
 use Clarifai\Internal\_OutputConfig;
 use Clarifai\Internal\_OutputInfo;
 use Clarifai\Internal\_PostModelOutputsRequest;
@@ -139,11 +140,14 @@ class PredictRequest extends ClarifaiRequest
      */
     public function unmarshaller($response) {
 
-        $outputResponses = $response->getOutputs();
-        if ($outputResponses != null && count($outputResponses) === 1) {
-            $outputResponse = $outputResponses[0];
-            return ClarifaiOutput::deserialize($this->httpClient, $this->modelType, $outputResponse);
+        if (is_null($response->getOutputs()) || count($response->getOutputs()) === 0) {
+            return ClarifaiOutput::deserialize($this->httpClient, $this->modelType, null);
         }
-        throw new ClarifaiException('There should be a single output.');
+        $outputResponse = null;
+        if (!is_null($response->getOutputs())) {
+            /** @var _Output $outputResponse */
+            $outputResponse = $response->getOutputs()[0];
+        }
+        return ClarifaiOutput::deserialize($this->httpClient, $this->modelType, $outputResponse);
     }
 }

@@ -3,11 +3,13 @@
 namespace Clarifai\DTOs\Inputs;
 
 use Clarifai\DTOs\GeoPoint;
+use Clarifai\DTOs\Predictions\Region;
 use Clarifai\Internal\_Image;
 use Clarifai\Internal\_Input;
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\Helpers\ProtobufHelper;
+use Clarifai\Internal\_Region;
 
 /**
  * An image at a certain URL.
@@ -95,9 +97,8 @@ class ClarifaiURLImage extends ClarifaiInput
         }
 
         if (!is_null($data->getMetadata())) {
-            $protobufHelper = new ProtobufHelper();
-
-            $image->withMetadata($protobufHelper->structToArray($data->getMetadata()));
+            $pbh = new ProtobufHelper();
+            $image->withMetadata($pbh->structToArray($data->getMetadata()));
         }
 
         if (!is_null($data->getGeo())) {
@@ -107,6 +108,15 @@ class ClarifaiURLImage extends ClarifaiInput
 
         if (!is_null($imageResponse->getCreatedAt())) {
             $image->withCreatedAt($imageResponse->getCreatedAt()->toDateTime());
+        }
+
+        if (!is_null($data->getRegions())) {
+            $regions = [];
+            /** @var _Region $r */
+            foreach ($data->getRegions() as $r) {
+                array_push($regions, Region::deserialize($r));
+            }
+            $image->withRegions($regions);
         }
 
         return $image;

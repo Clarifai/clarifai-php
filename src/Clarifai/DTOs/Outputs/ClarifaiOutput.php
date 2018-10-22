@@ -79,6 +79,9 @@ class ClarifaiOutput
     public static function deserialize(ClarifaiHttpClientInterface $client, ModelType $modelType,
         $outputResponse)
     {
+        if (is_null($outputResponse)) {
+            return new ClarifaiOutput(null, null, null, null, [], null);
+        }
         return new ClarifaiOutput(
             $outputResponse->getId(),
             $outputResponse->getCreatedAt()->toDateTime(),

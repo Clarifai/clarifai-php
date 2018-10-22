@@ -106,4 +106,9 @@ class Concept implements PredictionInterface
             ->withCreatedAt($createdAt)
             ->withAppID($jsonObject['app_id']);
     }
+
+    public function __toString()
+    {
+        return "[Concept: (id: $this->id, name: $this->name, value: $this->value)]";
+    }
 }
