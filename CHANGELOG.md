@@ -1,3 +1,9 @@
+## [[0.5.0]](https://github.com/Clarifai/clarifai-php/releases/tag/0.5.0) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.5.0) - 2018-10-22
+
+### Added
+- Support for custom face recognition.
+
+
 ## [[0.4.0]](https://github.com/Clarifai/clarifai-php/releases/tag/0.4.0) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.4.0) - 2018-10-18
 
 ### Added
