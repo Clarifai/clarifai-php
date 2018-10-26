@@ -2,7 +2,6 @@
 
 namespace Clarifai\DTOs\Models;
 
-use Clarifai\API\ClarifaiClientInterface;
 use Clarifai\API\ClarifaiHttpClientInterface;
 use Clarifai\DTOs\Models\OutputInfos\VideoOutputInfo;
 use Clarifai\Internal\_Model;
@@ -31,12 +30,13 @@ class VideoModel extends Model
     }
 
     /**
-     * @param ClarifaiClientInterface $client
+     * @param ClarifaiHttpClientInterface $httpClient
      * @param _Model $modelResponse
      * @return VideoModel
      */
-    public static function deserializeInner(ClarifaiClientInterface $client, $modelResponse) {
-        return (new VideoModel($client, $modelResponse->getId()))
+    public static function deserializeInner(ClarifaiHttpClientInterface $httpClient,
+        $modelResponse) {
+        return (new VideoModel($httpClient, $modelResponse->getId()))
             ->withName($modelResponse->getName())
             ->withCreatedAt($modelResponse->getCreatedAt()->toDateTime())
             ->withAppID($modelResponse->getAppId())

@@ -55,7 +55,7 @@ class ClarifaiURLVideo extends ClarifaiInput
             }
         }
 
-        $video = (new ClarifaiURLVideo($videoResponse->getData()->getImage()->getUrl()))
+        $video = (new ClarifaiURLVideo($videoResponse->getData()->getVideo()->getUrl()))
             ->withID($videoResponse->getId())
             ->withPositiveConcepts($positiveConcepts)
             ->withNegativeConcepts($negativeConcepts);

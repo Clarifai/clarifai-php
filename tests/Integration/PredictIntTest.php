@@ -10,6 +10,7 @@ use Clarifai\DTOs\Models\ConceptModel;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Outputs\ClarifaiOutput;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\DTOs\Predictions\Frame;
 
 class PredictIntTest extends BaseInt
 {
@@ -144,16 +145,26 @@ class PredictIntTest extends BaseInt
 
     public function testPredictURLVideo()
     {
-        $this->markTestSkipped('Video is WIP');
-
-        $modelID = $this->client->publicModels()->moderationModel()->modelID();
-        $response = $this->client->predict(ModelType::concept(), $modelID,
+        $modelID = $this->client->publicModels()->generalVideoModel()->modelID();
+        $response = $this->client->predict(ModelType::video(), $modelID,
             new ClarifaiURLVideo(parent::GIF_VIDEO_URL))
             ->executeSync();
         $this->assertTrue($response->isSuccessful());
-        $this->assertNotNull($response->get());
-        $this->assertNotNull($response->get()->id());
-        $this->assertNotNull($response->get()->data()[0]->name());
+
+        /** @var ClarifaiOutput $output */
+        $output = $response->get();
+
+        $this->assertNotNull($output);
+        $this->assertNotNull($output->id());
+
+        $this->assertNotEquals(0, count($output->data()));
+
+        /** @var Frame $frame */
+        foreach ($output->data() as $frame) {
+            $this->assertNotNull($frame->index());
+            $this->assertNotNull($frame->time());
+            $this->assertNotNull($frame->concepts());
+        }
     }
 
     public function testBatchPredictURLImage()

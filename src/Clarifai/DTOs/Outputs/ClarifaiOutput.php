@@ -18,8 +18,13 @@ use Clarifai\DTOs\Predictions\Frame;
 use Clarifai\DTOs\Predictions\Logo;
 use Clarifai\DTOs\Predictions\PredictionInterface;
 use Clarifai\Exceptions\ClarifaiException;
+use Clarifai\Internal\_Color;
+use Clarifai\Internal\_Concept;
 use Clarifai\Internal\_Data;
+use Clarifai\Internal\_Embedding;
+use Clarifai\Internal\_Frame;
 use Clarifai\Internal\_Output;
+use Clarifai\Internal\_Region;
 
 class ClarifaiOutput
 {
@@ -94,6 +99,12 @@ class ClarifaiOutput
         );
     }
 
+    /**
+     * @param ModelType $modelType
+     * @param _Output $outputResponse
+     * @return PredictionInterface[]
+     * @throws ClarifaiException
+     */
     private static function deserializePredictions(ModelType $modelType, $outputResponse)
     {
         /** @var _Data $data */
@@ -104,6 +115,7 @@ class ClarifaiOutput
         {
             case ModelType::color():
                 {
+                    /** @var _Color $color */
                     foreach ($data->getColors() as $color) {
                         array_push($predictions, Color::deserialize($color));
                     }
@@ -111,6 +123,7 @@ class ClarifaiOutput
                 }
             case ModelType::concept():
                 {
+                    /** @var _Concept $concept */
                     foreach ($data->getConcepts() as $concept) {
                         array_push($predictions, Concept::deserialize($concept));
                     }
@@ -118,6 +131,7 @@ class ClarifaiOutput
                 }
             case ModelType::demographics():
                 {
+                    /** @var _Region $demographics */
                     foreach ($data->getRegions() as $demographics) {
                         array_push($predictions, Demographics::deserialize($demographics));
                     }
@@ -125,6 +139,7 @@ class ClarifaiOutput
                 }
             case ModelType::embedding():
                 {
+                    /** @var _Embedding $embedding */
                     foreach ($data->getEmbeddings() as $embedding) {
                         array_push($predictions, Embedding::deserialize($embedding));
                     }
@@ -132,6 +147,7 @@ class ClarifaiOutput
                 }
             case ModelType::faceConcepts():
                 {
+                    /** @var _Region $faceConcept */
                     foreach ($data->getRegions() as $faceConcept) {
                         array_push($predictions, FaceConcepts::deserialize($faceConcept));
                     }
@@ -139,6 +155,7 @@ class ClarifaiOutput
                 }
             case ModelType::faceDetection():
                 {
+                    /** @var _Region $faceDetection */
                     foreach ($data->getRegions() as $faceDetection) {
                         array_push($predictions, FaceDetection::deserialize($faceDetection));
                     }
@@ -146,6 +163,7 @@ class ClarifaiOutput
                 }
             case ModelType::faceEmbedding():
                 {
+                    /** @var _Region $faceEmbedding */
                     foreach ($data->getRegions() as $faceEmbedding) {
                         array_push($predictions, FaceEmbedding::deserialize($faceEmbedding));
                     }
@@ -153,6 +171,7 @@ class ClarifaiOutput
                 }
             case ModelType::focus():
                 {
+                    /** @var _Region $focus */
                     foreach ($data->getRegions() as $focus) {
                         array_push($predictions, Focus::deserialize($focus,
                             $data->getFocus()->getValue()));
@@ -161,6 +180,7 @@ class ClarifaiOutput
                 }
             case ModelType::logo():
                 {
+                    /** @var _Region $logo */
                     foreach ($data->getRegions() as $logo) {
                         array_push($predictions, Logo::deserialize($logo));
                     }
@@ -168,6 +188,7 @@ class ClarifaiOutput
                 }
             case ModelType::video():
                 {
+                    /** @var _Frame $frame */
                     foreach ($data->getFrames() as $frame) {
                         array_push($predictions, Frame::deserialize($frame));
                     }
