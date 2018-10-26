@@ -22,44 +22,62 @@ use Clarifai\Internal\_PostModelOutputsRequest;
  */
 class PredictRequest extends ClarifaiRequest
 {
+    /** @var string */
     private $modelID;
+    /** @var ModelType */
     private $modelType;
+    /** @var ClarifaiInput */
     private $input;
 
+    /** @var string */
     private $modelVersionID;
     /**
-     * @param string $val
+     * @param string $val The model version ID.
      * @return PredictRequest
      */
     public function withModelVersionID($val) { $this->modelVersionID = $val; return $this; }
 
+    /** @var string */
     private $language;
     /**
-     * @param string $val
+     * @param string $val The language.
      * @return PredictRequest
      */
     public function withLanguage($val) { $this->language = $val; return $this; }
 
+    /** @var float */
     private $minValue;
     /**
-     * @param float $val
+     * @param float $val Only return concepts with value greater or equal.
      * @return PredictRequest
      */
     public function withMinValue($val) { $this->minValue = $val; return $this; }
 
+    /** @var int */
     private $maxConcepts;
     /**
-     * @param int $val
+     * @param int $val Filter the number of concepts returned, ordered by value descending.
      * @return PredictRequest
      */
     public function withMaxConcepts($val) { $this->maxConcepts = $val; return $this; }
 
+    /**
+     * @var Concept[]
+     */
     private $selectConcepts;
     /**
-     * @param Concept[] $val
+     * @param Concept[] $val Predict only using these concepts.
      * @return PredictRequest
      */
     public function withSelectConcepts($val) { $this->selectConcepts = $val; return $this; }
+
+    /** @var int */
+    private $sampleMs;
+    /**
+     * @param int $val (video only) Milliseconds span of each frame for which prediction is run.
+     * @return $this
+     */
+    public function withSampleMs($val) { $this->sampleMs = $val; return $this; }
 
     /**
      * Ctor.
