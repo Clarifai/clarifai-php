@@ -34,11 +34,11 @@ class _OutputConfig extends \Google\Protobuf\Internal\Message
      */
     private $hyper_parameters = '';
     /**
-     * Generated from protobuf field <code>uint32 max_concepts = 6;</code>
+     * Generated from protobuf field <code>uint32 max_concepts = 6 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $max_concepts = 0;
     /**
-     * Generated from protobuf field <code>float min_value = 7;</code>
+     * Generated from protobuf field <code>float min_value = 7 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $min_value = 0.0;
     /**
@@ -49,6 +49,10 @@ class _OutputConfig extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>uint32 training_timeout = 9;</code>
      */
     private $training_timeout = 0;
+    /**
+     * Generated from protobuf field <code>uint32 sample_ms = 10;</code>
+     */
+    private $sample_ms = 0;
 
     public function __construct() {
         \GPBMetadata\Proto\Clarifai\Api\Model::initOnce();
@@ -166,7 +170,7 @@ class _OutputConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>uint32 max_concepts = 6;</code>
+     * Generated from protobuf field <code>uint32 max_concepts = 6 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return int
      */
     public function getMaxConcepts()
@@ -175,7 +179,7 @@ class _OutputConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>uint32 max_concepts = 6;</code>
+     * Generated from protobuf field <code>uint32 max_concepts = 6 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param int $var
      * @return $this
      */
@@ -188,7 +192,7 @@ class _OutputConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float min_value = 7;</code>
+     * Generated from protobuf field <code>float min_value = 7 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getMinValue()
@@ -197,7 +201,7 @@ class _OutputConfig extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float min_value = 7;</code>
+     * Generated from protobuf field <code>float min_value = 7 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */
@@ -249,6 +253,28 @@ class _OutputConfig extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkUint32($var);
         $this->training_timeout = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>uint32 sample_ms = 10;</code>
+     * @return int
+     */
+    public function getSampleMs()
+    {
+        return $this->sample_ms;
+    }
+
+    /**
+     * Generated from protobuf field <code>uint32 sample_ms = 10;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setSampleMs($var)
+    {
+        GPBUtil::checkUint32($var);
+        $this->sample_ms = $var;
 
         return $this;
     }

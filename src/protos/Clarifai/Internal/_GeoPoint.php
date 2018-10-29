@@ -14,11 +14,11 @@ use Google\Protobuf\Internal\GPBUtil;
 class _GeoPoint extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>float longitude = 1;</code>
+     * Generated from protobuf field <code>float longitude = 1 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $longitude = 0.0;
     /**
-     * Generated from protobuf field <code>float latitude = 2;</code>
+     * Generated from protobuf field <code>float latitude = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $latitude = 0.0;
 
@@ -28,7 +28,7 @@ class _GeoPoint extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float longitude = 1;</code>
+     * Generated from protobuf field <code>float longitude = 1 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getLongitude()
@@ -37,7 +37,7 @@ class _GeoPoint extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float longitude = 1;</code>
+     * Generated from protobuf field <code>float longitude = 1 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */
@@ -50,7 +50,7 @@ class _GeoPoint extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float latitude = 2;</code>
+     * Generated from protobuf field <code>float latitude = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getLatitude()
@@ -59,7 +59,7 @@ class _GeoPoint extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float latitude = 2;</code>
+     * Generated from protobuf field <code>float latitude = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */

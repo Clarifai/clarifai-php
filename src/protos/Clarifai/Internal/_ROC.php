@@ -14,15 +14,15 @@ use Google\Protobuf\Internal\GPBUtil;
 class _ROC extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>repeated float fpr = 1;</code>
+     * Generated from protobuf field <code>repeated float fpr = 1 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $fpr;
     /**
-     * Generated from protobuf field <code>repeated float tpr = 2;</code>
+     * Generated from protobuf field <code>repeated float tpr = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $tpr;
     /**
-     * Generated from protobuf field <code>repeated float thresholds = 3;</code>
+     * Generated from protobuf field <code>repeated float thresholds = 3 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $thresholds;
 
@@ -32,7 +32,7 @@ class _ROC extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated float fpr = 1;</code>
+     * Generated from protobuf field <code>repeated float fpr = 1 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
     public function getFpr()
@@ -41,7 +41,7 @@ class _ROC extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated float fpr = 1;</code>
+     * Generated from protobuf field <code>repeated float fpr = 1 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float[]|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */
@@ -54,7 +54,7 @@ class _ROC extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated float tpr = 2;</code>
+     * Generated from protobuf field <code>repeated float tpr = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
     public function getTpr()
@@ -63,7 +63,7 @@ class _ROC extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated float tpr = 2;</code>
+     * Generated from protobuf field <code>repeated float tpr = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float[]|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */
@@ -76,7 +76,7 @@ class _ROC extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated float thresholds = 3;</code>
+     * Generated from protobuf field <code>repeated float thresholds = 3 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
     public function getThresholds()
@@ -85,7 +85,7 @@ class _ROC extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated float thresholds = 3;</code>
+     * Generated from protobuf field <code>repeated float thresholds = 3 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float[]|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */

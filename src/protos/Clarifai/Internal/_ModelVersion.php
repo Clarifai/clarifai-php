@@ -37,10 +37,6 @@ class _ModelVersion extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>uint32 total_input_count = 6;</code>
      */
     private $total_input_count = 0;
-    /**
-     * Generated from protobuf field <code>.clarifai.api.PretrainedModelConfig pretrained_model_config = 7;</code>
-     */
-    private $pretrained_model_config = null;
 
     public function __construct() {
         \GPBMetadata\Proto\Clarifai\Api\ModelVersion::initOnce();
@@ -175,28 +171,6 @@ class _ModelVersion extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkUint32($var);
         $this->total_input_count = $var;
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.clarifai.api.PretrainedModelConfig pretrained_model_config = 7;</code>
-     * @return \Clarifai\Internal\_PretrainedModelConfig
-     */
-    public function getPretrainedModelConfig()
-    {
-        return $this->pretrained_model_config;
-    }
-
-    /**
-     * Generated from protobuf field <code>.clarifai.api.PretrainedModelConfig pretrained_model_config = 7;</code>
-     * @param \Clarifai\Internal\_PretrainedModelConfig $var
-     * @return $this
-     */
-    public function setPretrainedModelConfig($var)
-    {
-        GPBUtil::checkMessage($var, \Clarifai\Internal\_PretrainedModelConfig::class);
-        $this->pretrained_model_config = $var;
 
         return $this;
     }

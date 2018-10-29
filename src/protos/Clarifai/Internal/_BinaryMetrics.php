@@ -14,23 +14,23 @@ use Google\Protobuf\Internal\GPBUtil;
 class _BinaryMetrics extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>uint32 num_pos = 1;</code>
+     * Generated from protobuf field <code>uint32 num_pos = 1 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $num_pos = 0;
     /**
-     * Generated from protobuf field <code>uint32 num_neg = 2;</code>
+     * Generated from protobuf field <code>uint32 num_neg = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $num_neg = 0;
     /**
-     * Generated from protobuf field <code>uint32 num_tot = 3;</code>
+     * Generated from protobuf field <code>uint32 num_tot = 3 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $num_tot = 0;
     /**
-     * Generated from protobuf field <code>float roc_auc = 4;</code>
+     * Generated from protobuf field <code>float roc_auc = 4 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $roc_auc = 0.0;
     /**
-     * Generated from protobuf field <code>float f1 = 5;</code>
+     * Generated from protobuf field <code>float f1 = 5 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $f1 = 0.0;
     /**
@@ -52,7 +52,7 @@ class _BinaryMetrics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>uint32 num_pos = 1;</code>
+     * Generated from protobuf field <code>uint32 num_pos = 1 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return int
      */
     public function getNumPos()
@@ -61,7 +61,7 @@ class _BinaryMetrics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>uint32 num_pos = 1;</code>
+     * Generated from protobuf field <code>uint32 num_pos = 1 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param int $var
      * @return $this
      */
@@ -74,7 +74,7 @@ class _BinaryMetrics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>uint32 num_neg = 2;</code>
+     * Generated from protobuf field <code>uint32 num_neg = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return int
      */
     public function getNumNeg()
@@ -83,7 +83,7 @@ class _BinaryMetrics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>uint32 num_neg = 2;</code>
+     * Generated from protobuf field <code>uint32 num_neg = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param int $var
      * @return $this
      */
@@ -96,7 +96,7 @@ class _BinaryMetrics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>uint32 num_tot = 3;</code>
+     * Generated from protobuf field <code>uint32 num_tot = 3 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return int
      */
     public function getNumTot()
@@ -105,7 +105,7 @@ class _BinaryMetrics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>uint32 num_tot = 3;</code>
+     * Generated from protobuf field <code>uint32 num_tot = 3 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param int $var
      * @return $this
      */
@@ -118,7 +118,7 @@ class _BinaryMetrics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float roc_auc = 4;</code>
+     * Generated from protobuf field <code>float roc_auc = 4 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getRocAuc()
@@ -127,7 +127,7 @@ class _BinaryMetrics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float roc_auc = 4;</code>
+     * Generated from protobuf field <code>float roc_auc = 4 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */
@@ -140,7 +140,7 @@ class _BinaryMetrics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float f1 = 5;</code>
+     * Generated from protobuf field <code>float f1 = 5 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getF1()
@@ -149,7 +149,7 @@ class _BinaryMetrics extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float f1 = 5;</code>
+     * Generated from protobuf field <code>float f1 = 5 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */

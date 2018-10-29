@@ -61,6 +61,10 @@ class _Data extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .clarifai.api.Frame frames = 12;</code>
      */
     private $frames;
+    /**
+     * Generated from protobuf field <code>.clarifai.api.Text text = 13;</code>
+     */
+    private $text = null;
 
     public function __construct() {
         \GPBMetadata\Proto\Clarifai\Api\Data::initOnce();
@@ -327,6 +331,28 @@ class _Data extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Clarifai\Internal\_Frame::class);
         $this->frames = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.clarifai.api.Text text = 13;</code>
+     * @return \Clarifai\Internal\_Text
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Generated from protobuf field <code>.clarifai.api.Text text = 13;</code>
+     * @param \Clarifai\Internal\_Text $var
+     * @return $this
+     */
+    public function setText($var)
+    {
+        GPBUtil::checkMessage($var, \Clarifai\Internal\_Text::class);
+        $this->text = $var;
 
         return $this;
     }

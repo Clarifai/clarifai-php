@@ -22,7 +22,7 @@ class _PostConceptsSearchesRequest extends \Google\Protobuf\Internal\Message
      */
     private $concept_query = null;
     /**
-     * Generated from protobuf field <code>.Pagination pagination = 3;</code>
+     * Generated from protobuf field <code>.clarifai.api.Pagination pagination = 3;</code>
      */
     private $pagination = null;
 
@@ -76,8 +76,8 @@ class _PostConceptsSearchesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.Pagination pagination = 3;</code>
-     * @return \Pagination
+     * Generated from protobuf field <code>.clarifai.api.Pagination pagination = 3;</code>
+     * @return \Clarifai\Internal\_Pagination
      */
     public function getPagination()
     {
@@ -85,13 +85,13 @@ class _PostConceptsSearchesRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.Pagination pagination = 3;</code>
-     * @param \Pagination $var
+     * Generated from protobuf field <code>.clarifai.api.Pagination pagination = 3;</code>
+     * @param \Clarifai\Internal\_Pagination $var
      * @return $this
      */
     public function setPagination($var)
     {
-        GPBUtil::checkMessage($var, \Pagination::class);
+        GPBUtil::checkMessage($var, \Clarifai\Internal\_Pagination::class);
         $this->pagination = $var;
 
         return $this;

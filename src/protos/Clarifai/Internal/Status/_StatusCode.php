@@ -5,6 +5,8 @@
 namespace Clarifai\Internal\Status;
 
 /**
+ * The status code of the response.
+ *
  * Protobuf enum <code>Clarifai\Api\Status\StatusCode</code>
  */
 class _StatusCode
@@ -81,6 +83,10 @@ class _StatusCode
      * Generated from protobuf enum <code>CONN_METHOD_NOT_ALLOWED = 11103;</code>
      */
     const CONN_METHOD_NOT_ALLOWED = 11103;
+    /**
+     * Generated from protobuf enum <code>CONN_NO_GDPR_CONSENT = 11104;</code>
+     */
+    const CONN_NO_GDPR_CONSENT = 11104;
     /**
      * Generated from protobuf enum <code>MODEL_TRAINED = 21100;</code>
      */
@@ -286,6 +292,42 @@ class _StatusCode
      */
     const ANNOTATION_IN_PROGRESS = 24153;
     /**
+     * Generated from protobuf enum <code>TRAINER_JOB_STATE_NONE = 25000;</code>
+     */
+    const TRAINER_JOB_STATE_NONE = 25000;
+    /**
+     * Generated from protobuf enum <code>TRAINER_JOB_STATE_QUEUED = 25001;</code>
+     */
+    const TRAINER_JOB_STATE_QUEUED = 25001;
+    /**
+     * Generated from protobuf enum <code>TRAINER_JOB_STATE_RUNNING = 25002;</code>
+     */
+    const TRAINER_JOB_STATE_RUNNING = 25002;
+    /**
+     * Generated from protobuf enum <code>TRAINER_JOB_STATE_COMPLETE = 25003;</code>
+     */
+    const TRAINER_JOB_STATE_COMPLETE = 25003;
+    /**
+     * Generated from protobuf enum <code>TRAINER_JOB_STATE_ERROR = 25004;</code>
+     */
+    const TRAINER_JOB_STATE_ERROR = 25004;
+    /**
+     * Generated from protobuf enum <code>DATA_DUMP_SUCCESS = 25150;</code>
+     */
+    const DATA_DUMP_SUCCESS = 25150;
+    /**
+     * Generated from protobuf enum <code>DATA_DUMP_PENDING = 25151;</code>
+     */
+    const DATA_DUMP_PENDING = 25151;
+    /**
+     * Generated from protobuf enum <code>DATA_DUMP_FAILED = 25152;</code>
+     */
+    const DATA_DUMP_FAILED = 25152;
+    /**
+     * Generated from protobuf enum <code>DATA_DUMP_IN_PROGRESS = 25153;</code>
+     */
+    const DATA_DUMP_IN_PROGRESS = 25153;
+    /**
      * Generated from protobuf enum <code>INPUT_IMAGE_DOWNLOAD_SUCCESS = 30000;</code>
      */
     const INPUT_IMAGE_DOWNLOAD_SUCCESS = 30000;
@@ -341,6 +383,10 @@ class _StatusCode
      * Generated from protobuf enum <code>INPUT_IMAGE_MODIFY_FAILED = 30203;</code>
      */
     const INPUT_IMAGE_MODIFY_FAILED = 30203;
+    /**
+     * Generated from protobuf enum <code>INPUT_IMAGE_S3_HOST_FAILED = 30210;</code>
+     */
+    const INPUT_IMAGE_S3_HOST_FAILED = 30210;
     /**
      * Generated from protobuf enum <code>ALL_INPUT_IMAGES_INVALID_BYTES = 30300;</code>
      */
@@ -406,6 +452,10 @@ class _StatusCode
      */
     const INPUT_VIDEO_MODIFY_FAILED = 31203;
     /**
+     * Generated from protobuf enum <code>ALL_INPUT_VIDEOS_INVALID_BYTES = 31300;</code>
+     */
+    const ALL_INPUT_VIDEOS_INVALID_BYTES = 31300;
+    /**
      * Generated from protobuf enum <code>REQUEST_DISABLED_FOR_MAINTENANCE = 39997;</code>
      */
     const REQUEST_DISABLED_FOR_MAINTENANCE = 39997;
@@ -461,6 +511,14 @@ class _StatusCode
      * Generated from protobuf enum <code>DATABASE_CONSTRAINT_VIOLATED = 40017;</code>
      */
     const DATABASE_CONSTRAINT_VIOLATED = 40017;
+    /**
+     * Generated from protobuf enum <code>DATABASE_NO_ONGOING_OPERATIONS = 40018;</code>
+     */
+    const DATABASE_NO_ONGOING_OPERATIONS = 40018;
+    /**
+     * Generated from protobuf enum <code>DATABASE_LOCKED_BY_ONGOING_OPERATION = 40019;</code>
+     */
+    const DATABASE_LOCKED_BY_ONGOING_OPERATION = 40019;
     /**
      * Generated from protobuf enum <code>ASYNC_WORKER_MULTI_ERRORS = 40020;</code>
      */
@@ -662,9 +720,9 @@ class _StatusCode
      */
     const MP_IMAGE_PROCESSING_ERROR = 47106;
     /**
-     * Generated from protobuf enum <code>USER_CONSERNT_FACE = 50001;</code>
+     * Generated from protobuf enum <code>USER_CONSENT_FACE = 50001;</code>
      */
-    const USER_CONSERNT_FACE = 50001;
+    const USER_CONSENT_FACE = 50001;
     /**
      * Generated from protobuf enum <code>WORKER_ACTIVE = 51001;</code>
      */
@@ -713,6 +771,10 @@ class _StatusCode
      * Generated from protobuf enum <code>INTERNAL_REDIS_UNCATEGORIZED = 98015;</code>
      */
     const INTERNAL_REDIS_UNCATEGORIZED = 98015;
+    /**
+     * Generated from protobuf enum <code>INTERNAL_AWS_UNCATEGORIZED = 98016;</code>
+     */
+    const INTERNAL_AWS_UNCATEGORIZED = 98016;
     /**
      * Generated from protobuf enum <code>CONN_UNCATEGORIZED = 99001;</code>
      */

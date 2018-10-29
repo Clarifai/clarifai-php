@@ -22,27 +22,27 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
      */
     private $top5_accuracy = 0.0;
     /**
-     * Generated from protobuf field <code>float macro_avg_roc_auc = 3;</code>
+     * Generated from protobuf field <code>float macro_avg_roc_auc = 3 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $macro_avg_roc_auc = 0.0;
     /**
-     * Generated from protobuf field <code>float macro_std_roc_auc = 4;</code>
+     * Generated from protobuf field <code>float macro_std_roc_auc = 4 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $macro_std_roc_auc = 0.0;
     /**
-     * Generated from protobuf field <code>float macro_avg_f1_score = 5;</code>
+     * Generated from protobuf field <code>float macro_avg_f1_score = 5 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $macro_avg_f1_score = 0.0;
     /**
-     * Generated from protobuf field <code>float macro_std_f1_score = 6;</code>
+     * Generated from protobuf field <code>float macro_std_f1_score = 6 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $macro_std_f1_score = 0.0;
     /**
-     * Generated from protobuf field <code>float macro_avg_precision = 7;</code>
+     * Generated from protobuf field <code>float macro_avg_precision = 7 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $macro_avg_precision = 0.0;
     /**
-     * Generated from protobuf field <code>float macro_avg_recall = 8;</code>
+     * Generated from protobuf field <code>float macro_avg_recall = 8 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $macro_avg_recall = 0.0;
 
@@ -96,7 +96,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_avg_roc_auc = 3;</code>
+     * Generated from protobuf field <code>float macro_avg_roc_auc = 3 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getMacroAvgRocAuc()
@@ -105,7 +105,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_avg_roc_auc = 3;</code>
+     * Generated from protobuf field <code>float macro_avg_roc_auc = 3 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */
@@ -118,7 +118,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_std_roc_auc = 4;</code>
+     * Generated from protobuf field <code>float macro_std_roc_auc = 4 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getMacroStdRocAuc()
@@ -127,7 +127,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_std_roc_auc = 4;</code>
+     * Generated from protobuf field <code>float macro_std_roc_auc = 4 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */
@@ -140,7 +140,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_avg_f1_score = 5;</code>
+     * Generated from protobuf field <code>float macro_avg_f1_score = 5 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getMacroAvgF1Score()
@@ -149,7 +149,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_avg_f1_score = 5;</code>
+     * Generated from protobuf field <code>float macro_avg_f1_score = 5 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */
@@ -162,7 +162,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_std_f1_score = 6;</code>
+     * Generated from protobuf field <code>float macro_std_f1_score = 6 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getMacroStdF1Score()
@@ -171,7 +171,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_std_f1_score = 6;</code>
+     * Generated from protobuf field <code>float macro_std_f1_score = 6 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */
@@ -184,7 +184,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_avg_precision = 7;</code>
+     * Generated from protobuf field <code>float macro_avg_precision = 7 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getMacroAvgPrecision()
@@ -193,7 +193,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_avg_precision = 7;</code>
+     * Generated from protobuf field <code>float macro_avg_precision = 7 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */
@@ -206,7 +206,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_avg_recall = 8;</code>
+     * Generated from protobuf field <code>float macro_avg_recall = 8 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getMacroAvgRecall()
@@ -215,7 +215,7 @@ class _MetricsSummary extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float macro_avg_recall = 8;</code>
+     * Generated from protobuf field <code>float macro_avg_recall = 8 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */

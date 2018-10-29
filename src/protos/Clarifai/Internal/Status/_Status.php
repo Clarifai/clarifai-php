@@ -26,10 +26,6 @@ class _Status extends \Google\Protobuf\Internal\Message
      */
     private $details = '';
     /**
-     * Generated from protobuf field <code>repeated string stack_trace = 4;</code>
-     */
-    private $stack_trace;
-    /**
      * Generated from protobuf field <code>uint32 percent_completed = 5;</code>
      */
     private $percent_completed = 0;
@@ -41,10 +37,6 @@ class _Status extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string req_id = 7;</code>
      */
     private $req_id = '';
-    /**
-     * Generated from protobuf field <code>string internal_details = 8;</code>
-     */
-    private $internal_details = '';
 
     public function __construct() {
         \GPBMetadata\Proto\Clarifai\Api\Status\Status::initOnce();
@@ -118,28 +110,6 @@ class _Status extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated string stack_trace = 4;</code>
-     * @return \Google\Protobuf\Internal\RepeatedField
-     */
-    public function getStackTrace()
-    {
-        return $this->stack_trace;
-    }
-
-    /**
-     * Generated from protobuf field <code>repeated string stack_trace = 4;</code>
-     * @param string[]|\Google\Protobuf\Internal\RepeatedField $var
-     * @return $this
-     */
-    public function setStackTrace($var)
-    {
-        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::STRING);
-        $this->stack_trace = $arr;
-
-        return $this;
-    }
-
-    /**
      * Generated from protobuf field <code>uint32 percent_completed = 5;</code>
      * @return int
      */
@@ -201,28 +171,6 @@ class _Status extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->req_id = $var;
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>string internal_details = 8;</code>
-     * @return string
-     */
-    public function getInternalDetails()
-    {
-        return $this->internal_details;
-    }
-
-    /**
-     * Generated from protobuf field <code>string internal_details = 8;</code>
-     * @param string $var
-     * @return $this
-     */
-    public function setInternalDetails($var)
-    {
-        GPBUtil::checkString($var, True);
-        $this->internal_details = $var;
 
         return $this;
     }

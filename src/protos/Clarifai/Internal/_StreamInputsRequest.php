@@ -25,6 +25,10 @@ class _StreamInputsRequest extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string last_id = 3;</code>
      */
     private $last_id = '';
+    /**
+     * Generated from protobuf field <code>bool descending = 4;</code>
+     */
+    private $descending = false;
 
     public function __construct() {
         \GPBMetadata\Proto\Clarifai\Api\Input::initOnce();
@@ -93,6 +97,28 @@ class _StreamInputsRequest extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->last_id = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool descending = 4;</code>
+     * @return bool
+     */
+    public function getDescending()
+    {
+        return $this->descending;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool descending = 4;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setDescending($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->descending = $var;
 
         return $this;
     }

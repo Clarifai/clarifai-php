@@ -17,19 +17,6 @@ class V2Client extends \Grpc\BaseStub {
     }
 
     /**
-     * @param \Clarifai\Internal\_TestMessage $argument input argument
-     * @param array $metadata metadata
-     * @param array $options call options
-     */
-    public function Echo(\Clarifai\Internal\_TestMessage $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/clarifai.api.V2/Echo',
-        $argument,
-        ['\Clarifai\Internal\_TestMessage', 'decode'],
-        $metadata, $options);
-    }
-
-    /**
      * @param \Clarifai\Internal\_GetConceptCountsRequest $argument input argument
      * @param array $metadata metadata
      * @param array $options call options
@@ -858,19 +845,6 @@ class V2Client extends \Grpc\BaseStub {
         return $this->_simpleRequest('/clarifai.api.V2/GetStatusCode',
         $argument,
         ['\Clarifai\Internal\_SingleStatusCodeResponse', 'decode'],
-        $metadata, $options);
-    }
-
-    /**
-     * @param \Clarifai\Internal\_GetHealthzRequest $argument input argument
-     * @param array $metadata metadata
-     * @param array $options call options
-     */
-    public function GetHealthz(\Clarifai\Internal\_GetHealthzRequest $argument,
-      $metadata = [], $options = []) {
-        return $this->_simpleRequest('/clarifai.api.V2/GetHealthz',
-        $argument,
-        ['\Clarifai\Internal\_GetHealthzResponse', 'decode'],
         $metadata, $options);
     }
 

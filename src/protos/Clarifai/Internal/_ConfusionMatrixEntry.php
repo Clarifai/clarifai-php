@@ -22,7 +22,7 @@ class _ConfusionMatrixEntry extends \Google\Protobuf\Internal\Message
      */
     private $actual = '';
     /**
-     * Generated from protobuf field <code>float value = 4;</code>
+     * Generated from protobuf field <code>float value = 4 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $value = 0.0;
 
@@ -76,7 +76,7 @@ class _ConfusionMatrixEntry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float value = 4;</code>
+     * Generated from protobuf field <code>float value = 4 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getValue()
@@ -85,7 +85,7 @@ class _ConfusionMatrixEntry extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float value = 4;</code>
+     * Generated from protobuf field <code>float value = 4 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */

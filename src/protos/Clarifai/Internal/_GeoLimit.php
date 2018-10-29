@@ -18,7 +18,7 @@ class _GeoLimit extends \Google\Protobuf\Internal\Message
      */
     private $type = '';
     /**
-     * Generated from protobuf field <code>float value = 2;</code>
+     * Generated from protobuf field <code>float value = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      */
     private $value = 0.0;
 
@@ -50,7 +50,7 @@ class _GeoLimit extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float value = 2;</code>
+     * Generated from protobuf field <code>float value = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @return float
      */
     public function getValue()
@@ -59,7 +59,7 @@ class _GeoLimit extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>float value = 2;</code>
+     * Generated from protobuf field <code>float value = 2 [(.clarifai.api.utils.cl_show_if_empty) = true];</code>
      * @param float $var
      * @return $this
      */
