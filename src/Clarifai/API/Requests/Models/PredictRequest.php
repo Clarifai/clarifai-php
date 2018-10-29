@@ -132,6 +132,10 @@ class PredictRequest extends ClarifaiRequest
             $outputConfig->setLanguage($this->language);
             $anyOutputConfig = true;
         }
+        if (!is_null($this->sampleMs)) {
+            $outputConfig->setSampleMs($this->sampleMs);
+            $anyOutputConfig = true;
+        }
         if (!is_null($this->selectConcepts)) {
             $selectConcepts = [];
             foreach ($this->selectConcepts as $selectConcept) {

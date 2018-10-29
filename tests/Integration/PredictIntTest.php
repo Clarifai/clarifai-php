@@ -167,6 +167,31 @@ class PredictIntTest extends BaseInt
         }
     }
 
+    public function testPredictURLVideoWithSampleMs()
+    {
+        $modelID = $this->client->publicModels()->generalVideoModel()->modelID();
+        $response = $this->client->predict(ModelType::video(), $modelID,
+            new ClarifaiURLVideo("https://s3.amazonaws.com/samples.clarifai.com/beer.mp4"))
+            ->withSampleMs(2000)
+            ->executeSync();
+        $this->assertTrue($response->isSuccessful());
+
+        /** @var ClarifaiOutput $output */
+        $output = $response->get();
+
+        $this->assertNotNull($output);
+        $this->assertNotNull($output->id());
+
+        $this->assertNotEquals(0, count($output->data()));
+
+        /** @var Frame $frame */
+        foreach ($output->data() as $frame) {
+            $this->assertNotNull($frame->index());
+            $this->assertNotNull($frame->time());
+            $this->assertNotNull($frame->concepts());
+        }
+    }
+
     public function testBatchPredictURLImage()
     {
         $modelID = $this->client->publicModels()->moderationModel()->modelID();
