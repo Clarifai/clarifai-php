@@ -169,7 +169,7 @@ abstract class Model
      */
     public function predict($input)
     {
-        return new PredictRequest($this->client(), $this->type(), $this->modelID, $input);
+        return new PredictRequest($this->httpClient, $this->type(), $this->modelID, $input);
     }
 
     /**
@@ -180,6 +180,6 @@ abstract class Model
      */
     public function batchPredict($inputs)
     {
-        return new BatchPredictRequest($this->client(), $this->type(), $this->modelID, $inputs);
+        return new BatchPredictRequest($this->httpClient, $this->type(), $this->modelID, $inputs);
     }
 }
