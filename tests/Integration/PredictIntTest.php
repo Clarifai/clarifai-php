@@ -4,6 +4,7 @@ namespace Integration;
 
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\Inputs\ClarifaiFileImage;
+use Clarifai\DTOs\Inputs\ClarifaiFileVideo;
 use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Inputs\ClarifaiURLVideo;
 use Clarifai\DTOs\Models\ConceptModel;
@@ -131,11 +132,9 @@ class PredictIntTest extends BaseInt
 
     public function testPredictFileImage()
     {
-        $base64 = file_get_contents(parent::BALLOONS_FILE_PATH);
-
         $modelID = $this->client->publicModels()->moderationModel()->modelID();
         $response = $this->client->predict(ModelType::concept(), $modelID,
-            new ClarifaiFileImage($base64))
+            new ClarifaiFileImage(file_get_contents(parent::BALLOONS_FILE_PATH)))
             ->executeSync();
         $this->assertTrue($response->isSuccessful());
         $this->assertNotNull($response->get());
@@ -188,6 +187,7 @@ class PredictIntTest extends BaseInt
         foreach ($output->data() as $frame) {
             $this->assertNotNull($frame->index());
             $this->assertNotNull($frame->time());
+            $this->assertTrue($frame->time() % 2000 == 0);
             $this->assertNotNull($frame->concepts());
         }
     }
@@ -301,5 +301,58 @@ class PredictIntTest extends BaseInt
         }
         $this->assertContains($dogConceptID, $conceptIDs);
         $this->assertContains($catConceptID, $conceptIDs);
+    }
+
+    public function testPredictFileVideo()
+    {
+        $modelID = $this->client->publicModels()->generalVideoModel()->modelID();
+        $response = $this->client->predict(ModelType::video(), $modelID,
+            new ClarifaiFileVideo(file_get_contents(parent::BEER_VIDEO_FILE_PATH)))
+            ->executeSync();
+        echo $response->status()->statusCode();
+        echo $response->status()->description();
+        echo $response->status()->errorDetails();
+        $this->assertTrue($response->isSuccessful());
+
+        /** @var ClarifaiOutput $output */
+        $output = $response->get();
+
+        $this->assertNotNull($output);
+        $this->assertNotNull($output->id());
+
+        $this->assertNotEquals(0, count($output->data()));
+
+        /** @var Frame $frame */
+        foreach ($output->data() as $frame) {
+            $this->assertNotNull($frame->index());
+            $this->assertNotNull($frame->time());
+            $this->assertNotNull($frame->concepts());
+        }
+    }
+
+    public function testPredictFileVideoWithSampleMs()
+    {
+        $modelID = $this->client->publicModels()->generalVideoModel()->modelID();
+        $response = $this->client->predict(ModelType::video(), $modelID,
+            new ClarifaiFileVideo(file_get_contents(parent::BEER_VIDEO_FILE_PATH)))
+            ->withSampleMs(2000)
+            ->executeSync();
+        $this->assertTrue($response->isSuccessful());
+
+        /** @var ClarifaiOutput $output */
+        $output = $response->get();
+
+        $this->assertNotNull($output);
+        $this->assertNotNull($output->id());
+
+        $this->assertNotEquals(0, count($output->data()));
+
+        /** @var Frame $frame */
+        foreach ($output->data() as $frame) {
+            $this->assertNotNull($frame->index());
+            $this->assertNotNull($frame->time());
+            $this->assertTrue($frame->time() % 2000 == 0);
+            $this->assertNotNull($frame->concepts());
+        }
     }
 }
