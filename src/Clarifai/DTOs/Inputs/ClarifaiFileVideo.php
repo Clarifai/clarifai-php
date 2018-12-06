@@ -22,7 +22,7 @@ class ClarifaiFileVideo extends ClarifaiInput
      */
     public function __construct($fileContent)
     {
-        parent::__construct(InputType::image(), InputForm::file());
+        parent::__construct(InputType::video(), InputForm::file());
         $this->content = $fileContent;
     }
 

@@ -21,7 +21,7 @@ class ClarifaiURLVideo extends ClarifaiInput
      */
     public function __construct($url)
     {
-        parent::__construct(InputType::video(), InputForm::file());
+        parent::__construct(InputType::video(), InputForm::url());
         $this->url = $url;
     }
 
