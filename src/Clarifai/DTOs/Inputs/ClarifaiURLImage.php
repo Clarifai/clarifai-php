@@ -4,6 +4,7 @@ namespace Clarifai\DTOs\Inputs;
 
 use Clarifai\DTOs\GeoPoint;
 use Clarifai\DTOs\Predictions\Region;
+use Clarifai\Internal\_Concept;
 use Clarifai\Internal\_Image;
 use Clarifai\Internal\_Input;
 use Clarifai\DTOs\Crop;
@@ -73,6 +74,7 @@ class ClarifaiURLImage extends ClarifaiInput
 
         $positiveConcepts = [];
         $negativeConcepts = [];
+        /** @var _Concept $c */
         foreach ($data->getConcepts() as $c)
         {
             $concept = Concept::deserialize($c);

@@ -210,9 +210,17 @@ abstract class ClarifaiInput
     public static function deserialize($inputResponse)
     {
         if (!is_null($inputResponse->getData()->getImage())) {
-            return ClarifaiURLImage::deserialize($inputResponse);
+            if ($inputResponse->getData()->getImage()->getUrl() != '') {
+                return ClarifaiURLImage::deserialize($inputResponse);
+            } else {
+                return ClarifaiFileImage::deserialize($inputResponse);
+            }
         } else if(!is_null($inputResponse->getData()->getVideo())) {
-            return ClarifaiURLVideo::deserialize($inputResponse);
+            if ($inputResponse->getData()->getVideo()->getUrl() != '') {
+                return ClarifaiURLVideo::deserialize($inputResponse);
+            } else {
+                return ClarifaiFileVideo::deserialize($inputResponse);
+            }
         } else {
             throw new ClarifaiException("Unknown ClarifaiInput type. Neither image or video.");
         }

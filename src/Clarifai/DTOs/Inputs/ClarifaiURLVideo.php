@@ -4,6 +4,7 @@ namespace Clarifai\DTOs\Inputs;
 
 use Clarifai\DTOs\GeoPoint;
 use Clarifai\DTOs\Predictions\Concept;
+use Clarifai\Internal\_Concept;
 use Clarifai\Internal\_Input;
 use Clarifai\Internal\_Video;
 
@@ -42,6 +43,7 @@ class ClarifaiURLVideo extends ClarifaiInput
     {
         $positiveConcepts = [];
         $negativeConcepts = [];
+        /** @var _Concept $c */
         foreach ($videoResponse->getData()->getConcepts() as $c)
         {
             $concept = Concept::deserialize($c);
