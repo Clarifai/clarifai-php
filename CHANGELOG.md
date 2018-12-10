@@ -1,3 +1,13 @@
+## [[0.6.0]](https://github.com/Clarifai/clarifai-php/releases/tag/0.6.0) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.6.0) - 2018-12-10
+
+### Added
+- Sample milliseconds parameter for video prediction.
+- Support for workflow image file prediction.
+
+### Fixed
+- Shorthand predict methods to use the new HTTP client field.
+
+
 ## [[0.5.0]](https://github.com/Clarifai/clarifai-php/releases/tag/0.5.0) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.5.0) - 2018-10-22
 
 ### Added
