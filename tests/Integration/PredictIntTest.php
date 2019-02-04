@@ -309,9 +309,6 @@ class PredictIntTest extends BaseInt
         $response = $this->client->predict(ModelType::video(), $modelID,
             new ClarifaiFileVideo(file_get_contents(parent::BEER_VIDEO_FILE_PATH)))
             ->executeSync();
-        echo $response->status()->statusCode();
-        echo $response->status()->description();
-        echo $response->status()->errorDetails();
         $this->assertTrue($response->isSuccessful());
 
         /** @var ClarifaiOutput $output */
