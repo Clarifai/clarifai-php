@@ -33,6 +33,12 @@ class FkClarifaiHttpClientTest implements ClarifaiHttpClientInterface
      */
     public function deletedBody() { return $this->deletedBody; }
 
+    private $requestedUrl;
+    /**
+     * @return array The body of the last DELETE request.
+     */
+    public function requestedUrl() { return $this->requestedUrl; }
+
     /**
      * Ctor.
      * @param string $getResponse The response GET request should return.
@@ -51,24 +57,28 @@ class FkClarifaiHttpClientTest implements ClarifaiHttpClientInterface
 
     public function getSync($url)
     {
+        $this->requestedUrl = $url;
         return [$this->getResponse, 200];
     }
 
     public function postSync($url, $body)
     {
         $this->postedBody = $body;
+        $this->requestedUrl = $url;
         return [$this->postResponse, 200];
     }
 
     public function patchSync($url, $body)
     {
         $this->patchedBody = $body;
+        $this->requestedUrl = $url;
         return [$this->patchResponse, 200];
     }
 
     public function deleteSync($url, $body)
     {
         $this->deletedBody = $body;
+        $this->requestedUrl = $url;
         return [$this->deleteResponse, 200];
     }
 }

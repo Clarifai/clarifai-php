@@ -23,7 +23,8 @@ class DeleteInputsRequest extends ClarifaiRequest
      * @param bool $deleteAll Whether to delete all inputs.
      * @throws ClarifaiException Throws when parameters are invalid.
      */
-    public function __construct(ClarifaiHttpClientInterface $httpClient, $inputIDs = [], $deleteAll = false)
+    public function __construct(ClarifaiHttpClientInterface $httpClient, $inputIDs = [],
+        $deleteAll = false)
     {
         parent::__construct($httpClient);
         $this->inputIDs = is_array($inputIDs) ? $inputIDs : [$inputIDs];

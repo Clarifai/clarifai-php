@@ -12,6 +12,8 @@ RUN curl --silent --show-error https://getcomposer.org/installer | \
     php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN docker-php-ext-install bcmath zip
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
 
 # Copy the composer.json file and do `composer install` before copying all the other files, to avoid
 # reinstall on every code change.

@@ -3,7 +3,10 @@
 namespace Unit;
 
 use Clarifai\API\ClarifaiClient;
+use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\Feedbacks\ConceptFeedback;
+use Clarifai\DTOs\Feedbacks\Feedback;
+use Clarifai\DTOs\Feedbacks\RegionFeedback;
 use PHPUnit\Framework\TestCase;
 
 class FeedbackUnitTest extends TestCase
@@ -19,35 +22,70 @@ class FeedbackUnitTest extends TestCase
             ->withConceptFeedbacks([
                 new ConceptFeedback('dog', true),
                 new ConceptFeedback('cat', false)
-            ])->executeSync();
+            ])
+            ->withRegionFeedbacks([
+                (new RegionFeedback())
+                    ->withCrop(new Crop(0.1, 0.1, 0.2, 0.2))
+                    ->withFeedback(Feedback::notDetected())
+                    ->withConceptFeedbacks([
+                        new ConceptFeedback("freeman", true),
+                        new ConceptFeedback("eminem", false),
+                    ])
+            ])
+            ->executeSync();
         $this->assertTrue($response->isSuccessful());
 
         $expectedRequestBody = <<<EOD
 {
-    "input": {
-        "id": "@inputID",
-        "data": {
-            "image": {
-                "url": "@imageURL"
-            },
-            "concepts": [
-            {
-                "id": "dog",
-                "value": true
-            },
-            {
-                "id": "cat",
-                "value": false
-            }
-            ]
+  "input": {
+    "id": "@inputID",
+    "data": {
+      "image": {
+        "url": "@imageURL"
+      },
+      "concepts": [
+        {
+          "id": "dog",
+          "value": true
         },
-        "feedback_info": {
-            "event_type": "annotation",
-            "output_id": "@outputID",
-            "end_user_id": "@endUserID",
-            "session_id": "@sessionID"
+        {
+          "id": "cat",
+          "value": false
         }
+      ],
+      "regions": [
+        {
+          "region_info": {
+            "bounding_box": {
+              "top_row": 0.1,
+              "left_col": 0.1,
+              "bottom_row": 0.2,
+              "right_col": 0.2
+            },
+            "feedback": "not_detected"
+          },
+          "data": {
+            "concepts": [
+              {
+                "id": "freeman",
+                "value": true
+              },
+              {
+                "id": "eminem",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "feedback_info": {
+      "end_user_id": "@endUserID",
+      "session_id": "@sessionID",
+      "event_type": "annotation",
+      "output_id": "@outputID"
     }
+  }
 }
 EOD;
 

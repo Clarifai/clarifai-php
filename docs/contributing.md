@@ -12,6 +12,8 @@
 
 `docker run -ti clarifai-php phpunit -c phpunit.xml --filter UnitTest`
 
+> Generating a code coverage report: `docker run --volume $(pwd)/report:/usr/src/clarifai/report -ti -e CLARIFAI_API_KEY=$CLARIFAI_API_KEY clarifai-php phpunit -c phpunit.xml --filter UnitTest --coverage-html ./report`
+
 ### Running Integration Tests
 
 To successfully run integration tests, you have to have a valid Clarifai API key with all required permissions.
