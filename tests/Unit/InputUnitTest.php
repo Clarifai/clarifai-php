@@ -224,6 +224,72 @@ EOD;
         $this->assertEquals('@imageURL', $inputs[0]->url());
     }
 
+    public function testAddInputWithMetadata()
+    {
+        $postResponse = <<<EOD
+{
+  "status": {
+    "code": 10000,
+    "description": "Ok"
+  },
+  "inputs": [
+    {
+      "id": "@inputID",
+      "data": {
+        "image": {
+          "url": "@imageURL"
+        },
+        "metadata": {
+          "key1": "value1"
+        }
+      },
+      "created_at": "2019-02-25T12:13:47.706491702Z",
+      "modified_at": "2019-02-25T12:13:48.190683251Z",
+      "status": {
+        "code": 30000,
+        "description": "Download complete"
+      }
+    }
+  ]
+}
+EOD;
+
+        $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
+        $client = new ClarifaiClient("", $httpClient);
+        $response = $client
+            ->addInputs([
+                (new ClarifaiURLImage('@imageURL'))
+                    ->withID("@inputID")
+                    ->withAllowDuplicateUrl(true)
+                    ->withMetadata(['key1' => 'value1'])
+                ]
+            )
+            ->executeSync();
+
+        $expectedRequestBody = <<< EOD
+{
+  "inputs": [
+    {
+      "id": "@inputID",
+      "data": {
+        "image": {
+          "url": "@imageURL",
+          "allow_duplicate_url": true
+        },
+        "metadata": {
+          "key1": "value1"
+        }
+      }
+    }
+  ]
+}
+EOD;
+        $this->assertEquals(json_decode($expectedRequestBody, true), $httpClient->postedBody());
+
+        $inputs = $response->get();
+        $this->assertEquals('@imageURL', $inputs[0]->url());
+    }
+
     public function testModifyInputConcepts()
     {
         $patchResponse = <<<EOD

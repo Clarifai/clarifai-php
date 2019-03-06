@@ -24,8 +24,8 @@ class ConceptUnitTest extends TestCase
         "language": "en",
         "app_id": "@appID"
     }, {
-        "id": "@id1",
-        "name": "@name1",
+        "id": "@id2",
+        "name": "@name2",
         "created_at": "2018-03-06T20:24:55.407961035Z",
         "language": "en",
         "app_id": "@appID"
@@ -64,17 +64,17 @@ EOD;
     {
         $getResponse = <<<EOD
 {
-    "status": {
-        "code": 10000,
-        "description": "Ok"
-    },
-    "concept": {
-        "id": "@id",
-        "name": "@name",
-        "created_at": "2018-03-06T20:24:55.407961035Z",
-        "language": "en",
-        "app_id": "@appID"
-    }
+  "status": {
+    "code": 10000,
+    "description": "Ok"
+  },
+  "concept": {
+    "id": "@id",
+    "name": "@name",
+    "created_at": "2018-03-06T20:24:55.407961035Z",
+    "language": "en",
+    "app_id": "@appID"
+  }
 }
 EOD;
         $httpClient = new FkClarifaiHttpClientTest($getResponse, null, null, null);
