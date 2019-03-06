@@ -22,6 +22,10 @@ file produced by composer: `require_once('vendor/autoload.php');`
 
 PHP >=7.0
 
+> Note: This library requires the *curl* PHP extension to be enabled. This is most likely already
+done on your PHP host service, unless you're hosting PHP yourself, in which case you may need to 
+uncomment (delete `;`) the line `extension=php_curl.dll` in your `php.ini` file.
+
 ## Getting Started
 
 We're going to show three common examples of using the Clarifai API. Below are all the imports
