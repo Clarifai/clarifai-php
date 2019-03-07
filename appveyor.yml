@@ -9,7 +9,7 @@ environment:
     - PHP_VERSION: 7.0.33
     - PHP_VERSION: 7.1.26
     - PHP_VERSION: 7.2.15
-    - PHP_VERSION: 7.3.2
+    - PHP_VERSION: 7.3.1
 
 cache:
   - '%LOCALAPPDATA%\Composer'
