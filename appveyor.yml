@@ -33,6 +33,16 @@ install:
   - cd C:\tools\php
   - echo extension=php_curl.dll >> php.ini
 
+before_test:
+  - cd C:\projects\private-clarifai-php
+  - for /f %%i in ('C:\Python36\python.exe scripts\app_and_key_for_tests.py --create-app php-appveyor') do set CLARIFAI_APP_ID=%%i
+  - for /f %%i in ('C:\Python36\python.exe scripts\app_and_key_for_tests.py --create-key %CLARIFAI_APP_ID%') do set CLARIFAI_API_KEY=%%i
+  - for /f %%i in ('C:\Python36\python.exe scripts\app_and_key_for_tests.py --create-workflow %CLARIFAI_API_KEY%') do rem
+
 test_script:
   - cd C:\projects\private-clarifai-php
   - vendor/bin/phpunit -c phpunit.xml -v
+
+after_test:
+  - cd C:\projects\private-clarifai-php
+  - 'C:\Python36\python.exe scripts\app_and_key_for_tests.py --delete-app %CLARIFAI_APP_ID%'

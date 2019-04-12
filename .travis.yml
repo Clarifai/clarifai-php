@@ -1,13 +1,25 @@
 language: php
-# The version nightly now points to PHP 8.0.0-dev, which is not supported by PHPUnit just yet.
+# The nightly version now points to PHP 8.0.0-dev, which is not supported by PHPUnit just yet.
 # Once it is, add it back there.
+# The version 7.4snapshot started producing what appears to be a bug with Travis.
 php:
   - '7.0'
   - '7.1'
   - '7.2'
   - '7.3'
-  - '7.4snapshot'
+  #- '7.4snapshot'
   #- nightly
 
 install: composer install
+
+before_script:
+  - export PYTHONPATH=.
+  - export CLARIFAI_APP_ID="$(python scripts/app_and_key_for_tests.py --create-app php-travis)"
+  - export CLARIFAI_API_KEY="$(python scripts/app_and_key_for_tests.py --create-key ${CLARIFAI_APP_ID})"
+  - python scripts/app_and_key_for_tests.py --create-workflow ${CLARIFAI_API_KEY}
+
 script: phpunit -c phpunit.xml -v
+
+after_script:
+  - export PYTHONPATH=.
+  - python scripts/app_and_key_for_tests.py --delete-app $CLARIFAI_APP_ID
