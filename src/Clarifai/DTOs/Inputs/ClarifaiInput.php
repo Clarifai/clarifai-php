@@ -176,13 +176,13 @@ abstract class ClarifaiInput
         }
         $concepts = [];
         if ($this->positiveConcepts != null) {
-            foreach ($this->positiveConcepts as $concept) {
+            foreach ($this->positiveConcepts() as $concept) {
                 array_push($concepts, $concept->serialize(true));
             }
         }
         if ($this->negativeConcepts != null) {
-            foreach ($this->negativeConcepts as $concept) {
-                array_push($concepts, $concept->serialize(true));
+            foreach ($this->negativeConcepts() as $concept) {
+                array_push($concepts, $concept->serialize(false));
             }
         }
         if (count($concepts) > 0) {

@@ -220,6 +220,44 @@ EOD;
                     ->withID("@id2")
                     ->withNegativeConcepts([new Concept('negativeConcept')])])
             ->executeSync();
+
+        $expectedRequestBody = <<< EOD
+{
+  "inputs": [
+    {
+      "id": "@id1",
+      "data": {
+        "image": {
+          "url": "@url1"
+        },
+        "concepts": [
+          {
+            "id": "positiveConcept",
+            "value": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "@id2",
+      "data": {
+        "image": {
+          "url": "@url2"
+        },
+        "concepts": [
+          {
+            "id": "negativeConcept",
+            "value": 0
+          }
+        ]
+      }
+    }
+  ]
+}
+EOD;
+        $this->assertEquals(json_decode($expectedRequestBody, true), $httpClient->postedBody());
+
+
         $inputs = $response->get();
         $this->assertEquals('@imageURL', $inputs[0]->url());
     }
