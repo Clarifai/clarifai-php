@@ -13,64 +13,6 @@ use Clarifai\Internal\_Image;
 use Clarifai\Internal\_Input;
 use Clarifai\Internal\_Video;
 
-class InputType
-{
-    private $value;
-
-    /**
-     * Private ctor.
-     * @param string $value the value
-     */
-    private function __construct($value)
-    {
-        $this->value = $value;
-    }
-
-    /**
-     * @return InputType Image input type.
-     */
-    public static function image() { return new InputType('image'); }
-
-    /**
-     * @return InputType Video input type.
-     */
-    public static function video() { return new InputType('video'); }
-
-    public function __toString()
-    {
-        return $this->value;
-    }
-}
-
-class InputForm
-{
-    private $value;
-
-    /**
-     * Private ctor.
-     * @param string $value the value
-     */
-    private function __construct($value)
-    {
-        $this->value = $value;
-    }
-
-    /**
-     * @return InputForm URL input form.
-     */
-    public static function url() { return new InputForm('url'); }
-
-    /**
-     * @return InputForm File input form.
-     */
-    public static function file() { return new InputForm('file'); }
-
-    public function __toString()
-    {
-        return $this->value;
-    }
-}
-
 abstract class ClarifaiInput
 {
     private $type;
