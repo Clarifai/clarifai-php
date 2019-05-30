@@ -1,3 +1,10 @@
+## [[0.6.1]](https://github.com/Clarifai/clarifai-php/releases/tag/0.6.1) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.6.1) - 2019-05-30
+
+### Fixed
+- One class per file, to be compliant with PSR-4
+- Adding inputs with negative concepts
+
+
 ## [[0.6.0]](https://github.com/Clarifai/clarifai-php/releases/tag/0.6.0) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.6.0) - 2018-12-10
 
 ### Added
