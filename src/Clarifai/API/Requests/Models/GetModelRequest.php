@@ -8,6 +8,7 @@ use Clarifai\API\CustomV2Client;
 use Clarifai\API\RequestMethod;
 use Clarifai\API\Requests\ClarifaiRequest;
 use Clarifai\DTOs\Models\Model;
+use Clarifai\Exceptions\ClarifaiException;
 use Clarifai\Internal\_GetModelRequest;
 use Clarifai\Internal\_SingleModelResponse;
 
@@ -18,6 +19,14 @@ class GetModelRequest extends ClarifaiRequest
 {
     private $type;
     private $modelID;
+
+    /** @var string */
+    private $modelVersionID;
+    /**
+     * @param string $val The model version ID.
+     * @return GetModelRequest
+     */
+    public function withModelVersionID($val) { $this->modelVersionID = $val; return $this; }
 
     /**
      * Ctor.
@@ -39,19 +48,22 @@ class GetModelRequest extends ClarifaiRequest
 
     protected function url()
     {
-        return '/v2/models/' . $this->modelID . '/output_info';
+        if ($this->modelVersionID == null) {
+            return "/v2/models/{$this->modelID}/output_info";
+        } else {
+            return "/v2/models/{$this->modelID}/versions/{$this->modelVersionID}/output_info";
+        }
     }
 
     protected function httpRequestBody(CustomV2Client $grpcClient)
     {
-        $r = $grpcClient->GetModel(new _GetModelRequest());
-        return $r;
+        return $grpcClient->GetModel(new _GetModelRequest());
     }
 
     /**
      * @param _SingleModelResponse $response
      * @return Model The serialized model.
-     * @throws \Clarifai\Exceptions\ClarifaiException
+     * @throws ClarifaiException
      */
     protected function unmarshaller($response)
     {

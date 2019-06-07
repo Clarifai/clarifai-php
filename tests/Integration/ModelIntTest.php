@@ -162,4 +162,22 @@ class ModelIntTest extends BaseInt
             $this->assertTrue($deleteResponse->isSuccessful());
         }
     }
+
+
+    public function testGetModelWithVersionID()
+    {
+        $modelID = $this->client->publicModels()->generalModel()->modelID();
+        // This is the first general model verison ID.
+        $modelVersionID = 'aa9ca48295b37401f8af92ad1af0d91d';
+        $response = $this->client->getModel(ModelType::concept(), $modelID)
+            ->withModelVersionID($modelVersionID)
+            ->executeSync();
+
+        /** @var ConceptModel $model */
+        $model = $response->get();
+
+        $this->assertTrue($response->isSuccessful());
+        $this->assertEquals($modelVersionID, $model->modelVersion()->id());
+        $this->assertTrue(count($model->outputInfo()->concepts()) > 0);
+    }
 }
