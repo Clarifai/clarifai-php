@@ -8,6 +8,7 @@ use Clarifai\DTOs\Feedbacks\ConceptFeedback;
 use Clarifai\DTOs\Feedbacks\FaceFeedback;
 use Clarifai\DTOs\Feedbacks\Feedback;
 use Clarifai\DTOs\Feedbacks\RegionFeedback;
+use Clarifai\DTOs\GeoPoint;
 use Clarifai\DTOs\Inputs\ClarifaiInput;
 use Clarifai\DTOs\Inputs\ClarifaiInputsStatus;
 use Clarifai\DTOs\Inputs\ClarifaiURLImage;
@@ -320,6 +321,74 @@ EOD;
       }
     }
   ]
+}
+EOD;
+        $this->assertEquals(json_decode($expectedRequestBody, true), $httpClient->postedBody());
+
+        $inputs = $response->get();
+        $this->assertEquals('@imageURL', $inputs[0]->url());
+    }
+
+    public function testAddInputWithGeo()
+    {
+        $postResponse = <<<EOD
+{
+  "status": {
+    "code": 10000,
+    "description": "Ok"
+  },
+  "inputs": [{
+    "id": "@inputID",
+    "data": {
+      "image": {
+        "url": "@imageURL"
+      },
+      "geo": {
+        "geo_point": {
+          "longitude": 55,
+          "latitude": 66
+        }
+      }
+    },
+    "created_at": "2019-01-17T14:02:21.216473Z",
+    "modified_at": "2019-01-17T14:02:21.800792Z",
+    "status": {
+      "code": 30000,
+      "description": "Download complete"
+    }
+  }
+  ]
+}
+EOD;
+
+        $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
+        $client = new ClarifaiClient("", $httpClient);
+        $response = $client
+            ->addInputs([
+                (new ClarifaiURLImage('@imageURL'))
+                    ->withID("@inputID")
+                    ->withAllowDuplicateUrl(true)
+                    ->withGeo(new GeoPoint(55,66))
+              ]
+            )
+            ->executeSync();
+        $expectedRequestBody = <<< EOD
+{
+  "inputs": [{
+    "id": "@inputID",
+    "data": {
+      "image": {
+        "url": "@imageURL",
+        "allow_duplicate_url": true
+      },
+      "geo": {
+        "geo_point": {
+          "longitude": 55,
+          "latitude": 66
+        }
+      }
+    }
+  }]
 }
 EOD;
         $this->assertEquals(json_decode($expectedRequestBody, true), $httpClient->postedBody());
