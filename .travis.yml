@@ -18,7 +18,7 @@ before_script:
   - export CLARIFAI_API_KEY="$(python scripts/app_and_key_for_tests.py --create-key ${CLARIFAI_APP_ID})"
   - python scripts/app_and_key_for_tests.py --create-workflow ${CLARIFAI_API_KEY}
 
-script: phpunit -c phpunit.xml -v
+script: ./vendor/bin/phpunit 
 
 after_script:
   - export PYTHONPATH=.
