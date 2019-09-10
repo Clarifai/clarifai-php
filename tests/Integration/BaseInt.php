@@ -2,6 +2,7 @@
 
 namespace Integration;
 
+use Clarifai\API\ClarifaiHttpClient;
 use PHPUnit\Framework\TestCase;
 
 use Clarifai\API\ClarifaiClient;
@@ -23,7 +24,9 @@ class BaseInt extends TestCase
     public function __construct()
     {
         parent::__construct();
-        $this->client = new ClarifaiClient(getenv('CLARIFAI_API_KEY'));
+        $apiKey = getenv('CLARIFAI_API_KEY');
+        $baseUrl = getenv('CLARIFAI_BASE_URL');
+        $this->client = new ClarifaiClient($apiKey, new ClarifaiHttpClient($apiKey, $baseUrl));
     }
 
     /**
