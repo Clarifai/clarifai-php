@@ -26,6 +26,9 @@ class BaseInt extends TestCase
         parent::__construct();
         $apiKey = getenv('CLARIFAI_API_KEY');
         $baseUrl = getenv('CLARIFAI_BASE_URL');
+        if (!$baseUrl) {
+            $baseUrl = "https://api.clarifai.com";
+        }
         $this->client = new ClarifaiClient($apiKey, new ClarifaiHttpClient($apiKey, $baseUrl));
     }
 
