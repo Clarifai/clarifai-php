@@ -70,8 +70,12 @@ class SearchInputsRequest extends ClarifaiPaginatedRequest
         if (!is_null($this->language)) {
             $query->setLanguage($this->language);
         }
-        return $grpcClient->PostSearches((new _PostSearchesRequest())
-            ->setQuery($query));
+        $request = (new _PostSearchesRequest())
+            ->setQuery($query);
+
+        $this->addPaginationFieldsToRequest($request);
+
+        return $grpcClient->PostSearches($request);
     }
 
     /**

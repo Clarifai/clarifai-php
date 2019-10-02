@@ -136,4 +136,39 @@ EOD;
         $this->assertEquals('@conceptID3', $concepts[2]->id());
         $this->assertEquals('狗窝', $concepts[2]->name());
     }
+
+    public function testSearchConceptsWithPagination()
+    {
+        $postResponse = <<<EOD
+{
+  "status": {
+    "code": 10000,
+    "description": "Ok"
+  },
+  "concepts": []
+}
+EOD;
+        $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
+        $client = new ClarifaiClient("", $httpClient);
+
+        $response = $client->searchConcepts('conc*')
+            ->withPage(3)
+            ->withPerPage(2)
+            ->executeSync();
+
+        $expectedRequestBody = <<<EOD
+{
+  "concept_query": {
+    "name": "conc*"
+  },
+  "pagination": {
+    "page": 3,
+    "per_page": 2
+  }
+}
+EOD;
+
+        $this->assertEquals(json_decode($expectedRequestBody, true), $httpClient->postedBody());
+        $this->assertTrue($response->isSuccessful());
+    }
 }

@@ -122,4 +122,40 @@ EOD;
         $this->assertEquals('@modelID', $models[0]->modelID());
         $this->assertEquals('@modelVersionID', $models[0]->modelVersion()->id());
     }
+
+    public function testSearchModelsWithPagination()
+    {
+        $postResponse = <<<EOD
+{
+    "status": {
+        "code": 10000,
+        "description": "Ok"
+    },
+    "models": []
+}
+EOD;
+        $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
+        $client = new ClarifaiClient("", $httpClient);
+
+        $response = $client->searchModels('celeb*')
+            ->withPage(3)
+            ->withPerPage(2)
+            ->executeSync();
+
+        $expectedRequestBody = <<<EOD
+{
+    "model_query": {
+      "name": "celeb*"
+    },
+    "pagination": {
+        "page": 3,
+        "per_page": 2
+    }
+}
+EOD;
+
+        $this->assertEquals(json_decode($expectedRequestBody, true), $httpClient->postedBody());
+        $this->assertTrue($response->isSuccessful());
+    }
+
 }

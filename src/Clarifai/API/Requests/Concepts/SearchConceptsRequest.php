@@ -59,8 +59,12 @@ class SearchConceptsRequest extends ClarifaiPaginatedRequest
         if (!is_null($this->language)) {
             $conceptQuery->setLanguage($this->language);
         }
-        return $grpcClient->PostConceptsSearches((new _PostConceptsSearchesRequest())
-            ->setConceptQuery($conceptQuery));
+        $request = (new _PostConceptsSearchesRequest())
+            ->setConceptQuery($conceptQuery);
+
+        $this->addPaginationFieldsToRequest($request);
+
+        return $grpcClient->PostConceptsSearches($request);
     }
 
     /**

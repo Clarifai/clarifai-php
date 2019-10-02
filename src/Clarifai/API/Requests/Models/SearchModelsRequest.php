@@ -57,8 +57,12 @@ class SearchModelsRequest extends ClarifaiPaginatedRequest
         if (!is_null($this->modelType)) {
             $query->setType($this->modelType->typeExt());
         }
-        return $grpcClient->PostModelsSearches((new _PostModelsSearchesRequest())
-            ->setModelQuery($query));
+        $request = (new _PostModelsSearchesRequest())
+            ->setModelQuery($query);
+
+        $this->addPaginationFieldsToRequest($request);
+
+        return $grpcClient->PostModelsSearches($request);
     }
 
     /**

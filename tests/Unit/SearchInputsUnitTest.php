@@ -241,4 +241,67 @@ EOD;
         ), $input->form());
         $this->assertEquals('@inputURL', $input->URL());
     }
+
+    public function testSearchInputsWithPagination()
+    {
+        $postResponse = <<<EOD
+{
+  "status": {
+    "code": 10000,
+    "description": "Ok"
+  },
+  "hits": [
+    {
+      "score": 0.99,
+      "input": {
+        "id": "@inputID",
+        "created_at": "2016-11-22T17:06:02Z",
+        "data": {
+          "image": {
+            "url": "@inputURL"
+          }
+        },
+        "status": {
+          "code": 30000,
+          "description": "Download complete"
+        }
+      }
+    }
+  ]
+}
+EOD;
+        $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
+        $client = new ClarifaiClient("", $httpClient);
+
+        $client->searchInputs(SearchBy::conceptID('@conceptID'))
+            ->withPage(2)
+            ->withPerPage(3)
+            ->executeSync();
+
+        $expectedRequestBody = <<<EOD
+{
+  "query": {
+    "ands": [
+      {
+        "output": {
+          "data": {
+            "concepts": [
+              {
+                "id": "@conceptID"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "pagination": {
+    "per_page": 3,
+    "page": 2
+  }
+}
+EOD;
+
+        $this->assertEquals(json_decode($expectedRequestBody, true), $httpClient->postedBody());
+    }
 }
