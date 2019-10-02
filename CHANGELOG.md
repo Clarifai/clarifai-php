@@ -1,3 +1,13 @@
+## [[0.6.2]](https://github.com/Clarifai/clarifai-php/releases/tag/0.6.2) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.6.2) - 2019-10-02
+
+### Added
+- Getting model by version ID
+
+### Fixed
+- Skip unknown models in GetModelsRequest
+- Make pagination work with search
+
+
 ## [[0.6.1]](https://github.com/Clarifai/clarifai-php/releases/tag/0.6.1) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.6.1) - 2019-05-30
 
 ### Fixed
