@@ -9,7 +9,6 @@ use Clarifai\DTOs\Predictions\Embedding;
 use Clarifai\DTOs\Predictions\FaceConcepts;
 use Clarifai\DTOs\Predictions\FaceDetection;
 use Clarifai\DTOs\Predictions\FaceEmbedding;
-use Clarifai\DTOs\Predictions\Focus;
 use Clarifai\DTOs\Predictions\Frame;
 use Clarifai\DTOs\Predictions\Logo;
 
@@ -76,11 +75,6 @@ class ModelType
         return new ModelType('detect-embed', FaceEmbeddingModel::class, FaceEmbedding::class);
     }
 
-    public static function focus()
-    {
-        return new ModelType('focus', FocusModel::class, Focus::class);
-    }
-
     public static function logo()
     {
         return new ModelType('detection', LogoModel::class, Logo::class);
@@ -106,7 +100,6 @@ class ModelType
             self::faceConcepts(),
             self::faceDetection(),
             self::faceEmbedding(),
-            self::focus(),
             self::logo(),
         ];
         foreach ($allModelTypes as $modelType) {

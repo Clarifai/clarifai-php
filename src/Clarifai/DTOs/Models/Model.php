@@ -97,8 +97,6 @@ abstract class Model
                 return FaceDetectionModel::deserializeInner($httpClient, $model);
             case ModelType::faceEmbedding():
                 return FaceEmbeddingModel::deserializeInner($httpClient, $model);
-            case ModelType::focus():
-                return FocusModel::deserializeInner($httpClient, $model);
             case ModelType::logo():
                 return LogoModel::deserializeInner($httpClient, $model);
             case ModelType::video():

@@ -13,7 +13,6 @@ use Clarifai\DTOs\Predictions\Embedding;
 use Clarifai\DTOs\Predictions\FaceConcepts;
 use Clarifai\DTOs\Predictions\FaceDetection;
 use Clarifai\DTOs\Predictions\FaceEmbedding;
-use Clarifai\DTOs\Predictions\Focus;
 use Clarifai\DTOs\Predictions\Frame;
 use Clarifai\DTOs\Predictions\Logo;
 use Clarifai\DTOs\Predictions\PredictionInterface;
@@ -166,15 +165,6 @@ class ClarifaiOutput
                     /** @var _Region $faceEmbedding */
                     foreach ($data->getRegions() as $faceEmbedding) {
                         array_push($predictions, FaceEmbedding::deserialize($faceEmbedding));
-                    }
-                    break;
-                }
-            case ModelType::focus():
-                {
-                    /** @var _Region $focus */
-                    foreach ($data->getRegions() as $focus) {
-                        array_push($predictions, Focus::deserialize($focus,
-                            $data->getFocus()->getValue()));
                     }
                     break;
                 }

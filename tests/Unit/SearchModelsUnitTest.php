@@ -76,13 +76,13 @@ EOD;
     },
     "models": [{
         "id": "@modelID",
-        "name": "focus",
+        "name": "color",
         "created_at": "2017-03-06T22:57:00.660603Z",
         "app_id": "main",
         "output_info": {
             "message": "Show output_info with: GET /models/{model_id}/output_info",
-            "type": "blur",
-            "type_ext": "focus"
+            "type": "color",
+            "type_ext": "color"
         },
         "model_version": {
             "id": "@modelVersionID",
@@ -92,21 +92,21 @@ EOD;
                 "description": "Model trained successfully"
             }
         },
-        "display_name": "Focus"
+        "display_name": "Color"
     }]
 }
 EOD;
         $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
         $client = new ClarifaiClient("", $httpClient);
 
-        $response = $client->searchModels('*', ModelType::focus())
+        $response = $client->searchModels('*', ModelType::color())
             ->executeSync();
 
         $expectedRequestBody = <<<EOD
 {
     "model_query": {
       "name": "*",
-      "type": "focus"
+      "type": "color"
     }
 }
 EOD;

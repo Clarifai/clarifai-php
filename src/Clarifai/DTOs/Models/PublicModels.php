@@ -121,14 +121,6 @@ class PublicModels
      */
     public function faceEmbeddingModel() { return $this->faceEmbeddingModel; }
 
-    private $focusModel;
-    /**
-     * Focus model returs overall focus and identifies in-focus regions.
-     * @return FocusModel A Focus model.
-     */
-    public function focusModel() { return $this->focusModel; }
-
-
     private $logoModel;
     /**
      * Logo model detects and identifies brand logos.
@@ -208,8 +200,6 @@ class PublicModels
 
         $this->faceEmbeddingModel = new FaceEmbeddingModel($httpClient,
             'd02b4508df58432fbb84e800597b8959');
-
-        $this->focusModel = new FocusModel($httpClient, 'c2cf7cecd8a6427da375b9f35fcd2381');
 
         $this->logoModel = new LogoModel($httpClient, 'c443119bf2ed4da98487520d01a0b1e3');
 

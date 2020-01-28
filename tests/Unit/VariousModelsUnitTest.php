@@ -9,7 +9,6 @@ use Clarifai\DTOs\Models\EmbeddingModel;
 use Clarifai\DTOs\Models\FaceConceptsModel;
 use Clarifai\DTOs\Models\FaceDetectionModel;
 use Clarifai\DTOs\Models\FaceEmbeddingModel;
-use Clarifai\DTOs\Models\FocusModel;
 use Clarifai\DTOs\Models\LogoModel;
 use Clarifai\DTOs\Models\OutputInfos\DemographicsOutputInfo;
 use Clarifai\DTOs\Models\OutputInfos\EmbeddingOutputInfo;
@@ -22,7 +21,6 @@ use Clarifai\DTOs\Predictions\Embedding;
 use Clarifai\DTOs\Predictions\FaceConcepts;
 use Clarifai\DTOs\Predictions\FaceDetection;
 use Clarifai\DTOs\Predictions\FaceEmbedding;
-use Clarifai\DTOs\Predictions\Focus;
 use Clarifai\DTOs\Predictions\Frame;
 use Clarifai\DTOs\Predictions\Logo;
 use PHPUnit\Framework\TestCase;
@@ -1120,160 +1118,6 @@ EOD;
         $faceEmbedding = $data[0];
         $this->assertEquals(new Crop(0.1, 0.2, 0.3, 0.4), $faceEmbedding->crop());
         $this->assertEquals([0.1, 0.2, 0.3], $faceEmbedding->embeddings()[0]->vector());
-    }
-
-    public function testFocusGetModel()
-    {
-        $getResponse = <<<EOD
-{
-  "status": {
-    "code": 10000,
-    "description": "Ok"
-  },
-  "model": {
-    "id": "@modelID",
-    "name": "focus",
-    "created_at": "2017-03-06T22:57:00.660603Z",
-    "app_id": "main",
-    "output_info": {
-      "type": "blur",
-      "type_ext": "focus"
-    },
-    "model_version": {
-      "id": "@modelVersionID",
-      "created_at": "2017-03-06T22:57:00.684652Z",
-      "status": {
-        "code": 21100,
-        "description": "Model trained successfully"
-      },
-      "train_stats": {}
-    },
-    "display_name": "Focus"
-  }
-}
-EOD;
-        $httpClient = new FkClarifaiHttpClientTest($getResponse, null, null, null);
-        $client = new ClarifaiClient("", $httpClient);
-        $response = $client->getModel(ModelType::focus(), '@modelID')->executeSync();
-        $this->assertTrue($response->isSuccessful());
-
-        /** @var FocusModel $model */
-        $model = $response->get();
-        $this->assertEquals('@modelID', $model->modelID());
-        $this->assertEquals('focus', $model->name());
-        $this->assertEquals('focus', $model->outputInfo()->typeExt());
-        $this->assertEquals('@modelVersionID', $model->modelVersion()->id());
-    }
-
-    public function testFocusPredict()
-    {
-        $postResponse = <<<EOD
-{
-  "status": {
-    "code": 10000,
-    "description": "Ok"
-  },
-  "outputs": [
-    {
-      "id": "@outputID",
-      "status": {
-        "code": 10000,
-        "description": "Ok"
-      },
-      "created_at": "2019-01-30T16:36:40.235988209Z",
-      "model": {
-        "id": "@modelID",
-        "name": "focus",
-        "created_at": "2017-03-06T22:57:00.660603Z",
-        "app_id": "main",
-        "output_info": {
-          "message": "Show output_info with: GET /models/{model_id}/output_info",
-          "type": "blur",
-          "type_ext": "focus"
-        },
-        "model_version": {
-          "id": "@modelVersionID",
-          "created_at": "2017-03-06T22:57:00.684652Z",
-          "status": {
-            "code": 21100,
-            "description": "Model trained successfully"
-          },
-          "train_stats": {}
-        },
-        "display_name": "Focus"
-      },
-      "input": {
-        "id": "@inputID",
-        "data": {
-          "image": {
-            "url": "@url"
-          }
-        }
-      },
-      "data": {
-        "focus": {
-          "density": 0.7,
-          "value": 0.8
-        },
-        "regions": [
-          {
-            "id": "@regionID",
-            "region_info": {
-              "bounding_box": {
-                "top_row": 0.1,
-                "left_col": 0.2,
-                "bottom_row": 0.3,
-                "right_col": 0.4
-              }
-            },
-            "data": {
-              "focus": {
-                "density": 0.5,
-                "value": 0.6
-              }
-            }
-          }
-        ]
-      }
-    }
-  ]
-}
-EOD;
-
-        $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
-        $client = new ClarifaiClient("", $httpClient);
-        $response = $client->predict(ModelType::focus(), "", new ClarifaiURLImage("@url"))
-            ->executeSync();
-
-        $expectedRequestBody = <<< EOD
-{
-  "inputs": [
-    {
-      "data": {
-        "image": {
-          "url": "@url"
-        }
-      }
-    }
-  ]
-}
-EOD;
-        $this->assertEquals(json_decode($expectedRequestBody, true), $httpClient->postedBody());
-
-        /** @var ClarifaiOutput $output */
-        $output = $response->get();
-
-        $this->assertEquals('@inputID', $output->input()->id());
-        $this->assertEquals('@outputID', $output->id());
-
-        /** @var Focus[] $data */
-        $data = $output->data();
-
-        $focus = $data[0];
-        $this->assertEquals(new Crop(0.1, 0.2, 0.3, 0.4), $focus->crop());
-        $this->assertEquals(0.5, $focus->density());
-        $this->assertEquals(0.8, $focus->value());
-        // TODO(Rok) HIGH: Correctly expose Crop both density/value numbers.
     }
 
     public function testLogoGetModel()

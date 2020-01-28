@@ -9,7 +9,6 @@ use Clarifai\DTOs\Models\EmbeddingModel;
 use Clarifai\DTOs\Models\FaceConceptsModel;
 use Clarifai\DTOs\Models\FaceDetectionModel;
 use Clarifai\DTOs\Models\FaceEmbeddingModel;
-use Clarifai\DTOs\Models\FocusModel;
 use Clarifai\DTOs\Models\LogoModel;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Outputs\ClarifaiOutput;
@@ -18,7 +17,6 @@ use Clarifai\DTOs\Predictions\Embedding;
 use Clarifai\DTOs\Predictions\FaceConcepts;
 use Clarifai\DTOs\Predictions\FaceDetection;
 use Clarifai\DTOs\Predictions\FaceEmbedding;
-use Clarifai\DTOs\Predictions\Focus;
 use Clarifai\DTOs\Predictions\Logo;
 
 class VariousModelsIntTest extends BaseInt
@@ -204,38 +202,6 @@ class VariousModelsIntTest extends BaseInt
 
         $this->assertNotNull($faceEmbedding->crop());
         $this->assertNotNull($faceEmbedding->embeddings()[0]->vector());
-    }
-
-    public function testGetFocusModel()
-    {
-        $response = $this->client->getModel(ModelType::focus(),
-            $this->client->publicModels()->focusModel()->modelID())
-            ->executeSync();
-        $this->assertTrue($response->isSuccessful());
-        $this->assertEquals(10000, $response->status()->statusCode());
-        $this->assertNotNull($response->rawBody());
-
-        /* @var FocusModel $faceEmbeddingModel */
-        $faceEmbeddingModel = $response->get();
-        $this->assertNotNull($faceEmbeddingModel->modelID());
-    }
-
-    public function testPredictOnFocusModel()
-    {
-        $modelID = $this->client->publicModels()->focusModel()->modelID();
-        $response = $this->client->predict(ModelType::focus(), $modelID,
-            new ClarifaiURLImage(parent::CELEB_IMG_URL))
-            ->executeSync();
-        $this->assertTrue($response->isSuccessful());
-
-        /* @var ClarifaiOutput $clarifaiOutput */
-        $clarifaiOutput = $response->get();
-        /* @var Focus $focus */
-        $focus = $clarifaiOutput->data()[0];
-
-        $this->assertNotNull($focus->crop());
-        $this->assertNotNull($focus->value());
-        $this->assertNotNull($focus->density());
     }
 
     public function testGetLogoModel()
