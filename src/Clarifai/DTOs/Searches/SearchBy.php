@@ -49,22 +49,20 @@ abstract class SearchBy
 
     /**
      * @param string $imageUrl The image URL.
-     * @param Crop|null $crop The crop.
      * @return SearchByURLImageVisually A new SearchBy instance.
      */
-    public static function urlImageVisually($imageUrl, $crop = null)
+    public static function urlImageVisually($imageUrl)
     {
-        return new SearchByURLImageVisually($imageUrl, $crop);
+        return new SearchByURLImageVisually($imageUrl);
     }
 
     /**
      * @param string $fileContent Image file content encoded as base64.
-     * @param Crop|null $crop The crop.
      * @return SearchByFileImageVisually A new SearchBy instance.
      */
-    public static function fileImageVisually($fileContent, $crop = null)
+    public static function fileImageVisually($fileContent)
     {
-        return new SearchByFileImageVisually($fileContent, $crop);
+        return new SearchByFileImageVisually($fileContent);
     }
 
     // TODO (Rok) HIGH: Search by metadata.

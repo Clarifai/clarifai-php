@@ -131,6 +131,8 @@ class InputIntTest extends BaseInt
                 ->modifyInput($inputID, ModifyAction::merge())->withMetadata(['key3' => 'val3'])
                 ->executeSync();
 
+            $this->assertTrue($response->isSuccessful());
+
             /** @var ClarifaiInput $input */
             $input = $response->get();
             $meta = $input->metadata();

@@ -57,16 +57,6 @@ class SearchInputsIntTest extends BaseInt
         $this->assertNotNull($response->get()->searchHits());
     }
 
-    public function testSearchInputsByURLImageVisuallyWithCrop()
-    {
-        $response = $this->client->searchInputs(SearchBy::urlImageVisually(parent::CELEB_IMG_URL,
-                new Crop(0.1, 0.2, 0.3, 0.4)))
-            ->executeSync();
-
-        $this->assertTrue($response->isSuccessful());
-        $this->assertNotNull($response->get()->searchHits());
-    }
-
     public function testSearchInputsByFileImageVisually()
     {
         $base64 = file_get_contents(parent::BALLOONS_FILE_PATH);
