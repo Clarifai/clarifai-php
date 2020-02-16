@@ -2,6 +2,7 @@
 
 namespace Clarifai\DTOs\Inputs;
 
+use Clarifai\DTOs\ClarifaiStatus;
 use Clarifai\DTOs\GeoPoint;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\DTOs\Predictions\Region;
@@ -24,6 +25,17 @@ abstract class ClarifaiInput
     private $id;
     public function id() { return $this->id; }
     public function withID($val) { $this->id = $val; return $this; }
+
+    private $status;
+    /**
+     * @return ClarifaiStatus
+     */
+    public function status() { return $this->status; }
+    /**
+     * @param ClarifaiStatus $val
+     * @return $this
+     */
+    protected function withStatus($val) { $this->status = $val; return $this; }
 
     private $positiveConcepts;
     /**
@@ -153,19 +165,25 @@ abstract class ClarifaiInput
     {
         if (!is_null($inputResponse->getData()->getImage())) {
             if ($inputResponse->getData()->getImage()->getUrl() != '') {
-                return ClarifaiURLImage::deserialize($inputResponse);
+                $input = ClarifaiURLImage::deserialize($inputResponse);
             } else {
-                return ClarifaiFileImage::deserialize($inputResponse);
+                $input = ClarifaiFileImage::deserialize($inputResponse);
             }
         } else if(!is_null($inputResponse->getData()->getVideo())) {
             if ($inputResponse->getData()->getVideo()->getUrl() != '') {
-                return ClarifaiURLVideo::deserialize($inputResponse);
+                $input = ClarifaiURLVideo::deserialize($inputResponse);
             } else {
-                return ClarifaiFileVideo::deserialize($inputResponse);
+                $input = ClarifaiFileVideo::deserialize($inputResponse);
             }
         } else {
             throw new ClarifaiException("Unknown ClarifaiInput type. Neither image or video.");
         }
+
+        if (!is_null($inputResponse->getStatus())) {
+            $input->withStatus(ClarifaiStatus::deserialize($inputResponse->getStatus()));
+        }
+
+        return $input;
     }
 
     /**

@@ -3,24 +3,24 @@
 namespace Clarifai\DTOs\Models;
 
 use Clarifai\API\ClarifaiHttpClientInterface;
-use Clarifai\DTOs\Models\OutputInfos\FaceDetectionOutputInfo;
+use Clarifai\DTOs\Models\OutputInfos\DetectionOutputInfo;
 use Clarifai\Internal\_Model;
 
 /**
- * The face detection model finds regions where faces are detected.
+ * The detection model finds detections and regions where they are located.
  */
-class FaceDetectionModel extends Model
+class DetectionModel extends Model
 {
     /**
      * @inheritdoc
      */
     public function type()
     {
-        return ModelType::faceDetection();
+        return ModelType::detectConcept();
     }
 
     /**
-     * @return FaceDetectionOutputInfo The output info.
+     * @return DetectionOutputInfo The output info.
      */
     public function outputInfo() { return $this->outputInfo; }
 
@@ -32,15 +32,15 @@ class FaceDetectionModel extends Model
     /**
      * @param ClarifaiHttpClientInterface $httpClient
      * @param _Model $modelResponse
-     * @return FaceDetectionModel
+     * @return DetectionModel
      */
     public static function deserializeInner(ClarifaiHttpClientInterface $httpClient,
         $modelResponse) {
-        return (new FaceDetectionModel($httpClient, $modelResponse->getId()))
+        return (new DetectionModel($httpClient, $modelResponse->getId()))
             ->withName($modelResponse->getName())
             ->withCreatedAt($modelResponse->getCreatedAt()->toDateTime())
             ->withAppID($modelResponse->getAppId())
-            ->withOutputInfo(FaceDetectionOutputInfo::deserialize($modelResponse->getOutputInfo()))
+            ->withOutputInfo(DetectionOutputInfo::deserialize($modelResponse->getOutputInfo()))
             ->withModelVersion(ModelVersion::deserialize($modelResponse->getModelVersion()));
     }
 }

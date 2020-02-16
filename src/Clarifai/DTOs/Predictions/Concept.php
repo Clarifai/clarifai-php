@@ -38,6 +38,10 @@ class Concept implements PredictionInterface
     public function appID() { return $this->appID; }
     private function withAppID($val) { $this->appID = $val; return $this; }
 
+    private $vocabID;
+    public function vocabID() { return $this->vocabID; }
+    private function withVocabID($val) { $this->vocabID = $val; return $this; }
+
     /**
      * Ctor.
      * @param string $id the Concept ID

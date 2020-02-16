@@ -78,8 +78,6 @@ class SearchModelsRequest extends ClarifaiPaginatedRequest
 
             $modelType = ModelType::determineModelType($typeExt);
             if (is_null($modelType)) {
-                echo "Warning: Unknown model type '$typeExt', skipping. Please upgrade the to " .
-                    "the latest version of the library.";
                 continue;
             }
             array_push($models, Model::deserialize($this->httpClient, $modelType, $model));

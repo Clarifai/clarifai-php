@@ -17,7 +17,7 @@ class SearchModelsIntTest extends BaseInt
 
     public function testSearchModelsByType()
     {
-        $response = $this->client->searchModels('*', ModelType::focus())
+        $response = $this->client->searchModels('*', ModelType::detectConcept())
             ->executeSync();
 
         $this->assertTrue($response->isSuccessful());

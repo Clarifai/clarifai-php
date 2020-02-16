@@ -5,6 +5,7 @@ namespace Unit;
 use Clarifai\DTOs\Crop;
 use Clarifai\DTOs\Models\ColorModel;
 use Clarifai\DTOs\Models\DemographicsModel;
+use Clarifai\DTOs\Models\DetectionModel;
 use Clarifai\DTOs\Models\EmbeddingModel;
 use Clarifai\DTOs\Models\FaceConceptsModel;
 use Clarifai\DTOs\Models\FaceDetectionModel;
@@ -12,12 +13,14 @@ use Clarifai\DTOs\Models\FaceEmbeddingModel;
 use Clarifai\DTOs\Models\FocusModel;
 use Clarifai\DTOs\Models\LogoModel;
 use Clarifai\DTOs\Models\OutputInfos\DemographicsOutputInfo;
+use Clarifai\DTOs\Models\OutputInfos\DetectionOutputInfo;
 use Clarifai\DTOs\Models\OutputInfos\EmbeddingOutputInfo;
 use Clarifai\DTOs\Models\VideoModel;
 use Clarifai\DTOs\Outputs\ClarifaiOutput;
 use Clarifai\DTOs\Predictions\Color;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\DTOs\Predictions\Demographics;
+use Clarifai\DTOs\Predictions\Detection;
 use Clarifai\DTOs\Predictions\Embedding;
 use Clarifai\DTOs\Predictions\FaceConcepts;
 use Clarifai\DTOs\Predictions\FaceDetection;
@@ -220,7 +223,8 @@ EOD;
 {
   "status": {
     "code": 10000,
-    "description": "Ok"
+    "description": "Ok",
+    "req_id": "b65e94c8e3d6450595fb37b9398620e9"
   },
   "model": {
     "id": "@modelID",
@@ -248,18 +252,18 @@ EOD;
           }
         ]
       },
-      "type": "facedetect",
-      "type_ext": "facedetect-demographics"
+      "type": "detect-concept",
+      "type_ext": "detect-concept"
     },
     "model_version": {
       "id": "@modelVersionID",
       "created_at": "2016-12-23T06:08:44.271674Z",
       "status": {
         "code": 21100,
-        "description": "Model trained successfully"
+        "description": "Model is trained and ready"
       },
       "active_concept_count": 104,
-      "train_stats": {}
+      "worker_id": "ea769b45b38d4455b400ca949cd70d9e"
     },
     "display_name": "Demographics"
   }
@@ -267,16 +271,16 @@ EOD;
 EOD;
         $httpClient = new FkClarifaiHttpClientTest($getResponse, null, null, null);
         $client = new ClarifaiClient("", $httpClient);
-        $response = $client->getModel(ModelType::color(), '@modelID')->executeSync();
+        $response = $client->getModel(ModelType::detectConcept(), '@modelID')->executeSync();
         $this->assertTrue($response->isSuccessful());
 
-        /** @var DemographicsModel $model */
+        /** @var DetectionModel $model */
         $model = $response->get();
         $this->assertEquals('@modelID', $model->modelID());
         $this->assertEquals('demographics', $model->name());
         $this->assertEquals('@modelVersionID', $model->modelVersion()->id());
 
-        /** @var DemographicsOutputInfo $outputInfo */
+        /** @var DetectionOutputInfo $outputInfo */
         $outputInfo = $model->outputInfo();
         $concepts = $outputInfo->concepts();
 
@@ -290,7 +294,8 @@ EOD;
 {
   "status": {
     "code": 10000,
-    "description": "Ok"
+    "description": "Ok",
+    "req_id": "f53dbbc7a9314b2b9dbdb93189887846"
   },
   "outputs": [
     {
@@ -299,7 +304,7 @@ EOD;
         "code": 10000,
         "description": "Ok"
       },
-      "created_at": "2019-01-30T10:48:22.463688278Z",
+      "created_at": "2020-02-16T08:43:28.037924938Z",
       "model": {
         "id": "@modelID",
         "name": "demographics",
@@ -307,17 +312,17 @@ EOD;
         "app_id": "main",
         "output_info": {
           "message": "Show output_info with: GET /models/{model_id}/output_info",
-          "type": "facedetect",
-          "type_ext": "facedetect-demographics"
+          "type": "detect-concept",
+          "type_ext": "detect-concept"
         },
         "model_version": {
-          "id": "@modelVersionID",
+          "id": "f783f0807c52474c8c6ad20c8cf45fc0",
           "created_at": "2016-12-23T06:08:44.271674Z",
           "status": {
             "code": 21100,
-            "description": "Model trained successfully"
+            "description": "Model is trained and ready"
           },
-          "train_stats": {}
+          "worker_id": "ea769b45b38d4455b400ca949cd70d9e"
         },
         "display_name": "Demographics"
       },
@@ -332,7 +337,7 @@ EOD;
       "data": {
         "regions": [
           {
-            "id": "@regionID",
+            "id": "yi0untse5n1c",
             "region_info": {
               "bounding_box": {
                 "top_row": 0.1,
@@ -342,20 +347,66 @@ EOD;
               }
             },
             "data": {
+              "concepts": [
+                {
+                  "id": "@ageConcept1",
+                  "name": "66",
+                  "value": 0.48853946,
+                  "app_id": "main",
+                  "vocab_id": "age_appearance"
+                },
+                {
+                  "id": "@ageConcept2",
+                  "name": "64",
+                  "value": 0.48748416,
+                  "app_id": "main",
+                  "vocab_id": "age_appearance"
+                },
+                {
+                  "id": "@genderConcept1",
+                  "name": "masculine",
+                  "value": 0.92702556,
+                  "app_id": "main",
+                  "vocab_id": "gender_appearance"
+                },
+                {
+                  "id": "@genderConcept2",
+                  "name": "feminine",
+                  "value": 0.07297441,
+                  "app_id": "main",
+                  "vocab_id": "gender_appearance"
+                },
+                {
+                  "id": "@culturalConcept1",
+                  "name": "white",
+                  "value": 0.99550754,
+                  "app_id": "main",
+                  "vocab_id": "multicultural_appearance"
+                },
+                {
+                  "id": "@culturalConcept2",
+                  "name": "american indian or alaska native",
+                  "value": 0.016118784,
+                  "app_id": "main",
+                  "vocab_id": "multicultural_appearance"
+                }
+              ],
               "face": {
                 "age_appearance": {
                   "concepts": [
                     {
                       "id": "@ageConcept1",
-                      "name": "77",
-                      "value": 0.93078935,
-                      "app_id": "main"
+                      "name": "66",
+                      "value": 0.48853946,
+                      "app_id": "main",
+                      "vocab_id": "age_appearance"
                     },
                     {
                       "id": "@ageConcept2",
-                      "name": "78",
-                      "value": 0.92458177,
-                      "app_id": "main"
+                      "name": "64",
+                      "value": 0.48748416,
+                      "app_id": "main",
+                      "vocab_id": "age_appearance"
                     }
                   ]
                 },
@@ -364,14 +415,16 @@ EOD;
                     {
                       "id": "@genderConcept1",
                       "name": "masculine",
-                      "value": 0.88848364,
-                      "app_id": "main"
+                      "value": 0.92702556,
+                      "app_id": "main",
+                      "vocab_id": "gender_appearance"
                     },
                     {
                       "id": "@genderConcept2",
                       "name": "feminine",
-                      "value": 0.111516364,
-                      "app_id": "main"
+                      "value": 0.07297441,
+                      "app_id": "main",
+                      "vocab_id": "gender_appearance"
                     }
                   ]
                 },
@@ -379,15 +432,17 @@ EOD;
                   "concepts": [
                     {
                       "id": "@culturalConcept1",
-                      "name": "black or african american",
-                      "value": 0.9993645,
-                      "app_id": "main"
+                      "name": "white",
+                      "value": 0.99550754,
+                      "app_id": "main",
+                      "vocab_id": "multicultural_appearance"
                     },
                     {
                       "id": "@culturalConcept2",
-                      "name": "native hawaiian or pacific islander",
-                      "value": 0.011455884,
-                      "app_id": "main"
+                      "name": "american indian or alaska native",
+                      "value": 0.016118784,
+                      "app_id": "main",
+                      "vocab_id": "multicultural_appearance"
                     }
                   ]
                 }
@@ -403,7 +458,7 @@ EOD;
 
         $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
         $client = new ClarifaiClient("", $httpClient);
-        $response = $client->predict(ModelType::demographics(), "", new ClarifaiURLImage("@url"))
+        $response = $client->predict(ModelType::detectConcept(), "", new ClarifaiURLImage("@url"))
             ->executeSync();
 
         $expectedRequestBody = <<< EOD
@@ -427,21 +482,19 @@ EOD;
         $this->assertEquals('@inputID', $output->input()->id());
         $this->assertEquals('@outputID', $output->id());
 
-        /** @var Demographics $demo */
-        $demo = $output->data()[0];
+        /** @var Detection $detect */
+        $detect = $output->data()[0];
 
-        $this->assertEquals(new Crop(0.1, 0.2, 0.3, 0.4), $demo->crop());
+        $this->assertEquals(new Crop(0.1, 0.2, 0.3, 0.4), $detect->crop());
 
-        $this->assertEquals(new Crop(0.1, 0.2, 0.3, 0.4), $demo->crop());
+        $this->assertEquals('@ageConcept1', $detect->ageAppearanceConcepts()[0]->id());
+        $this->assertEquals('@ageConcept2', $detect->ageAppearanceConcepts()[1]->id());
 
-        $this->assertEquals('@ageConcept1', $demo->ageAppearanceConcepts()[0]->id());
-        $this->assertEquals('@ageConcept2', $demo->ageAppearanceConcepts()[1]->id());
+        $this->assertEquals('@genderConcept1', $detect->genderAppearanceConcepts()[0]->id());
+        $this->assertEquals('@genderConcept2', $detect->genderAppearanceConcepts()[1]->id());
 
-        $this->assertEquals('@genderConcept1', $demo->genderAppearanceConcepts()[0]->id());
-        $this->assertEquals('@genderConcept2', $demo->genderAppearanceConcepts()[1]->id());
-
-        $this->assertEquals('@culturalConcept1', $demo->multiculturalAppearanceConcepts()[0]->id());
-        $this->assertEquals('@culturalConcept2', $demo->multiculturalAppearanceConcepts()[1]->id());
+        $this->assertEquals('@culturalConcept1', $detect->multiculturalAppearanceConcepts()[0]->id());
+        $this->assertEquals('@culturalConcept2', $detect->multiculturalAppearanceConcepts()[1]->id());
     }
 
     public function testEmbeddingGetModel()
@@ -582,7 +635,7 @@ EOD;
         $this->assertEquals([0.1, 0.2, 0.3], $embedding->vector());
     }
 
-    public function testFaceConceptsGetModel()
+    public function testCelebrityGetModel()
     {
         $getResponse = <<<EOD
 {
@@ -643,10 +696,10 @@ EOD;
 EOD;
         $httpClient = new FkClarifaiHttpClientTest($getResponse, null, null, null);
         $client = new ClarifaiClient("", $httpClient);
-        $response = $client->getModel(ModelType::faceConcepts(), '@modelID')->executeSync();
+        $response = $client->getModel(ModelType::detectConcept(), '@modelID')->executeSync();
         $this->assertTrue($response->isSuccessful());
 
-        /** @var FaceConceptsModel $model */
+        /** @var DetectionModel $model */
         $model = $response->get();
         $this->assertEquals('@modelID', $model->modelID());
         $this->assertEquals('@modelName', $model->name());
@@ -659,7 +712,7 @@ EOD;
         $this->assertEquals('@conceptID3', $concepts[2]->id());
     }
 
-    public function testFaceConceptsPredict()
+    public function testCelebrityPredict()
     {
         $postResponse = <<<EOD
 {
@@ -682,8 +735,8 @@ EOD;
         "app_id": "main",
         "output_info": {
           "message": "Show output_info with: GET /models/{model_id}/output_info",
-          "type": "concept",
-          "type_ext": "facedetect-identity"
+          "type": "detect-concept",
+          "type_ext": "detect-concept"
         },
         "model_version": {
           "id": "@modelVersionID",
@@ -717,24 +770,20 @@ EOD;
               }
             },
             "data": {
-              "face": {
-                "identity": {
-                  "concepts": [
-                    {
-                      "id": "@conceptID11",
-                      "name": "suri cruise",
-                      "value": 0.00035361873,
-                      "app_id": "main"
-                    },
-                    {
-                      "id": "@conceptID12",
-                      "name": "daphne blunt",
-                      "value": 0.00023266333,
-                      "app_id": "main"
-                    }
-                  ]
+              "concepts": [
+                {
+                  "id": "@conceptID11",
+                  "name": "suri cruise",
+                  "value": 0.00035361873,
+                  "app_id": "main"
+                },
+                {
+                  "id": "@conceptID12",
+                  "name": "daphne blunt",
+                  "value": 0.00023266333,
+                  "app_id": "main"
                 }
-              }
+              ]
             }
           },
           {
@@ -748,24 +797,20 @@ EOD;
               }
             },
             "data": {
-              "face": {
-                "identity": {
-                  "concepts": [
-                    {
-                      "id": "@conceptID21",
-                      "name": "shiloh jolie-pitt",
-                      "value": 0.0010930675,
-                      "app_id": "main"
-                    },
-                    {
-                      "id": "@conceptID22",
-                      "name": "suri cruise",
-                      "value": 0.000494421,
-                      "app_id": "main"
-                    }
-                  ]
+              "concepts": [
+                {
+                  "id": "@conceptID21",
+                  "name": "shiloh jolie-pitt",
+                  "value": 0.0010930675,
+                  "app_id": "main"
+                },
+                {
+                  "id": "@conceptID22",
+                  "name": "suri cruise",
+                  "value": 0.000494421,
+                  "app_id": "main"
                 }
-              }
+              ]
             }
           }
         ]
@@ -777,7 +822,7 @@ EOD;
 
         $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
         $client = new ClarifaiClient("", $httpClient);
-        $response = $client->predict(ModelType::faceConcepts(), "", new ClarifaiURLImage("@url"))
+        $response = $client->predict(ModelType::detectConcept(), "", new ClarifaiURLImage("@url"))
             ->executeSync();
 
         $expectedRequestBody = <<< EOD
@@ -801,7 +846,7 @@ EOD;
         $this->assertEquals('@inputID', $output->input()->id());
         $this->assertEquals('@outputID', $output->id());
 
-        /** @var FaceConcepts[] $data */
+        /** @var Detection[] $data */
         $data = $output->data();
 
         $faceConcepts1 = $data[0];
@@ -827,8 +872,8 @@ EOD;
     "created_at": "2016-10-25T19:30:38.541073Z",
     "app_id": "main",
     "output_info": {
-      "type": "facedetect",
-      "type_ext": "facedetect"
+      "type": "detect-concept",
+      "type_ext": "detect-concept"
     },
     "model_version": {
       "id": "@modelVersionID",
@@ -845,14 +890,14 @@ EOD;
 EOD;
         $httpClient = new FkClarifaiHttpClientTest($getResponse, null, null, null);
         $client = new ClarifaiClient("", $httpClient);
-        $response = $client->getModel(ModelType::faceDetection(), '@modelID')->executeSync();
+        $response = $client->getModel(ModelType::detectConcept(), '@modelID')->executeSync();
         $this->assertTrue($response->isSuccessful());
 
-        /** @var FaceDetectionModel $model */
+        /** @var DetectionModel $model */
         $model = $response->get();
         $this->assertEquals('@modelID', $model->modelID());
         $this->assertEquals('face', $model->name());
-        $this->assertEquals('facedetect', $model->outputInfo()->typeExt());
+        $this->assertEquals('detect-concept', $model->outputInfo()->typeExt());
         $this->assertEquals('@modelVersionID', $model->modelVersion()->id());
     }
 
@@ -879,8 +924,8 @@ EOD;
         "app_id": "main",
         "output_info": {
           "message": "Show output_info with: GET /models/{model_id}/output_info",
-          "type": "facedetect",
-          "type_ext": "facedetect"
+          "type": "detect-concept",
+          "type_ext": "detect-concept"
         },
         "model_version": {
           "id": "@modelVersionID",
@@ -912,7 +957,8 @@ EOD;
                 "bottom_row": 0.3,
                 "right_col": 0.4
               }
-            }
+            },
+            "data": {}
           },
           {
             "id": "@regionID2",
@@ -923,7 +969,8 @@ EOD;
                 "bottom_row": 0.7,
                 "right_col": 0.8
               }
-            }
+            },
+            "data": {}
           }
         ]
       }
@@ -934,7 +981,7 @@ EOD;
 
         $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
         $client = new ClarifaiClient("", $httpClient);
-        $response = $client->predict(ModelType::faceDetection(), "", new ClarifaiURLImage("@url"))
+        $response = $client->predict(ModelType::detectConcept(), "", new ClarifaiURLImage("@url"))
             ->executeSync();
 
         $expectedRequestBody = <<< EOD
@@ -958,7 +1005,7 @@ EOD;
         $this->assertEquals('@inputID', $output->input()->id());
         $this->assertEquals('@outputID', $output->id());
 
-        /** @var FaceDetection[] $data */
+        /** @var Detection[] $data */
         $data = $output->data();
 
         $faceDetection1 = $data[0];
@@ -1122,160 +1169,6 @@ EOD;
         $this->assertEquals([0.1, 0.2, 0.3], $faceEmbedding->embeddings()[0]->vector());
     }
 
-    public function testFocusGetModel()
-    {
-        $getResponse = <<<EOD
-{
-  "status": {
-    "code": 10000,
-    "description": "Ok"
-  },
-  "model": {
-    "id": "@modelID",
-    "name": "focus",
-    "created_at": "2017-03-06T22:57:00.660603Z",
-    "app_id": "main",
-    "output_info": {
-      "type": "blur",
-      "type_ext": "focus"
-    },
-    "model_version": {
-      "id": "@modelVersionID",
-      "created_at": "2017-03-06T22:57:00.684652Z",
-      "status": {
-        "code": 21100,
-        "description": "Model trained successfully"
-      },
-      "train_stats": {}
-    },
-    "display_name": "Focus"
-  }
-}
-EOD;
-        $httpClient = new FkClarifaiHttpClientTest($getResponse, null, null, null);
-        $client = new ClarifaiClient("", $httpClient);
-        $response = $client->getModel(ModelType::focus(), '@modelID')->executeSync();
-        $this->assertTrue($response->isSuccessful());
-
-        /** @var FocusModel $model */
-        $model = $response->get();
-        $this->assertEquals('@modelID', $model->modelID());
-        $this->assertEquals('focus', $model->name());
-        $this->assertEquals('focus', $model->outputInfo()->typeExt());
-        $this->assertEquals('@modelVersionID', $model->modelVersion()->id());
-    }
-
-    public function testFocusPredict()
-    {
-        $postResponse = <<<EOD
-{
-  "status": {
-    "code": 10000,
-    "description": "Ok"
-  },
-  "outputs": [
-    {
-      "id": "@outputID",
-      "status": {
-        "code": 10000,
-        "description": "Ok"
-      },
-      "created_at": "2019-01-30T16:36:40.235988209Z",
-      "model": {
-        "id": "@modelID",
-        "name": "focus",
-        "created_at": "2017-03-06T22:57:00.660603Z",
-        "app_id": "main",
-        "output_info": {
-          "message": "Show output_info with: GET /models/{model_id}/output_info",
-          "type": "blur",
-          "type_ext": "focus"
-        },
-        "model_version": {
-          "id": "@modelVersionID",
-          "created_at": "2017-03-06T22:57:00.684652Z",
-          "status": {
-            "code": 21100,
-            "description": "Model trained successfully"
-          },
-          "train_stats": {}
-        },
-        "display_name": "Focus"
-      },
-      "input": {
-        "id": "@inputID",
-        "data": {
-          "image": {
-            "url": "@url"
-          }
-        }
-      },
-      "data": {
-        "focus": {
-          "density": 0.7,
-          "value": 0.8
-        },
-        "regions": [
-          {
-            "id": "@regionID",
-            "region_info": {
-              "bounding_box": {
-                "top_row": 0.1,
-                "left_col": 0.2,
-                "bottom_row": 0.3,
-                "right_col": 0.4
-              }
-            },
-            "data": {
-              "focus": {
-                "density": 0.5,
-                "value": 0.6
-              }
-            }
-          }
-        ]
-      }
-    }
-  ]
-}
-EOD;
-
-        $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
-        $client = new ClarifaiClient("", $httpClient);
-        $response = $client->predict(ModelType::focus(), "", new ClarifaiURLImage("@url"))
-            ->executeSync();
-
-        $expectedRequestBody = <<< EOD
-{
-  "inputs": [
-    {
-      "data": {
-        "image": {
-          "url": "@url"
-        }
-      }
-    }
-  ]
-}
-EOD;
-        $this->assertEquals(json_decode($expectedRequestBody, true), $httpClient->postedBody());
-
-        /** @var ClarifaiOutput $output */
-        $output = $response->get();
-
-        $this->assertEquals('@inputID', $output->input()->id());
-        $this->assertEquals('@outputID', $output->id());
-
-        /** @var Focus[] $data */
-        $data = $output->data();
-
-        $focus = $data[0];
-        $this->assertEquals(new Crop(0.1, 0.2, 0.3, 0.4), $focus->crop());
-        $this->assertEquals(0.5, $focus->density());
-        $this->assertEquals(0.8, $focus->value());
-        // TODO(Rok) HIGH: Correctly expose Crop both density/value numbers.
-    }
-
     public function testLogoGetModel()
     {
         $getResponse = <<<EOD
@@ -1329,10 +1222,10 @@ EOD;
 EOD;
         $httpClient = new FkClarifaiHttpClientTest($getResponse, null, null, null);
         $client = new ClarifaiClient("", $httpClient);
-        $response = $client->getModel(ModelType::logo(), '@modelID')->executeSync();
+        $response = $client->getModel(ModelType::detectConcept(), '@modelID')->executeSync();
         $this->assertTrue($response->isSuccessful());
 
-        /** @var LogoModel $model */
+        /** @var DetectionModel $model */
         $model = $response->get();
         $this->assertEquals('@modelID', $model->modelID());
         $this->assertEquals('logo', $model->name());
@@ -1429,7 +1322,7 @@ EOD;
 
         $httpClient = new FkClarifaiHttpClientTest(null, $postResponse, null, null);
         $client = new ClarifaiClient("", $httpClient);
-        $response = $client->predict(ModelType::logo(), "", new ClarifaiURLImage("@url"))
+        $response = $client->predict(ModelType::detectConcept(), "", new ClarifaiURLImage("@url"))
             ->executeSync();
 
         $expectedRequestBody = <<< EOD
@@ -1453,7 +1346,7 @@ EOD;
         $this->assertEquals('@inputID', $output->input()->id());
         $this->assertEquals('@outputID', $output->id());
 
-        /** @var Logo[] $data */
+        /** @var Detection[] $data */
         $data = $output->data();
 
         $logo = $data[0];

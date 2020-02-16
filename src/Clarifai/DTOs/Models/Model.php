@@ -87,20 +87,14 @@ abstract class Model
                 return ColorModel::deserializeInner($httpClient, $model);
             case ModelType::concept():
                 return ConceptModel::deserializeInner($httpClient, $model);
-            case ModelType::demographics():
-                return DemographicsModel::deserializeInner($httpClient, $model);
+            case ModelType::detectConcept():
+                return DetectionModel::deserializeInner($httpClient, $model);
+            case ModelType::detection():
+                return DetectionModel::deserializeInner($httpClient, $model);
             case ModelType::embedding():
                 return EmbeddingModel::deserializeInner($httpClient, $model);
-            case ModelType::faceConcepts():
-                return FaceConceptsModel::deserializeInner($httpClient, $model);
-            case ModelType::faceDetection():
-                return FaceDetectionModel::deserializeInner($httpClient, $model);
             case ModelType::faceEmbedding():
                 return FaceEmbeddingModel::deserializeInner($httpClient, $model);
-            case ModelType::focus():
-                return FocusModel::deserializeInner($httpClient, $model);
-            case ModelType::logo():
-                return LogoModel::deserializeInner($httpClient, $model);
             case ModelType::video():
                 return VideoModel::deserializeInner($httpClient, $model);
             default:

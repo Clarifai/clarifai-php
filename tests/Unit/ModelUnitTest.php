@@ -76,8 +76,8 @@ EOD;
       "app_id": "main",
       "output_info": {
         "message": "Show output_info with: GET /models/{model_id}/output_info",
-        "type": "facedetect",
-        "type_ext": "facedetect"
+        "type": "detect-concept",
+        "type_ext": "detect-concept"
       },
       "model_version": {
         "id": "28b2ff6148684aa2b18a34cd004b4fac",
@@ -124,7 +124,7 @@ EOD;
 
         $this->assertEquals('@modelID1', $models[0]->modelID());
         $this->assertEquals('@modelName1', $models[0]->name());
-        $this->assertEquals('facedetect', $models[0]->type());
+        $this->assertEquals('detect-concept', $models[0]->type());
 
         $this->assertEquals('@modelID2', $models[1]->modelID());
         $this->assertEquals('@modelName2', $models[1]->name());

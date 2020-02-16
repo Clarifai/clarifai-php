@@ -4,22 +4,14 @@ namespace Integration;
 
 use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Models\ColorModel;
-use Clarifai\DTOs\Models\DemographicsModel;
+use Clarifai\DTOs\Models\DetectionModel;
 use Clarifai\DTOs\Models\EmbeddingModel;
-use Clarifai\DTOs\Models\FaceConceptsModel;
-use Clarifai\DTOs\Models\FaceDetectionModel;
 use Clarifai\DTOs\Models\FaceEmbeddingModel;
-use Clarifai\DTOs\Models\FocusModel;
-use Clarifai\DTOs\Models\LogoModel;
 use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Outputs\ClarifaiOutput;
-use Clarifai\DTOs\Predictions\Demographics;
+use Clarifai\DTOs\Predictions\Detection;
 use Clarifai\DTOs\Predictions\Embedding;
-use Clarifai\DTOs\Predictions\FaceConcepts;
-use Clarifai\DTOs\Predictions\FaceDetection;
 use Clarifai\DTOs\Predictions\FaceEmbedding;
-use Clarifai\DTOs\Predictions\Focus;
-use Clarifai\DTOs\Predictions\Logo;
 
 class VariousModelsIntTest extends BaseInt
 {
@@ -51,14 +43,14 @@ class VariousModelsIntTest extends BaseInt
 
     public function testGetDemographicsModel()
     {
-        $response = $this->client->getModel(ModelType::demographics(),
-            $this->client->publicModels()->colorModel()->modelID())
+        $response = $this->client->getModel(ModelType::detectConcept(),
+            $this->client->publicModels()->demographicsModel()->modelID())
             ->executeSync();
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(10000, $response->status()->statusCode());
         $this->assertNotNull($response->rawBody());
 
-        /* @var DemographicsModel $demographicsModel */
+        /* @var DetectionModel $demographicsModel */
         $demographicsModel = $response->get();
         $this->assertNotNull($demographicsModel->modelID());
     }
@@ -66,20 +58,21 @@ class VariousModelsIntTest extends BaseInt
     public function testPredictOnDemographicsModel()
     {
         $modelID = $this->client->publicModels()->demographicsModel()->modelID();
-        $response = $this->client->predict(ModelType::demographics(), $modelID,
+        $response = $this->client->predict(ModelType::detection(), $modelID,
             new ClarifaiURLImage(parent::CELEB_IMG_URL))
             ->executeSync();
         $this->assertTrue($response->isSuccessful());
 
         /* @var ClarifaiOutput $clarifaiOutput */
         $clarifaiOutput = $response->get();
-        /* @var Demographics $demographics */
+        /* @var Detection $demographics */
         $demographics = $clarifaiOutput->data()[0];
 
         $this->assertNotNull($demographics->crop());
-        $this->assertNotNull($demographics->ageAppearanceConcepts());
-        $this->assertNotNull($demographics->genderAppearanceConcepts());
-        $this->assertNotNull($demographics->multiculturalAppearanceConcepts());
+
+        $this->assertNotEmpty($demographics->ageAppearanceConcepts());
+        $this->assertNotEmpty($demographics->genderAppearanceConcepts());
+        $this->assertNotEmpty($demographics->multiculturalAppearanceConcepts());
     }
 
     public function testGetEmbeddingModel()
@@ -114,65 +107,66 @@ class VariousModelsIntTest extends BaseInt
         $this->assertNotNull($embedding->vector());
     }
 
-    public function testGetFaceConceptsModel()
+    public function testGetCelebrityModel()
     {
-        $response = $this->client->getModel(ModelType::faceConcepts(),
+        $response = $this->client->getModel(ModelType::detectConcept(),
             $this->client->publicModels()->celebrityModel()->modelID())
             ->executeSync();
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(10000, $response->status()->statusCode());
         $this->assertNotNull($response->rawBody());
 
-        /* @var FaceConceptsModel $faceConceptsModel */
+        /* @var DetectionModel $faceConceptsModel */
         $faceConceptsModel = $response->get();
         $this->assertNotNull($faceConceptsModel->modelID());
     }
 
-    public function testPredictOnFaceConceptsModel()
+    public function testPredictOnCelebrityModel()
     {
         $modelID = $this->client->publicModels()->celebrityModel()->modelID();
-        $response = $this->client->predict(ModelType::faceConcepts(), $modelID,
+        $response = $this->client->predict(ModelType::detectConcept(), $modelID,
             new ClarifaiURLImage(parent::CELEB_IMG_URL))
             ->executeSync();
         $this->assertTrue($response->isSuccessful());
 
         /* @var ClarifaiOutput $clarifaiOutput */
         $clarifaiOutput = $response->get();
-        /* @var FaceConcepts $faceConcepts */
-        $faceConcepts = $clarifaiOutput->data()[0];
+        /* @var Detection $detections */
+        $detections = $clarifaiOutput->data()[0];
 
-        $this->assertNotNull($faceConcepts->crop());
-        $this->assertNotNull($faceConcepts->concepts());
+        $this->assertNotNull($detections->crop());
+
+        $this->assertNotEmpty($detections->concepts());
     }
 
     public function testGetFaceDetectionModel()
     {
-        $response = $this->client->getModel(ModelType::faceDetection(),
+        $response = $this->client->getModel(ModelType::detection(),
             $this->client->publicModels()->faceDetectionModel()->modelID())
             ->executeSync();
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(10000, $response->status()->statusCode());
         $this->assertNotNull($response->rawBody());
 
-        /* @var FaceDetectionModel $faceDetectionModel */
-        $faceDetectionModel = $response->get();
-        $this->assertNotNull($faceDetectionModel->modelID());
+        /* @var DetectionModel $detectionModel */
+        $detectionModel = $response->get();
+        $this->assertNotNull($detectionModel->modelID());
     }
 
     public function testPredictOnFaceDetectionModel()
     {
         $modelID = $this->client->publicModels()->faceDetectionModel()->modelID();
-        $response = $this->client->predict(ModelType::faceDetection(), $modelID,
+        $response = $this->client->predict(ModelType::detectConcept(), $modelID,
             new ClarifaiURLImage(parent::CELEB_IMG_URL))
             ->executeSync();
         $this->assertTrue($response->isSuccessful());
 
         /* @var ClarifaiOutput $clarifaiOutput */
         $clarifaiOutput = $response->get();
-        /* @var FaceDetection $faceDetection */
-        $faceDetection = $clarifaiOutput->data()[0];
+        /* @var Detection $detection */
+        $detection = $clarifaiOutput->data()[0];
 
-        $this->assertNotNull($faceDetection->crop());
+        $this->assertNotNull($detection->crop());
     }
 
     public function testGetFaceEmbeddingModel()
@@ -206,48 +200,16 @@ class VariousModelsIntTest extends BaseInt
         $this->assertNotNull($faceEmbedding->embeddings()[0]->vector());
     }
 
-    public function testGetFocusModel()
-    {
-        $response = $this->client->getModel(ModelType::focus(),
-            $this->client->publicModels()->focusModel()->modelID())
-            ->executeSync();
-        $this->assertTrue($response->isSuccessful());
-        $this->assertEquals(10000, $response->status()->statusCode());
-        $this->assertNotNull($response->rawBody());
-
-        /* @var FocusModel $faceEmbeddingModel */
-        $faceEmbeddingModel = $response->get();
-        $this->assertNotNull($faceEmbeddingModel->modelID());
-    }
-
-    public function testPredictOnFocusModel()
-    {
-        $modelID = $this->client->publicModels()->focusModel()->modelID();
-        $response = $this->client->predict(ModelType::focus(), $modelID,
-            new ClarifaiURLImage(parent::CELEB_IMG_URL))
-            ->executeSync();
-        $this->assertTrue($response->isSuccessful());
-
-        /* @var ClarifaiOutput $clarifaiOutput */
-        $clarifaiOutput = $response->get();
-        /* @var Focus $focus */
-        $focus = $clarifaiOutput->data()[0];
-
-        $this->assertNotNull($focus->crop());
-        $this->assertNotNull($focus->value());
-        $this->assertNotNull($focus->density());
-    }
-
     public function testGetLogoModel()
     {
-        $response = $this->client->getModel(ModelType::logo(),
+        $response = $this->client->getModel(ModelType::detectConcept(),
             $this->client->publicModels()->logoModel()->modelID())
             ->executeSync();
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(10000, $response->status()->statusCode());
         $this->assertNotNull($response->rawBody());
 
-        /* @var LogoModel $logoModel */
+        /* @var DetectionModel $logoModel */
         $logoModel = $response->get();
         $this->assertNotNull($logoModel->modelID());
         $this->assertNotNull($logoModel->outputInfo()->concepts());
@@ -256,14 +218,14 @@ class VariousModelsIntTest extends BaseInt
     public function testPredictOnLogoModel()
     {
         $modelID = $this->client->publicModels()->logoModel()->modelID();
-        $response = $this->client->predict(ModelType::logo(), $modelID,
+        $response = $this->client->predict(ModelType::detectConcept(), $modelID,
             new ClarifaiURLImage(parent::CELEB_IMG_URL))
             ->executeSync();
         $this->assertTrue($response->isSuccessful());
 
         /* @var ClarifaiOutput $clarifaiOutput */
         $clarifaiOutput = $response->get();
-        /* @var Logo $logo */
+        /* @var Detection $logo */
         $logo = $clarifaiOutput->data()[0];
 
         $this->assertNotNull($logo->crop());

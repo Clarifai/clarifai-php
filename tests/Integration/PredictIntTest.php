@@ -36,18 +36,6 @@ class PredictIntTest extends BaseInt
         $this->assertNotNull($output->status()->statusCode());
     }
 
-    public function testPredictURLImageWithCrop()
-    {
-        $modelID = $this->client->publicModels()->moderationModel()->modelID();
-        $response = $this->client->predict(ModelType::concept(), $modelID,
-            (new ClarifaiURLImage(parent::FOCUS_IMG_URL))
-            ->withCrop(new Crop(0.1, 0.2, 0.3, 0.4)))
-            ->executeSync();
-        $this->assertNotNull($response->get());
-        $this->assertNotNull($response->get()->id());
-        $this->assertNotNull($response->get()->data()[0]->name());
-    }
-
     public function testPredictURLImageWithModelVersion()
     {
         $modelID = $this->client->publicModels()->moderationModel()->modelID();

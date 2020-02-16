@@ -5,13 +5,11 @@ namespace Clarifai\DTOs\Models;
 use Clarifai\DTOs\Predictions\Color;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\DTOs\Predictions\Demographics;
+use Clarifai\DTOs\Predictions\Detection;
 use Clarifai\DTOs\Predictions\Embedding;
-use Clarifai\DTOs\Predictions\FaceConcepts;
-use Clarifai\DTOs\Predictions\FaceDetection;
 use Clarifai\DTOs\Predictions\FaceEmbedding;
 use Clarifai\DTOs\Predictions\Focus;
 use Clarifai\DTOs\Predictions\Frame;
-use Clarifai\DTOs\Predictions\Logo;
 
 class ModelType
 {
@@ -50,10 +48,14 @@ class ModelType
         return new ModelType('concept', ConceptModel::class, Concept::class);
     }
 
-    public static function demographics()
+    public static function detectConcept()
     {
-        return new ModelType('facedetect-demographics', DemographicsModel::class,
-            Demographics::class);
+        return new ModelType('detect-concept', DetectionModel::class, Detection::class);
+    }
+
+    public static function detection()
+    {
+        return new ModelType('detection', DetectionModel::class, Detection::class);
     }
 
     public static function embedding()
@@ -61,29 +63,9 @@ class ModelType
         return new ModelType('embed', EmbeddingModel::class, Embedding::class);
     }
 
-    public static function faceConcepts()
-    {
-        return new ModelType('facedetect-identity', FaceConceptsModel::class, FaceConcepts::class);
-    }
-
-    public static function faceDetection()
-    {
-        return new ModelType('facedetect', FaceDetectionModel::class, FaceDetection::class);
-    }
-
     public static function faceEmbedding()
     {
         return new ModelType('detect-embed', FaceEmbeddingModel::class, FaceEmbedding::class);
-    }
-
-    public static function focus()
-    {
-        return new ModelType('focus', FocusModel::class, Focus::class);
-    }
-
-    public static function logo()
-    {
-        return new ModelType('detection', LogoModel::class, Logo::class);
     }
 
     public static function video()
@@ -101,13 +83,10 @@ class ModelType
         $allModelTypes = [
             self::color(),
             self::concept(),
-            self::demographics(),
+            self::detectConcept(),
+            self::detection(),
             self::embedding(),
-            self::faceConcepts(),
-            self::faceDetection(),
             self::faceEmbedding(),
-            self::focus(),
-            self::logo(),
         ];
         foreach ($allModelTypes as $modelType) {
             if ($modelType->typeExt() == $typeExt) {

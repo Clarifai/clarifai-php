@@ -18,7 +18,6 @@ class InputIntTest extends BaseInt
         $inputID2 = $this->generateRandomID();
 
         $geoPoint = new GeoPoint(55, 66);
-        $crop = new Crop(0.1, 0.2, 0.3, 0.4);
 
         /*
          * Add the inputs.
@@ -31,7 +30,6 @@ class InputIntTest extends BaseInt
                     ->withAllowDuplicateUrl(true),
                 (new ClarifaiURLImage(parent::CELEB_IMG_URL))
                     ->withID($inputID2)
-                    ->withCrop($crop)
                     ->withAllowDuplicateUrl(true)
             ])
             ->executeSync();
@@ -68,7 +66,6 @@ class InputIntTest extends BaseInt
                 ->executeSync();
             $this->assertTrue($getInput2Response->isSuccessful());
             $this->assertNotNull($getInput2Response->get()->createdAt());
-            $this->assertEquals($crop, $getInput2Response->get()->crop());
 
         } finally {
             /*
@@ -96,6 +93,8 @@ class InputIntTest extends BaseInt
                 ->withAllowDuplicateUrl(true))
             ->executeSync();
         $this->assertTrue($addResponse->isSuccessful());
+
+        $this->waitForSpecificInputsUpload($inputID);
 
         try {
             $response = $this->client
@@ -126,10 +125,14 @@ class InputIntTest extends BaseInt
             ->executeSync();
         $this->assertTrue($addResponse->isSuccessful());
 
+        $this->waitForSpecificInputsUpload($inputID);
+
         try {
             $response = $this->client
                 ->modifyInput($inputID, ModifyAction::merge())->withMetadata(['key3' => 'val3'])
                 ->executeSync();
+
+            $this->assertTrue($response->isSuccessful());
 
             /** @var ClarifaiInput $input */
             $input = $response->get();
