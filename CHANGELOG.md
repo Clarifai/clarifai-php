@@ -1,3 +1,18 @@
+## [[0.7.0]](https://github.com/Clarifai/clarifai-php/releases/tag/0.7.0) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.7.0) - 2020-02-16
+
+See the API changes for more details on the Face proto deprecation and the facedetect* model type cleanup:
+https://docs.clarifai.com/product-updates/upcoming-api-changes
+
+### Added
+- Expose input's status
+- DetectionModel
+
+### Removed
+- Cropping image in search
+- DemographicsModel, LogoModel, FaceConceptsModel, FaceDetectionModel, FocusModel.
+- Feedback
+
+
 ## [[0.6.2]](https://github.com/Clarifai/clarifai-php/releases/tag/0.6.2) - [Packagist](https://packagist.org/packages/clarifai/clarifai-php#0.6.2) - 2019-10-02
 
 ### Added
