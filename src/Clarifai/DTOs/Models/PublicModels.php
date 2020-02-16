@@ -87,7 +87,8 @@ class PublicModels
 
     private $demographicsModel;
     /**
-     * @return DetectionModel A Demographics model.
+     * Demographics model predics the age, gender, and cultural appearance.
+     * @return DetectionModel A Detection model.
      */
     public function demographicsModel() { return $this->demographicsModel; }
 
@@ -101,7 +102,7 @@ class PublicModels
     private $celebrityModel;
     /**
      * Celebrity model identifies celebrities that closely resemble detected faces.
-     * @return DetectionModel A FaceConcepts model.
+     * @return DetectionModel A Detection model.
      */
     public function celebrityModel() { return $this->celebrityModel; }
 
@@ -109,7 +110,7 @@ class PublicModels
     private $faceDetectionModel;
     /**
      * Face detection model detects the presence and location of human faces.
-     * @return DetectionModel A FaceDetection model.
+     * @return DetectionModel A Detection model.
      */
     public function faceDetectionModel() { return $this->faceDetectionModel; }
 
@@ -123,7 +124,7 @@ class PublicModels
     private $logoModel;
     /**
      * Logo model detects and identifies brand logos.
-     * @return DetectionModel A Logo model.
+     * @return DetectionModel A Detection model.
      */
     public function logoModel() { return $this->logoModel; }
 
