@@ -6,7 +6,6 @@ use Clarifai\DTOs\Inputs\ClarifaiURLImage;
 use Clarifai\DTOs\Inputs\ModifyAction;
 use Clarifai\DTOs\Models\ConceptModel;
 use Clarifai\DTOs\Models\ModelType;
-use Clarifai\DTOs\Models\OutputInfos\FaceConceptsOutputInfo;
 use Clarifai\DTOs\Predictions\Concept;
 
 class ModelIntTest extends BaseInt
@@ -70,47 +69,6 @@ class ModelIntTest extends BaseInt
         }
     }
 
-    public function testCreateGetAndDeleteFaceConceptsModel()
-    {
-        $modelID = $this->generateRandomID();
-
-        // This will fail if the model doesn't exist, but it's fine at this point
-        $this->client->deleteModel($modelID)->executeSync();
-
-        try {
-            /**
-             * Create a new model.
-             */
-            $createResponse = $this->client->createModelGeneric($modelID)
-                ->withName('original-name')
-                ->withOutputInfo((FaceConceptsOutputInfo::make(
-                    [new Concept('dog'), new Concept('cat')], true, true, 'en')))
-                ->executeSync();
-            $this->assertTrue($createResponse->isSuccessful());
-
-            $this->assertEquals($modelID, $createResponse->get()->modelID());
-
-            /**
-             * Get the model.
-             */
-            $getResponse = $this->client->getModel(ModelType::faceConcepts(), $modelID)
-                ->executeSync();
-
-            $this->assertTrue($getResponse->isSuccessful());
-            $this->assertEquals($modelID, $getResponse->get()->modelID());
-            $this->assertEquals('original-name', $getResponse->get()->name());
-            $this->assertTrue($getResponse->get()->outputInfo()->areConceptsMutuallyExclusive());
-            $this->assertTrue($getResponse->get()->outputInfo()->isEnvironmentClosed());
-            $conceptIDs = array_map(
-                function($c) { return $c->id(); },
-                $getResponse->get()->outputInfo()->concepts());
-            $this->assertContains('dog', $conceptIDs);
-            $this->assertContains('cat', $conceptIDs);
-        } finally {
-            $deleteResponse = $this->client->deleteModel($modelID)->executeSync();
-            $this->assertTrue($deleteResponse->isSuccessful());
-        }
-    }
     public function testGetModels()
     {
         $response = $this->client->getModels()->executeSync();

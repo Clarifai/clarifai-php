@@ -9,6 +9,7 @@ use Clarifai\DTOs\Models\ModelType;
 use Clarifai\DTOs\Predictions\Color;
 use Clarifai\DTOs\Predictions\Concept;
 use Clarifai\DTOs\Predictions\Demographics;
+use Clarifai\DTOs\Predictions\Detection;
 use Clarifai\DTOs\Predictions\Embedding;
 use Clarifai\DTOs\Predictions\FaceConcepts;
 use Clarifai\DTOs\Predictions\FaceDetection;
@@ -129,14 +130,15 @@ class ClarifaiOutput
                     }
                     break;
                 }
-            case ModelType::demographics():
-                {
-                    /** @var _Region $demographics */
-                    foreach ($data->getRegions() as $demographics) {
-                        array_push($predictions, Demographics::deserialize($demographics));
-                    }
-                    break;
+            case ModelType::detectConcept():
+            case ModelType::detection():
+            {
+                /** @var _Region $detection */
+                foreach ($data->getRegions() as $detection) {
+                    array_push($predictions, Detection::deserialize($detection));
                 }
+                break;
+            }
             case ModelType::embedding():
                 {
                     /** @var _Embedding $embedding */
@@ -145,44 +147,11 @@ class ClarifaiOutput
                     }
                     break;
                 }
-            case ModelType::faceConcepts():
-                {
-                    /** @var _Region $faceConcept */
-                    foreach ($data->getRegions() as $faceConcept) {
-                        array_push($predictions, FaceConcepts::deserialize($faceConcept));
-                    }
-                    break;
-                }
-            case ModelType::faceDetection():
-                {
-                    /** @var _Region $faceDetection */
-                    foreach ($data->getRegions() as $faceDetection) {
-                        array_push($predictions, FaceDetection::deserialize($faceDetection));
-                    }
-                    break;
-                }
             case ModelType::faceEmbedding():
                 {
                     /** @var _Region $faceEmbedding */
                     foreach ($data->getRegions() as $faceEmbedding) {
                         array_push($predictions, FaceEmbedding::deserialize($faceEmbedding));
-                    }
-                    break;
-                }
-            case ModelType::focus():
-                {
-                    /** @var _Region $focus */
-                    foreach ($data->getRegions() as $focus) {
-                        array_push($predictions, Focus::deserialize($focus,
-                            $data->getFocus()->getValue()));
-                    }
-                    break;
-                }
-            case ModelType::logo():
-                {
-                    /** @var _Region $logo */
-                    foreach ($data->getRegions() as $logo) {
-                        array_push($predictions, Logo::deserialize($logo));
                     }
                     break;
                 }

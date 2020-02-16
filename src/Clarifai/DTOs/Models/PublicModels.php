@@ -87,8 +87,7 @@ class PublicModels
 
     private $demographicsModel;
     /**
-     * Demographics model predics the age, gender, and cultural appearance.
-     * @return DemographicsModel A Demographics model.
+     * @return DetectionModel A Demographics model.
      */
     public function demographicsModel() { return $this->demographicsModel; }
 
@@ -102,7 +101,7 @@ class PublicModels
     private $celebrityModel;
     /**
      * Celebrity model identifies celebrities that closely resemble detected faces.
-     * @return FaceConceptsModel A FaceConcepts model.
+     * @return DetectionModel A FaceConcepts model.
      */
     public function celebrityModel() { return $this->celebrityModel; }
 
@@ -110,7 +109,7 @@ class PublicModels
     private $faceDetectionModel;
     /**
      * Face detection model detects the presence and location of human faces.
-     * @return FaceDetectionModel A FaceDetection model.
+     * @return DetectionModel A FaceDetection model.
      */
     public function faceDetectionModel() { return $this->faceDetectionModel; }
 
@@ -121,18 +120,10 @@ class PublicModels
      */
     public function faceEmbeddingModel() { return $this->faceEmbeddingModel; }
 
-    private $focusModel;
-    /**
-     * Focus model returs overall focus and identifies in-focus regions.
-     * @return FocusModel A Focus model.
-     */
-    public function focusModel() { return $this->focusModel; }
-
-
     private $logoModel;
     /**
      * Logo model detects and identifies brand logos.
-     * @return LogoModel A Logo model.
+     * @return DetectionModel A Logo model.
      */
     public function logoModel() { return $this->logoModel; }
 
@@ -195,23 +186,21 @@ class PublicModels
         $this->travelModel = new ConceptModel($httpClient, 'eee28c313d69466f836ab83287a54ed9');
         $this->weddingModel = new ConceptModel($httpClient, 'c386b7a870114f4a87477c0824499348');
 
-        $this->demographicsModel = new DemographicsModel($httpClient,
+        $this->demographicsModel = new DetectionModel($httpClient,
             'c0c0ac362b03416da06ab3fa36fb58e3');
 
         $this->generalEmbeddingModel = new EmbeddingModel($httpClient,
             'bbb5f41425b8468d9b7a554ff10f8581');
 
-        $this->celebrityModel = new FaceConceptsModel($httpClient,
+        $this->celebrityModel = new DetectionModel($httpClient,
             'e466caa0619f444ab97497640cefc4dc');
-        $this->faceDetectionModel = new FaceDetectionModel($httpClient,
+        $this->faceDetectionModel = new DetectionModel($httpClient,
             'a403429f2ddf4b49b307e318f00e528b');
 
         $this->faceEmbeddingModel = new FaceEmbeddingModel($httpClient,
             'd02b4508df58432fbb84e800597b8959');
 
-        $this->focusModel = new FocusModel($httpClient, 'c2cf7cecd8a6427da375b9f35fcd2381');
-
-        $this->logoModel = new LogoModel($httpClient, 'c443119bf2ed4da98487520d01a0b1e3');
+        $this->logoModel = new DetectionModel($httpClient, 'c443119bf2ed4da98487520d01a0b1e3');
 
         $this->apparelVideoModel = new VideoModel($httpClient, 'e0be3b9d6a454f0493ac3a30784001ff');
         $this->foodVideoModel = new VideoModel($httpClient, 'bd367be194cf45149e75f01d59f77ba7');
