@@ -24,7 +24,7 @@ before_script:
 
 
 script:
-  - phpunit -c phpunit.xml -v
+  -./vendor/bin/phpunit
 
 
 after_script:
