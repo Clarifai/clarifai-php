@@ -175,7 +175,7 @@ class PredictIntTest extends BaseInt
         foreach ($output->data() as $frame) {
             $this->assertNotNull($frame->index());
             $this->assertNotNull($frame->time());
-            $this->assertTrue($frame->time() % 2000 == 0);
+            $this->assertTrue(($frame->time() + 1000) % 2000 == 0);
             $this->assertNotNull($frame->concepts());
         }
     }
@@ -336,7 +336,7 @@ class PredictIntTest extends BaseInt
         foreach ($output->data() as $frame) {
             $this->assertNotNull($frame->index());
             $this->assertNotNull($frame->time());
-            $this->assertTrue($frame->time() % 2000 == 0);
+            $this->assertTrue(($frame->time() + 1000) % 2000 == 0);
             $this->assertNotNull($frame->concepts());
         }
     }
