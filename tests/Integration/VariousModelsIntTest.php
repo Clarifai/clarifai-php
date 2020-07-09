@@ -55,26 +55,6 @@ class VariousModelsIntTest extends BaseInt
         $this->assertNotNull($demographicsModel->modelID());
     }
 
-    public function testPredictOnDemographicsModel()
-    {
-        $modelID = $this->client->publicModels()->demographicsModel()->modelID();
-        $response = $this->client->predict(ModelType::detection(), $modelID,
-            new ClarifaiURLImage(parent::CELEB_IMG_URL))
-            ->executeSync();
-        $this->assertTrue($response->isSuccessful());
-
-        /* @var ClarifaiOutput $clarifaiOutput */
-        $clarifaiOutput = $response->get();
-        /* @var Detection $demographics */
-        $demographics = $clarifaiOutput->data()[0];
-
-        $this->assertNotNull($demographics->crop());
-
-        $this->assertNotEmpty($demographics->ageAppearanceConcepts());
-        $this->assertNotEmpty($demographics->genderAppearanceConcepts());
-        $this->assertNotEmpty($demographics->multiculturalAppearanceConcepts());
-    }
-
     public function testGetEmbeddingModel()
     {
         $response = $this->client->getModel(ModelType::embedding(),
