@@ -87,38 +87,6 @@ class VariousModelsIntTest extends BaseInt
         $this->assertNotNull($embedding->vector());
     }
 
-    public function testGetCelebrityModel()
-    {
-        $response = $this->client->getModel(ModelType::detectConcept(),
-            $this->client->publicModels()->celebrityModel()->modelID())
-            ->executeSync();
-        $this->assertTrue($response->isSuccessful());
-        $this->assertEquals(10000, $response->status()->statusCode());
-        $this->assertNotNull($response->rawBody());
-
-        /* @var DetectionModel $faceConceptsModel */
-        $faceConceptsModel = $response->get();
-        $this->assertNotNull($faceConceptsModel->modelID());
-    }
-
-    public function testPredictOnCelebrityModel()
-    {
-        $modelID = $this->client->publicModels()->celebrityModel()->modelID();
-        $response = $this->client->predict(ModelType::detectConcept(), $modelID,
-            new ClarifaiURLImage(parent::CELEB_IMG_URL))
-            ->executeSync();
-        $this->assertTrue($response->isSuccessful());
-
-        /* @var ClarifaiOutput $clarifaiOutput */
-        $clarifaiOutput = $response->get();
-        /* @var Detection $detections */
-        $detections = $clarifaiOutput->data()[0];
-
-        $this->assertNotNull($detections->crop());
-
-        $this->assertNotEmpty($detections->concepts());
-    }
-
     public function testGetFaceDetectionModel()
     {
         $response = $this->client->getModel(ModelType::detection(),
