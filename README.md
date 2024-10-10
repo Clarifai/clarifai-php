@@ -1,10 +1,9 @@
-![Clarifai logo](docs/logo.png)
+![image](https://github.com/user-attachments/assets/97876441-0d81-4ca7-81bb-abdc7dfac197)
 
 # DEPRECATED
 
-## This API Client is no longer supported.
-
-### Please use [Clarifai PHP gRPC](https://github.com/Clarifai/clarifai-php-grpc) instead, which is faster and more feature-rich.
+This API Client is no longer supported.
+Please use [Clarifai PHP gRPC](https://github.com/Clarifai/clarifai-php-grpc) instead, which is faster and more feature-rich.
 
 # Clarifai API PHP Client
 
